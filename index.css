@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ticket-bottom {
+    background-image: linear-gradient(135deg, transparent 50%, #fffdf5 50%), linear-gradient(45deg, #fffdf5 50%, transparent 50%);
+    background-position: top;
+    background-repeat: repeat-x;
+    background-size: 16px 16px;
+    height: 16px;
+    width: 100%;
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.05));
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    background: transparent;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #137fec;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input[type=range]::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #137fec;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #e5e7eb;
+    border-radius: 3px;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #e5e7eb;
+    border-radius: 3px;
+}
