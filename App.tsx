@@ -187,7 +187,7 @@ const App: React.FC = () => {
 
           <div className="flex flex-col gap-4 pb-12">
             {state.expenses.map((cat) => (
-              <details key={cat.id} className="group bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-stone-200 dark:border-stone-700 overflow-hidden" open={cat.open}>
+              <details key={cat.id} className="group bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-stone-200 dark:border-stone-700 overflow-hidden">
                 <summary className="flex items-center justify-between py-1 px-3 cursor-pointer bg-stone-50 dark:bg-slate-800 hover:bg-stone-100 dark:hover:bg-slate-700 transition-colors select-none">
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-lg bg-${cat.color}-100 dark:bg-${cat.color}-900/30 text-${cat.color}-600 dark:text-${cat.color}-400 flex items-center justify-center`}>
