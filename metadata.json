@@ -1,0 +1,5 @@
+{
+  "name": "Fiscal Ticket Panel",
+  "description": "An interactive tax and expense calculator that generates a real-time 'fiscal receipt' showing the breakdown of salary, social security, IRPF, and indirect taxes (VAT) in Spain.",
+  "requestFramePermissions": []
+}
