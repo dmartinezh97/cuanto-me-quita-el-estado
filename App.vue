@@ -340,28 +340,31 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
                 >
                   <div class="flex justify-between items-start text-xs font-bold text-stone-500 uppercase mb-1">
                     <label class="pt-1">{{ sub.name }}</label>
-                    <span class="text-[10px] text-stone-400 text-right">
+                    <span class="text-[10px] text-right">
                       <template v-if="sub.id === 'fuel'">
-                        IEH (€0,4007/L) + IVA 21% <br />
-                        <span class="normal-case font-normal italic">se calcula al precio medio de la gasolina</span>
+                        <span class="text-red-600">IEH (€0,4007/L) + IVA 21%</span> <br />
+                        <span class="normal-case font-normal italic text-stone-400">se calcula al precio medio de la gasolina</span>
                       </template>
                       <template v-else-if="sub.id === 'insurance_car'">
-                        IPS {{ ((sub.specialTaxRate ?? 0) * 100).toFixed(0) }}% + recargos
+                        <span class="text-red-600">IPS {{ ((sub.specialTaxRate ?? 0) * 100).toFixed(0) }}% + recargos</span>
                       </template>
                       <template v-else-if="sub.id === 'electricity'">
-                        IVA 21% + IEE
+                        <span class="text-red-600">IVA 21% + IEE</span>
                       </template>
                       <template v-else-if="sub.id === 'gas'">
-                        IVA 21% + Imp. Hidrocarburos (0,00234 €/kWh)
+                        <span class="text-red-600">IVA 21% + Imp. Hidrocarburos (0,00234 €/kWh)</span>
                       </template>
                       <template v-else-if="sub.note">
-                        {{ sub.note }}
+                        <span 
+                          :class="sub.note.toLowerCase().includes('deducible') || sub.note.toLowerCase().includes('sin iva') ? 'text-green-600' : 'text-stone-400'"
+                          :style="sub.note.toLowerCase().includes('deducible') || sub.note.toLowerCase().includes('sin iva') ? 'color: rgb(22, 163, 74) !important;' : ''"
+                        >{{ sub.note }}</span>
                       </template>
                       <template v-else-if="sub.specialTaxRate && sub.ivaRate === 0">
-                        IPS {{ (sub.specialTaxRate * 100).toFixed(0) }}%
+                        <span class="text-red-600">IPS {{ (sub.specialTaxRate * 100).toFixed(0) }}%</span>
                       </template>
                       <template v-else>
-                        {{ sub.ivaRate > 0 ? `IVA ${sub.ivaRate}%` : 'Exento' }}
+                        <span :class="sub.ivaRate > 0 ? 'text-red-600' : 'text-green-600'">{{ sub.ivaRate > 0 ? `IVA ${sub.ivaRate}%` : 'Exento' }}</span>
                       </template>
                     </span>
                   </div>
