@@ -7,18 +7,18 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
     name: 'Transporte y Combustibles',
     icon: 'directions_car',
     color: 'blue',
-    total: 160,
+    total: 0,
     iva4: 0,
     iva10: 0,
     iva21: 0,
     open: false,
     subItems: [
-      { id: 'fuel', name: 'Gasolina/Gasóleo (vehículo propio)', amount: 100, ivaRate: 21, isExciseDuty: true, pricePerUnit: 1.60 },
-      { id: 'public', name: 'Transporte público (metro, bus, cercanías)', amount: 30, ivaRate: 10 },
+      { id: 'fuel', name: 'Gasolina/Gasóleo (vehículo propio)', amount: 150, ivaRate: 21, isExciseDuty: true, pricePerUnit: 1.60 },
+      { id: 'public', name: 'Transporte público (metro, bus, cercanías)', amount: 0, ivaRate: 10 },
       { id: 'taxi', name: 'Taxi / VTC', amount: 0, ivaRate: 10 },
-      { id: 'parking', name: 'Parking y peajes', amount: 10, ivaRate: 21 },
-      { id: 'maintenance', name: 'Mantenimiento vehículo (taller, ITV)', amount: 0, ivaRate: 21 },
-      { id: 'insurance_car', name: 'Seguro de coche', amount: 20, ivaRate: 0, specialTaxRate: 0.06 }
+      { id: 'parking', name: 'Parking y peajes', amount: 75, ivaRate: 21 },
+      { id: 'maintenance', name: 'Mantenimiento vehículo (taller, ITV)', amount: 3.38, ivaRate: 21 },
+      { id: 'insurance_car', name: 'Seguro de coche', amount: 50, ivaRate: 0, specialTaxRate: 0.06 }
     ]
   },
   {
