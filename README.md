@@ -18,3 +18,5 @@ View your app in AI Studio: https://ai.studio/apps/drive/1CQ1_sO-J2SeD-WBAMkpUY-
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+> ℹ️ If you previously installed dependencies before the Vue migration, run `npm install` again (or clear `node_modules`) so `@vitejs/plugin-vue` and the new tooling are available to the dev server.
