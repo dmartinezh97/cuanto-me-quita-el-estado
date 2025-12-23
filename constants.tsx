@@ -175,8 +175,8 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
 ];
 
 export const INITIAL_STATE: AppState = {
-  grossSalary: 35000,
-  numPayments: 14,
+  grossSalary: 28000,
+  numPayments: 12,
   age: '',
   region: 'Comunidad de Madrid',
   maritalStatus: 'single',

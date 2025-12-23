@@ -211,7 +211,7 @@ const App: React.FC = () => {
                             <span className="text-[10px] text-stone-400 text-right">
                               {sub.id === 'fuel' ? (
                                 <>
-                                  IVA 21% + IEH (€0,4007/L) <br/> 
+                                  IEH (€0,4007/L) + IVA 21% <br/> 
                                   <span className="normal-case font-normal italic">se calcula al precio medio de la gasolina</span>
                                 </>
                               ) : sub.note ? sub.note : (sub.ivaRate > 0 ? `IVA ${sub.ivaRate}%` : 'Exento')}
@@ -234,7 +234,7 @@ const App: React.FC = () => {
                               </div>
                               <div className="flex flex-col gap-1">
                                 <label className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
-                                  {sub.id === 'fuel' ? 'Precio €/L' : 'Impuestos Inc.'}
+                                  {sub.id === 'fuel' ? 'Precio medio €/L' : 'Impuestos Inc.'}
                                 </label>
                                 <div className="relative">
                                   {sub.id === 'fuel' ? (
