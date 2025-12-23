@@ -1,15 +1,41 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { INITIAL_STATE } from './constants';
 import { AppState, CategoryExpense, MaritalStatus, DisabilityLevel, SubItem } from './types';
 import { formatCurrency, calculateIRPF, SOCIAL_SECURITY_EMPLOYEE_RATE, SOCIAL_SECURITY_EMPLOYER_RATE, calculateIVABreakdown, RATES_SS_EMPLOYEE, RATES_SS_EMPLOYER } from './utils/calculations';
+import { exportTicketToPDF } from './utils/export';
 
 const App: React.FC = () => {
   const [state, setState] = useState<AppState>(INITIAL_STATE);
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportMessage, setExportMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const ticketRef = useRef<HTMLDivElement>(null);
 
   const updateState = useCallback((patch: Partial<AppState>) => {
     setState(prev => ({ ...prev, ...patch }));
   }, []);
+
+  const handleExportPDF = async () => {
+    setExportMessage(null);
+    if (!ticketRef.current) {
+      setExportMessage({ type: 'error', text: 'No se encontró el ticket para exportar.' });
+      setTimeout(() => setExportMessage(null), 3500);
+      return;
+    }
+
+    setIsExporting(true);
+    try {
+      const filename = `ticket-contribucion-${state.viewMode.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.pdf`;
+      await exportTicketToPDF(ticketRef.current, filename);
+      setExportMessage({ type: 'success', text: 'PDF generado correctamente.' });
+    } catch (error) {
+      console.error('Error generando PDF', error);
+      setExportMessage({ type: 'error', text: 'Hubo un problema al generar el PDF.' });
+    } finally {
+      setIsExporting(false);
+      setTimeout(() => setExportMessage(null), 3500);
+    }
+  };
 
   const updateExpense = (id: string, patch: Partial<CategoryExpense>) => {
     setState(prev => ({
@@ -314,16 +340,47 @@ const App: React.FC = () => {
 
         {/* Right Panel: Receipt */}
         <div className="w-full lg:w-[420px] flex-shrink-0 relative z-10">
+          {exportMessage && (
+            <div
+              className={`absolute right-4 -top-2 z-20 flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-semibold shadow-md ${exportMessage.type === 'success' ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-rose-200 bg-rose-50 text-rose-700'}`}
+              role="status"
+              aria-live="polite"
+            >
+              <span className="material-symbols-outlined text-base">
+                {exportMessage.type === 'success' ? 'check_circle' : 'error'}
+              </span>
+              {exportMessage.text}
+            </div>
+          )}
           <div className="sticky top-6">
-            <div className="relative flex flex-col bg-ticket-bg w-full shadow-ticket rounded-t-md border-t-4 border-t-stone-800">
+            <div ref={ticketRef} className="relative flex flex-col bg-ticket-bg w-full shadow-ticket rounded-t-md border-t-4 border-t-stone-800">
               
-              <div className="flex flex-col items-center pt-8 pb-4 px-6 gap-2 border-b border-dashed border-stone-300">
-                <div className="w-12 h-12 mb-2 bg-stone-900 text-white rounded-full flex items-center justify-center">
-                  <span className="material-symbols-outlined text-3xl">account_balance</span>
+              <div className="flex flex-col gap-3 pt-8 pb-4 px-6 border-b border-dashed border-stone-300">
+                <div className="flex w-full items-center justify-between gap-3 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-stone-900 text-white rounded-full flex items-center justify-center">
+                      <span className="material-symbols-outlined text-3xl">account_balance</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <h1 className="text-stone-900 text-2xl font-black tracking-tight uppercase leading-none">Ticket de Contribución</h1>
+                      <p className="text-stone-500 text-[10px] font-medium tracking-[0.2em] uppercase mt-1">Versión Fiscal 2024</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleExportPDF}
+                    disabled={isExporting}
+                    className={`inline-flex items-center gap-2 rounded-md border border-stone-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-wide text-stone-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-70 ${isExporting ? 'cursor-wait' : ''}`}
+                  >
+                    <span className="material-symbols-outlined text-base">
+                      {isExporting ? 'hourglass_top' : 'download'}
+                    </span>
+                    {isExporting ? 'Generando...' : 'Guardar PDF'}
+                    {isExporting && (
+                      <span className="material-symbols-outlined text-base animate-spin">progress_activity</span>
+                    )}
+                  </button>
                 </div>
-                <h1 className="text-stone-900 text-2xl font-black tracking-tight uppercase text-center leading-none">Ticket de Contribución</h1>
-                <p className="text-stone-500 text-[10px] font-medium tracking-[0.2em] uppercase mt-2">Versión Fiscal 2024</p>
-                <div className="mt-4 w-full">
+                <div className="w-full">
                   <div className="flex h-10 w-full items-center justify-center rounded-lg bg-stone-200/50 p-1">
                     <button 
                       onClick={() => updateState({ viewMode: 'Mensual' })}
