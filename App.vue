@@ -129,9 +129,11 @@ const handleIVASlider = (catId: string, type: IVAKey, event: Event) => {
 const updateTooltipPosition = () => {
   if (salaryTooltip.targetElement) {
     const rect = salaryTooltip.targetElement.getBoundingClientRect();
+    const modalHeight = 87;
+    
     salaryTooltip.position = {
       x: rect.right + 16,
-      y: rect.top
+      y: rect.top + (rect.height / 2)
     };
   }
 };
@@ -375,7 +377,7 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
                       <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 font-mono">€</span>
                         <input
-                          class="w-full pl-8 pr-4 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-stone-900 dark:text-white"
+                          class="expense-input w-full pl-8 pr-4 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-stone-900 dark:text-white"
                           type="number"
                           min="0"
                           :value="sub.amount"
@@ -388,23 +390,23 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
                     <div class="flex flex-col gap-1">
                       <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Precio medio €/L</label>
                       <div class="relative">
-                        <input
-                          class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-sm text-stone-900 dark:text-white"
-                          type="number"
-                          min="0"
-                          step="0.01"
-                          :value="sub.pricePerUnit ?? ''"
-                          @input="handleSubPriceInput(cat.id, sub.id, $event)"
-                          @focus="showSalaryTooltip"
-                          @blur="hideSalaryTooltip"
-                        />
+                    <input
+                      class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-sm text-stone-900 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      :value="sub.pricePerUnit ?? ''"
+                      @input="handleSubPriceInput(cat.id, sub.id, $event)"
+                      @focus="showSalaryTooltip"
+                      @blur="hideSalaryTooltip"
+                    />
                       </div>
                     </div>
                   </div>
                   <div v-else class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 font-mono">€</span>
                     <input
-                      class="w-full pl-8 pr-4 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-stone-900 dark:text-white"
+                      class="expense-input w-full pl-8 pr-4 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-stone-900 dark:text-white"
                       type="number"
                       min="0"
                       :value="sub.amount"
@@ -421,7 +423,7 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 font-mono">€</span>
                     <input
-                      class="w-full pl-8 pr-4 py-2.5 bg-stone-50 dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-stone-900 dark:text-white"
+                      class="expense-input w-full pl-8 pr-4 py-2.5 bg-stone-50 dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-stone-900 dark:text-white"
                       type="number"
                       min="0"
                       :value="cat.total"
@@ -688,6 +690,7 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
           position: 'fixed',
           left: `${salaryTooltip.position.x}px`,
           top: `${salaryTooltip.position.y}px`,
+          transform: 'translate(0, -50%)',
           zIndex: 9999,
           pointerEvents: 'none',
         }"

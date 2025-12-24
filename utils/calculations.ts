@@ -76,11 +76,14 @@ export const calculateIVABreakdown = (state: AppState) => {
         let specialType = '';
 
         if (sub.id === 'fuel' && sub.isExciseDuty) {
-          const pricePerLiter = sub.pricePerUnit || 1.60;
+          const pricePerLiter = sub.pricePerUnit; // TODO: Call external API for real-time fuel prices
           const liters = totalPVP / pricePerLiter;
-          special = liters * 0.4007; 
-          const basePlusIEH = totalPVP / 1.21;
-          iva = totalPVP - basePlusIEH;
+
+          const special = liters * 0.4007;          // TODO: Create a constant for IEH
+          const basePlusIEH = totalPVP / 1.21;      // base + IEH (sin IVA) // Create a constant for IVA
+          iva = totalPVP - basePlusIEH;            // IVA incluido en el PVP
+          const base = basePlusIEH - special;       // base sin impuestos
+
           totalIEH += special;
           specialType = 'IEH';
         } else if (sub.isElectricityTax && sub.specialTaxRate) {

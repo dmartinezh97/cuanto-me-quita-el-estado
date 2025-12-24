@@ -61,9 +61,7 @@ input[type=range]::-moz-range-track {
     border-radius: 3px;
 }
 
-input[type=number]:focus,
-input[type=text]:focus,
-select:focus {
+input.expense-input:focus {
     border-color: #b91c1c !important;
     --tw-ring-color: #b91c1c !important;
 }
