@@ -5,7 +5,7 @@ The Vite + Vue 3 front end sits at the repository root. `index.html` loads `main
 
 ## Build, Test, and Development Commands
 - `npm install` boots the toolchain (Vue 3, Vite 6, Tailwind 3, TypeScript 5.8, vue-tsc).
-- `npm run dev` launches the Vite dev server with hot reload at `http://localhost:5173`.
+- `npm run dev` launches the Vite dev server with hot reload at `http://localhost:3000`.
 - `npm run build` performs an optimized production build and runs the Vue/TypeScript checker.
 - `npm run preview` serves the latest build for pre-deploy smoke tests.
 - `npx vue-tsc --noEmit` is the quickest way to catch typing regressions on CI when a full build is unnecessary.
