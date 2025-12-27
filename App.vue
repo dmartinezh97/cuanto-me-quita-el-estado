@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { INITIAL_STATE } from './constants';
 import type { AppState, CategoryExpense, SubItem } from './types';
 import {
@@ -35,6 +35,13 @@ const state = reactive<AppState>(createInitialState());
 
 const salaryTooltip = reactive({
   visible: false,
+  targetElement: null as HTMLElement | null,
+  position: { x: 0, y: 0 },
+});
+
+const infoTooltip = reactive({
+  visible: false,
+  section: '' as 'costeEmpresa' | 'ssEmpresa' | 'salarioBruto' | 'irpf' | 'ssTrabajador' | 'impuestosIndirectos' | '',
   targetElement: null as HTMLElement | null,
   position: { x: 0, y: 0 },
 });
@@ -156,6 +163,37 @@ const hideSalaryTooltip = () => {
   // Remover listeners
   window.removeEventListener('scroll', updateTooltipPosition, true);
   window.removeEventListener('resize', updateTooltipPosition);
+};
+
+const updateInfoTooltipPosition = () => {
+  if (infoTooltip.targetElement) {
+    const rect = infoTooltip.targetElement.getBoundingClientRect();
+    
+    infoTooltip.position = {
+      x: rect.left + (rect.width / 2),
+      y: rect.bottom + 8
+    };
+  }
+};
+
+const showInfoTooltip = (section: typeof infoTooltip.section, event: MouseEvent) => {
+  const target = event.currentTarget as HTMLElement;
+  infoTooltip.section = section;
+  infoTooltip.targetElement = target;
+  updateInfoTooltipPosition();
+  infoTooltip.visible = true;
+
+  window.addEventListener('scroll', updateInfoTooltipPosition, true);
+  window.addEventListener('resize', updateInfoTooltipPosition);
+};
+
+const hideInfoTooltip = () => {
+  infoTooltip.visible = false;
+  infoTooltip.section = '';
+  infoTooltip.targetElement = null;
+
+  window.removeEventListener('scroll', updateInfoTooltipPosition, true);
+  window.removeEventListener('resize', updateInfoTooltipPosition);
 };
 
 const annualGross = computed(() => state.grossSalary);
@@ -493,9 +531,17 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
               </div>
             </div>
 
+            <!-- VISTA NORMAL CON ICONOS DE INFO -->
             <div class="px-6 py-5 flex flex-col gap-4 border-b border-dashed border-stone-300">
               <div class="flex justify-between items-baseline text-sm font-black text-stone-900 uppercase">
-                <span>COSTE TOTAL EMPRESA</span>
+                <div class="flex items-center gap-1.5">
+                  <span>COSTE TOTAL EMPRESA</span>
+                  <span 
+                    @click="showInfoTooltip('costeEmpresa', $event)"
+                    class="material-symbols-outlined text-sm cursor-pointer text-stone-400 hover:text-primary transition-colors"
+                    style="font-size: 16px;"
+                  >info</span>
+                </div>
                 <span class="font-mono">{{ formatCurrency(employerCostAnnual * displayFactor) }}</span>
               </div>
 
@@ -503,7 +549,14 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
 
               <div class="flex flex-col gap-1.5">
                 <div class="flex justify-between items-baseline text-sm text-stone-700 font-medium">
-                  <span>Seguridad Social Empresa</span>
+                  <div class="flex items-center gap-1.5">
+                    <span>Seguridad Social Empresa</span>
+                    <span 
+                      @click="showInfoTooltip('ssEmpresa', $event)"
+                      class="material-symbols-outlined text-xs cursor-pointer text-stone-400 hover:text-primary transition-colors"
+                      style="font-size: 14px;"
+                    >info</span>
+                  </div>
                   <span class="font-mono text-stone-800">-{{ formatCurrency(employerSSAnnual * displayFactor) }}</span>
                 </div>
                 <div class="flex flex-col gap-0.5 text-[10px] text-stone-400 pl-4 uppercase font-mono italic">
@@ -526,7 +579,14 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
               <div class="flex flex-col gap-1.5 mt-1">
                 <div class="flex justify-between items-baseline text-[13px] text-stone-700">
                   <div class="flex flex-col">
-                    <span class="font-medium">IRPF</span>
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-medium">IRPF</span>
+                      <span 
+                        @click="showInfoTooltip('irpf', $event)"
+                        class="material-symbols-outlined text-xs cursor-pointer text-stone-400 hover:text-primary transition-colors"
+                        style="font-size: 14px;"
+                      >info</span>
+                    </div>
                     <span class="text-[10px] text-stone-400 pl-4 uppercase font-mono italic">({{ (irpfRate * 100).toFixed(2) }}%)</span>
                   </div>
                   <span class="font-mono">-{{ formatCurrency(irpfAnnual * displayFactor) }}</span>
@@ -534,7 +594,14 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
 
                 <div class="flex flex-col gap-1.5 pt-1">
                   <div class="flex justify-between items-baseline text-[13px] text-stone-700 font-medium">
-                    <span>S.S. Trabajador</span>
+                    <div class="flex items-center gap-1.5">
+                      <span>S.S. Trabajador</span>
+                      <span 
+                        @click="showInfoTooltip('ssTrabajador', $event)"
+                        class="material-symbols-outlined text-xs cursor-pointer text-stone-400 hover:text-primary transition-colors"
+                        style="font-size: 14px;"
+                      >info</span>
+                    </div>
                     <span class="font-mono">-{{ formatCurrency(employeeSSAnnual * displayFactor) }}</span>
                   </div>
                   <div class="flex flex-col gap-0.5 text-[10px] text-stone-400 pl-4 uppercase font-mono italic">
@@ -590,7 +657,14 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
 
               <div class="pl-3 border-l-2 border-dashed border-stone-300 flex flex-col gap-2 py-1">
                 <div class="flex justify-between items-baseline text-sm">
-                  <span class="text-stone-800 font-medium">Impuestos Indirectos</span>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-stone-800 font-medium">Impuestos Indirectos</span>
+                    <span 
+                      @click="showInfoTooltip('impuestosIndirectos', $event)"
+                      class="material-symbols-outlined text-xs cursor-pointer text-stone-400 hover:text-primary transition-colors"
+                      style="font-size: 14px;"
+                    >info</span>
+                  </div>
                   <span class="font-mono font-medium text-stone-800">
                     {{ formatCurrency(indirectTaxes.totalIndirect * displayFactorExpenses) }}
                   </span>
@@ -747,6 +821,168 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
               flexShrink: 0,
             }">
               <span class="material-symbols-outlined" style="font-size: 24px;">account_balance_wallet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Teleport>
+
+    <!-- Info Tooltip -->
+    <Teleport to="body">
+      <div
+        v-if="infoTooltip.visible"
+        @click="hideInfoTooltip"
+        :style="{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9998,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          backdropFilter: 'blur(2px)',
+        }"
+      >
+        <div
+          @click.stop
+          :style="{
+            position: 'fixed',
+            left: `${infoTooltip.position.x}px`,
+            top: `${infoTooltip.position.y}px`,
+            transform: 'translate(-50%, 0)',
+            zIndex: 9999,
+            maxWidth: '380px',
+            width: '90vw',
+          }"
+        >
+          <div style="position: relative;">
+            <!-- Flecha apuntando arriba -->
+            <div :style="{
+              position: 'absolute',
+              left: '50%',
+              top: '0',
+              transform: 'translate(-50%, -8px)',
+              width: 0,
+              height: 0,
+              borderLeft: '8px solid transparent',
+              borderRight: '8px solid transparent',
+              borderBottom: '8px solid #f5f5f4',
+            }"></div>
+
+            <!-- Contenido del tooltip -->
+            <div class="bg-ticket-bg rounded-lg shadow-2xl border border-stone-300 overflow-hidden">
+              <!-- Header con botón cerrar -->
+              <div class="flex items-center justify-between p-3 bg-stone-100 border-b border-stone-300">
+                <h4 class="text-xs font-bold text-stone-800 uppercase tracking-wide">
+                  {{ infoTooltip.section === 'costeEmpresa' ? 'Coste Total Empresa' : '' }}
+                  {{ infoTooltip.section === 'ssEmpresa' ? 'Seguridad Social Empresa' : '' }}
+                  {{ infoTooltip.section === 'irpf' ? 'IRPF' : '' }}
+                  {{ infoTooltip.section === 'ssTrabajador' ? 'S.S. Trabajador' : '' }}
+                  {{ infoTooltip.section === 'impuestosIndirectos' ? 'Impuestos Indirectos' : '' }}
+                </h4>
+                <button 
+                  @click="hideInfoTooltip"
+                  class="text-stone-400 hover:text-stone-600 transition-colors"
+                >
+                  <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+              </div>
+
+              <!-- Contenido según sección -->
+              <div class="p-4 space-y-3 max-h-[70vh] overflow-y-auto">
+                
+                <!-- COSTE EMPRESA -->
+                <template v-if="infoTooltip.section === 'costeEmpresa'">
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    <span class="font-bold text-stone-800">La Mentira del Bruto:</span> Tu empresa no paga {{ formatCurrency(annualGross * displayFactor) }}. Paga casi {{ formatCurrency(employerCostAnnual * displayFactor) }} por ti. La diferencia (casi {{ formatCurrency(employerSSAnnual * displayFactor) }}) se la queda el Estado antes de que tú siquiera veas la nómina, haciéndote creer que cobras menos para que te duela menos el robo.
+                  </p>
+                  <div class="bg-white rounded p-3 space-y-1.5 font-mono text-[10px]">
+                    <div class="flex justify-between"><span class="text-stone-600">Salario Bruto (Lo que ves)</span><span class="text-stone-700 font-medium">{{ formatCurrency(annualGross * displayFactor) }}</span></div>
+                    <div class="flex justify-between"><span class="text-red-600 font-medium">Cuota Patronal (Oculto)</span><span class="text-red-600 font-bold">+{{ formatCurrency(employerSSAnnual * displayFactor) }}</span></div>
+                    <div class="h-px bg-stone-200 my-1"></div>
+                    <div class="flex justify-between font-bold"><span class="text-stone-800">Coste Real (Tu valor)</span><span class="text-stone-900">{{ formatCurrency(employerCostAnnual * displayFactor) }}</span></div>
+                  </div>
+                </template>
+
+                <!-- SS EMPRESA -->
+                <template v-if="infoTooltip.section === 'ssEmpresa'">
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    <span class="font-bold text-stone-800">El impuesto fantasma.</span> Tu empleador paga esto por ti cada mes sin que lo sepas. No aparece en tu nómina, pero existe. Si este dinero fuera tuyo, podrías decidir en qué gastarlo: ahorro, inversión, o simplemente vivir mejor. Pero el Estado decide por ti.
+                  </p>
+                  <div class="space-y-1.5 font-mono text-[10px] text-stone-600">
+                    <div class="flex justify-between bg-white p-2 rounded"><span>Conting. Comunes (23,60%)</span><span class="font-medium">{{ formatCurrency(ccEmployerAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>Desempleo Emp. (5,50%)</span><span class="font-medium">{{ formatCurrency(desempEmployerAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>FOGASA (0,20%)</span><span class="font-medium">{{ formatCurrency(fogasaEmployerAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>Formación Prof. (0,60%)</span><span class="font-medium">{{ formatCurrency(formEmployerAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>AT y EP (~1,50%)</span><span class="font-medium">{{ formatCurrency(atepEmployerAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>MEI Empresa (0,58%)</span><span class="font-medium">{{ formatCurrency(meiEmployerAnnual * displayFactor) }}</span></div>
+                  </div>
+                  <div class="bg-red-50 rounded p-3 border border-red-100">
+                    <div class="flex justify-between items-center mb-2">
+                      <span class="text-[10px] font-bold uppercase text-red-700">Confiscación Oculta</span>
+                      <span class="text-xs font-mono font-bold text-red-600">{{ (SOCIAL_SECURITY_EMPLOYER_RATE * 100).toFixed(2) }}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+                      <div class="h-full bg-red-500 rounded-full" :style="{ width: `${(SOCIAL_SECURITY_EMPLOYER_RATE * 100).toFixed(2)}%` }"></div>
+                    </div>
+                  </div>
+                </template>
+
+                <!-- IRPF -->
+                <template v-if="infoTooltip.section === 'irpf'">
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    <span class="font-bold text-stone-800">El "alquiler" por trabajar.</span> De tu esfuerzo bruto, el Estado sustrae un {{ (irpfRate * 100).toFixed(1) }}% preventivamente. No es dinero para carreteras, es dinero que pierdes de tu poder adquisitivo inmediato para mantener una estructura burocrática insaciable.
+                  </p>
+                  <p class="text-[10px] italic text-stone-500 leading-relaxed">
+                    Este porcentaje varía según tus circunstancias personales. Cuanto más ganas, más te quitan proporcionalmente. El sistema progresivo castiga el éxito y desincentiva el esfuerzo adicional.
+                  </p>
+                  <div class="bg-red-50 rounded p-3 border border-red-100">
+                    <div class="flex justify-between items-center mb-2">
+                      <span class="text-[10px] font-bold uppercase text-red-700">Confiscación sobre Bruto</span>
+                      <span class="text-xs font-mono font-bold text-red-600">{{ (irpfRate * 100).toFixed(2) }}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+                      <div class="h-full bg-red-500 rounded-full" :style="{ width: `${Math.min(irpfRate * 100, 100)}%` }"></div>
+                    </div>
+                  </div>
+                </template>
+
+                <!-- SS TRABAJADOR -->
+                <template v-if="infoTooltip.section === 'ssTrabajador'">
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    <span class="font-bold text-stone-800">La segunda mordida.</span> Además de lo que paga tu empresa (que no ves), tú también pagas Seguridad Social. Un {{ (SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2) }}% de tu bruto que se esfuma antes de llegar a tu cuenta. Te dicen que es para tu jubilación, pero nadie te garantiza que ese dinero estará cuando lo necesites.
+                  </p>
+                  <div class="space-y-1.5 font-mono text-[10px] text-stone-600">
+                    <div class="flex justify-between bg-white p-2 rounded"><span>Conting. Comunes (4,70%)</span><span class="font-medium">{{ formatCurrency(ccAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>Desempleo (1,55%)</span><span class="font-medium">{{ formatCurrency(desempAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>Formación Prof. (0,10%)</span><span class="font-medium">{{ formatCurrency(formAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between bg-white p-2 rounded"><span>MEI (0,12%)</span><span class="font-medium">{{ formatCurrency(meiAnnual * displayFactor) }}</span></div>
+                  </div>
+                  <div class="bg-red-50 rounded p-3 border border-red-100">
+                    <div class="flex justify-between items-center mb-2">
+                      <span class="text-[10px] font-bold uppercase text-red-700">Confiscación Adicional</span>
+                      <span class="text-xs font-mono font-bold text-red-600">{{ (SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2) }}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+                      <div class="h-full bg-red-500 rounded-full" :style="{ width: `${(SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2)}%` }"></div>
+                    </div>
+                  </div>
+                </template>
+
+                <!-- IMPUESTOS INDIRECTOS -->
+                <template v-if="infoTooltip.section === 'impuestosIndirectos'">
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    <span class="font-bold text-stone-800">El tercer asalto.</span> Después de haberte quitado casi el {{ Math.round(((employerSSAnnual + irpfAnnual + employeeSSAnnual) / employerCostAnnual) * 100) }}% antes de cobrar, el Estado vuelve a la carga cuando gastas lo poco que te queda. Cada compra incluye IVA, impuestos especiales sobre combustibles, electricidad, alcohol, tabaco... No hay escapatoria.
+                  </p>
+                  <div class="space-y-1.5 font-mono text-[10px] text-stone-600">
+                    <div v-if="indirectTaxes.iva21 * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>IVA General (21%)</span><span class="font-medium">{{ formatCurrency(indirectTaxes.iva21 * displayFactorExpenses) }}</span></div>
+                    <div v-if="indirectTaxes.iva10 * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>IVA Reducido (10%)</span><span class="font-medium">{{ formatCurrency(indirectTaxes.iva10 * displayFactorExpenses) }}</span></div>
+                    <div v-if="indirectTaxes.iva4 * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>IVA Superreducido (4%)</span><span class="font-medium">{{ formatCurrency(indirectTaxes.iva4 * displayFactorExpenses) }}</span></div>
+                    <div v-if="indirectTaxes.ieh * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>Imp. Hidrocarburos</span><span class="font-medium">{{ formatCurrency(indirectTaxes.ieh * displayFactorExpenses) }}</span></div>
+                    <div v-if="indirectTaxes.iee * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>Imp. Electricidad</span><span class="font-medium">{{ formatCurrency(indirectTaxes.iee * displayFactorExpenses) }}</span></div>
+                    <div v-if="indirectTaxes.ips * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>Imp. Primas Seguros</span><span class="font-medium">{{ formatCurrency(indirectTaxes.ips * displayFactorExpenses) }}</span></div>
+                    <div v-if="indirectTaxes.specialOthers * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>Otros (Alcohol/Tabaco)</span><span class="font-medium">{{ formatCurrency(indirectTaxes.specialOthers * displayFactorExpenses) }}</span></div>
+                  </div>
+                </template>
+
+              </div>
             </div>
           </div>
         </div>
