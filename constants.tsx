@@ -76,13 +76,13 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         isExciseDuty: true,
         note: 'IVA 21% + Imp. Alcohol' 
       },
-      { 
-        id: 'tobacco', 
-        name: 'Tabaco', 
-        amount: 40, 
-        ivaRate: 21, 
-        isExciseDuty: true, 
-        note: 'Imp. Labores del Tabaco' 
+      {
+        id: 'tobacco',
+        name: 'Tabaco',
+        amount: 40,
+        ivaRate: 21,
+        isExciseDuty: true,
+        note: 'Imp. Labores del Tabaco + IVA 21% (sobre base+imp.especial)'
       }
     ]
   },

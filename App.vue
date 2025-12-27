@@ -752,5 +752,15 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
         </div>
       </div>
     </Teleport>
+
+    <!-- Footer -->
+    <footer class="w-full bg-stone-100 dark:bg-slate-900 border-t border-stone-200 dark:border-stone-700 py-6 mt-8">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-sm text-stone-600 dark:text-stone-400">
+          La información proporcionada puede contener errores. Si encuentras algún error o tienes sugerencias de mejora, por favor contacta con
+          <a href="mailto:example@gmail.com" class="text-primary hover:underline font-medium">example@gmail.com</a>.
+        </p>
+      </div>
+    </footer>
   </div>
 </template>

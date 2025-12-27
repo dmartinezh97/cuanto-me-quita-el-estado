@@ -104,8 +104,12 @@ export const calculateIVABreakdown = (state: AppState) => {
           totalSpecialOthers += special;
           specialType = 'Imp. Alcohol';
         } else if (sub.id === 'tobacco' && sub.isExciseDuty) {
-          iva = totalPVP * (21/121);
-          special = totalPVP * 0.57;
+          // El Impuesto Especial del Tabaco se calcula sobre el PVP sin IVA
+          // PVP final = (Base + Imp. Especial) * 1.21
+          const pvpSinIVA = totalPVP / 1.21;
+          iva = totalPVP - pvpSinIVA;
+          // El impuesto especial es aproximadamente el 57% del PVP sin IVA
+          special = pvpSinIVA * 0.57;
           totalSpecialOthers += special;
           specialType = 'Imp. Tabaco';
         } else if (sub.specialTaxRate && sub.ivaRate === 0) {
