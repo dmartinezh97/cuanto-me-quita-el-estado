@@ -896,20 +896,26 @@ const isDualInput = (sub: SubItem): boolean => {
                 <!-- COSTE EMPRESA -->
                 <template v-if="infoTooltip.section === 'costeEmpresa'">
                   <p class="text-xs text-stone-600 leading-relaxed">
-                    <span class="font-bold text-stone-800">La Mentira del Bruto:</span> Tu empresa no paga {{ formatCurrency(annualGross * displayFactor) }}. Paga casi {{ formatCurrency(employerCostAnnual * displayFactor) }} por ti. La diferencia (casi {{ formatCurrency(employerSSAnnual * displayFactor) }}) se la queda el Estado antes de que tú siquiera veas la nómina, haciéndote creer que cobras menos para que te duela menos el robo.
+                    <span class="font-bold text-stone-800">Coste Total para la Empresa:</span> El coste total que asume una empresa por cada empleado incluye el salario bruto más las cotizaciones a la Seguridad Social que paga el empleador (aproximadamente 30% del salario bruto).
+                  </p>
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    Esta diferencia entre el salario bruto y el coste real existe porque el Estado divide las cotizaciones sociales entre empresa y trabajador. La empresa paga su parte (cuota patronal) directamente a la Seguridad Social, cantidad que no aparece en tu nómina pero forma parte del coste de contratarte.
                   </p>
                   <div class="bg-white rounded p-3 space-y-1.5 font-mono text-[10px]">
-                    <div class="flex justify-between"><span class="text-stone-600">Salario Bruto (Lo que ves)</span><span class="text-stone-700 font-medium">{{ formatCurrency(annualGross * displayFactor) }}</span></div>
-                    <div class="flex justify-between"><span class="text-red-600 font-medium">Cuota Patronal (Oculto)</span><span class="text-red-600 font-bold">+{{ formatCurrency(employerSSAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between"><span class="text-stone-600">Salario Bruto</span><span class="text-stone-700 font-medium">{{ formatCurrency(annualGross * displayFactor) }}</span></div>
+                    <div class="flex justify-between"><span class="text-stone-600">Cuota Patronal</span><span class="text-stone-700 font-medium">+{{ formatCurrency(employerSSAnnual * displayFactor) }}</span></div>
                     <div class="h-px bg-stone-200 my-1"></div>
-                    <div class="flex justify-between font-bold"><span class="text-stone-800">Coste Real (Tu valor)</span><span class="text-stone-900">{{ formatCurrency(employerCostAnnual * displayFactor) }}</span></div>
+                    <div class="flex justify-between font-bold"><span class="text-stone-800">Coste Total</span><span class="text-stone-900">{{ formatCurrency(employerCostAnnual * displayFactor) }}</span></div>
                   </div>
                 </template>
 
                 <!-- SS EMPRESA -->
                 <template v-if="infoTooltip.section === 'ssEmpresa'">
                   <p class="text-xs text-stone-600 leading-relaxed">
-                    <span class="font-bold text-stone-800">El impuesto fantasma.</span> Tu empleador paga esto por ti cada mes sin que lo sepas. No aparece en tu nómina, pero existe. Si este dinero fuera tuyo, podrías decidir en qué gastarlo: ahorro, inversión, o simplemente vivir mejor. Pero el Estado decide por ti.
+                    <span class="font-bold text-stone-800">Cotizaciones de la Empresa:</span> La empresa cotiza a la Seguridad Social por cada empleado. Estas cotizaciones financian pensiones, protección por desempleo, formación profesional, cobertura de accidentes y enfermedades profesionales, y otros beneficios sociales.
+                  </p>
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    El sistema de Seguridad Social funciona mediante reparto: las cotizaciones actuales pagan las prestaciones presentes de jubilados y personas en situación de dependencia.
                   </p>
                   <div class="space-y-1.5 font-mono text-[10px] text-stone-600">
                     <div class="flex justify-between bg-white p-2 rounded"><span>Conting. Comunes (23,60%)</span><span class="font-medium">{{ formatCurrency(ccEmployerAnnual * displayFactor) }}</span></div>
@@ -919,13 +925,13 @@ const isDualInput = (sub: SubItem): boolean => {
                     <div class="flex justify-between bg-white p-2 rounded"><span>AT y EP (~1,50%)</span><span class="font-medium">{{ formatCurrency(atepEmployerAnnual * displayFactor) }}</span></div>
                     <div class="flex justify-between bg-white p-2 rounded"><span>MEI Empresa (0,58%)</span><span class="font-medium">{{ formatCurrency(meiEmployerAnnual * displayFactor) }}</span></div>
                   </div>
-                  <div class="bg-red-50 rounded p-3 border border-red-100">
+                  <div class="bg-indigo-50 rounded p-3 border border-indigo-100">
                     <div class="flex justify-between items-center mb-2">
-                      <span class="text-[10px] font-bold uppercase text-red-700">Confiscación Oculta</span>
-                      <span class="text-xs font-mono font-bold text-red-600">{{ (SOCIAL_SECURITY_EMPLOYER_RATE * 100).toFixed(2) }}%</span>
+                      <span class="text-[10px] font-bold uppercase text-indigo-700">Cotización Total Empresa</span>
+                      <span class="text-xs font-mono font-bold text-indigo-600">{{ (SOCIAL_SECURITY_EMPLOYER_RATE * 100).toFixed(2) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
-                      <div class="h-full bg-red-500 rounded-full" :style="{ width: `${(SOCIAL_SECURITY_EMPLOYER_RATE * 100).toFixed(2)}%` }"></div>
+                      <div class="h-full bg-indigo-500 rounded-full" :style="{ width: `${(SOCIAL_SECURITY_EMPLOYER_RATE * 100).toFixed(2)}%` }"></div>
                     </div>
                   </div>
                 </template>
@@ -933,18 +939,21 @@ const isDualInput = (sub: SubItem): boolean => {
                 <!-- IRPF -->
                 <template v-if="infoTooltip.section === 'irpf'">
                   <p class="text-xs text-stone-600 leading-relaxed">
-                    <span class="font-bold text-stone-800">El "alquiler" por trabajar.</span> De tu esfuerzo bruto, el Estado sustrae un {{ (irpfRate * 100).toFixed(1) }}% preventivamente. No es dinero para carreteras, es dinero que pierdes de tu poder adquisitivo inmediato para mantener una estructura burocrática insaciable.
+                    <span class="font-bold text-stone-800">Impuesto sobre la Renta (IRPF):</span> El IRPF es un impuesto progresivo sobre los ingresos. Su estructura utiliza un sistema de tramos donde cuanto más ganas, mayor porcentaje pagas en los tramos superiores (pero solo sobre la parte que excede cada tramo, no sobre el total).
+                  </p>
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    El IRPF incluye deducciones por situación familiar (hijos, dependientes, etc.) y se divide entre el Estado (50%) y la Comunidad Autónoma (50%). Los ingresos recaudados financian servicios públicos como sanidad, educación, justicia, infraestructuras y prestaciones sociales.
                   </p>
                   <p class="text-[10px] italic text-stone-500 leading-relaxed">
-                    Este porcentaje varía según tus circunstancias personales. Cuanto más ganas, más te quitan proporcionalmente. El sistema progresivo castiga el éxito y desincentiva el esfuerzo adicional.
+                    Tu tipo efectivo actual ({{ (irpfRate * 100).toFixed(2) }}%) representa el porcentaje medio que pagas del total de tu salario bruto. Es siempre menor que el tipo marginal debido al sistema de tramos.
                   </p>
-                  <div class="bg-red-50 rounded p-3 border border-red-100">
+                  <div class="bg-indigo-50 rounded p-3 border border-indigo-100">
                     <div class="flex justify-between items-center mb-2">
-                      <span class="text-[10px] font-bold uppercase text-red-700">Confiscación sobre Bruto</span>
-                      <span class="text-xs font-mono font-bold text-red-600">{{ (irpfRate * 100).toFixed(2) }}%</span>
+                      <span class="text-[10px] font-bold uppercase text-indigo-700">Tipo Efectivo</span>
+                      <span class="text-xs font-mono font-bold text-indigo-600">{{ (irpfRate * 100).toFixed(2) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
-                      <div class="h-full bg-red-500 rounded-full" :style="{ width: `${Math.min(irpfRate * 100, 100)}%` }"></div>
+                      <div class="h-full bg-indigo-500 rounded-full" :style="{ width: `${Math.min(irpfRate * 100, 100)}%` }"></div>
                     </div>
                   </div>
                 </template>
@@ -952,7 +961,10 @@ const isDualInput = (sub: SubItem): boolean => {
                 <!-- SS TRABAJADOR -->
                 <template v-if="infoTooltip.section === 'ssTrabajador'">
                   <p class="text-xs text-stone-600 leading-relaxed">
-                    <span class="font-bold text-stone-800">La segunda mordida.</span> Además de lo que paga tu empresa (que no ves), tú también pagas Seguridad Social. Un {{ (SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2) }}% de tu bruto que se esfuma antes de llegar a tu cuenta. Te dicen que es para tu jubilación, pero nadie te garantiza que ese dinero estará cuando lo necesites.
+                    <span class="font-bold text-stone-800">Tus Cotizaciones a la Seguridad Social:</span> Como trabajador, también cotizas a la Seguridad Social ({{ (SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2) }}% de tu salario bruto). Estas cotizaciones te dan derecho a pensión de jubilación, prestación por desempleo, incapacidad temporal y permanente, asistencia sanitaria pública, y prestaciones familiares.
+                  </p>
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    El importe que cotizas se registra en tu "vida laboral" y es lo que determina el nivel de tus futuras prestaciones. Es un sistema de solidaridad intergeneracional donde las generaciones activas cotizan para mantener a jubilados y personas con discapacidad.
                   </p>
                   <div class="space-y-1.5 font-mono text-[10px] text-stone-600">
                     <div class="flex justify-between bg-white p-2 rounded"><span>Conting. Comunes (4,70%)</span><span class="font-medium">{{ formatCurrency(ccAnnual * displayFactor) }}</span></div>
@@ -960,13 +972,13 @@ const isDualInput = (sub: SubItem): boolean => {
                     <div class="flex justify-between bg-white p-2 rounded"><span>Formación Prof. (0,10%)</span><span class="font-medium">{{ formatCurrency(formAnnual * displayFactor) }}</span></div>
                     <div class="flex justify-between bg-white p-2 rounded"><span>MEI (0,12%)</span><span class="font-medium">{{ formatCurrency(meiAnnual * displayFactor) }}</span></div>
                   </div>
-                  <div class="bg-red-50 rounded p-3 border border-red-100">
+                  <div class="bg-indigo-50 rounded p-3 border border-indigo-100">
                     <div class="flex justify-between items-center mb-2">
-                      <span class="text-[10px] font-bold uppercase text-red-700">Confiscación Adicional</span>
-                      <span class="text-xs font-mono font-bold text-red-600">{{ (SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2) }}%</span>
+                      <span class="text-[10px] font-bold uppercase text-indigo-700">Cotización Total Trabajador</span>
+                      <span class="text-xs font-mono font-bold text-indigo-600">{{ (SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
-                      <div class="h-full bg-red-500 rounded-full" :style="{ width: `${(SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2)}%` }"></div>
+                      <div class="h-full bg-indigo-500 rounded-full" :style="{ width: `${(SOCIAL_SECURITY_EMPLOYEE_RATE * 100).toFixed(2)}%` }"></div>
                     </div>
                   </div>
                 </template>
@@ -974,7 +986,10 @@ const isDualInput = (sub: SubItem): boolean => {
                 <!-- IMPUESTOS INDIRECTOS -->
                 <template v-if="infoTooltip.section === 'impuestosIndirectos'">
                   <p class="text-xs text-stone-600 leading-relaxed">
-                    <span class="font-bold text-stone-800">El tercer asalto.</span> Después de haberte quitado casi el {{ Math.round(((employerSSAnnual + irpfAnnual + employeeSSAnnual) / employerCostAnnual) * 100) }}% antes de cobrar, el Estado vuelve a la carga cuando gastas lo poco que te queda. Cada compra incluye IVA, impuestos especiales sobre combustibles, electricidad, alcohol, tabaco... No hay escapatoria.
+                    <span class="font-bold text-stone-800">Impuestos sobre el Consumo:</span> Los impuestos indirectos gravan el consumo de bienes y servicios. El principal es el IVA (Impuesto sobre el Valor Añadido), que tiene diferentes tramos según el tipo de producto.
+                  </p>
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    <span class="font-bold">IVA:</span> General (21%) en mayoría de productos, Reducido (10%) en alimentos básicos y transporte, Superreducido (4%) en productos de primera necesidad. <span class="font-bold">Impuestos Especiales:</span> Gravan combustibles, electricidad, alcohol y tabaco. Estos financian servicios públicos y en algunos casos tienen finalidad medioambiental o de disuasión.
                   </p>
                   <div class="space-y-1.5 font-mono text-[10px] text-stone-600">
                     <div v-if="indirectTaxes.iva21 * displayFactorExpenses > 0" class="flex justify-between bg-white p-2 rounded"><span>IVA General (21%)</span><span class="font-medium">{{ formatCurrency(indirectTaxes.iva21 * displayFactorExpenses) }}</span></div>
