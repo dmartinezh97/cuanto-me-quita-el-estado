@@ -2,10 +2,26 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./*.{js,ts,jsx,tsx}",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   darkMode: "class",
+  /**
+   * Safelist for dynamically generated color classes.
+   *
+   * Why: Category icons use dynamic colors like `bg-${cat.color}-100`.
+   * Tailwind's JIT compiler can't detect these at build time, so we
+   * explicitly include them to prevent purging.
+   */
+  safelist: [
+    // Light mode backgrounds and text
+    { pattern: /^bg-(blue|orange|yellow|pink|purple|emerald|gray)-(100|900)/ },
+    { pattern: /^text-(blue|orange|yellow|pink|purple|emerald|gray)-(400|600)/ },
+    // Dark mode backgrounds (explicit strings since patterns don't work with dark:)
+    'dark:bg-blue-900/30', 'dark:bg-orange-900/30', 'dark:bg-yellow-900/30',
+    'dark:bg-pink-900/30', 'dark:bg-purple-900/30', 'dark:bg-emerald-900/30', 'dark:bg-gray-900/30',
+    'dark:text-blue-400', 'dark:text-orange-400', 'dark:text-yellow-400',
+    'dark:text-pink-400', 'dark:text-purple-400', 'dark:text-emerald-400', 'dark:text-gray-400',
+  ],
   theme: {
     extend: {
       colors: {

@@ -1,239 +1,198 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
-import { INITIAL_STATE } from './constants';
-import type { AppState, CategoryExpense, SubItem } from './types';
-import {
-  formatCurrency,
-  calculateIRPF,
-  SOCIAL_SECURITY_EMPLOYEE_RATE,
-  SOCIAL_SECURITY_EMPLOYER_RATE,
-  calculateIVABreakdown,
-  RATES_SS_EMPLOYEE,
-  RATES_SS_EMPLOYER,
-} from './utils/calculations';
+/**
+ * App.vue - Main application component.
+ *
+ * Orchestrates the fiscal calculator UI using composables for:
+ * - Tooltip management (useTooltip)
+ * - Expense state (useExpenses)
+ * - Fiscal calculations (useFiscalCalculations)
+ * - Input validation (handleBoundedInput)
+ */
 
-type IVAKey = 'iva4' | 'iva10' | 'iva21';
+import { reactive, ref } from 'vue';
+import { INITIAL_STATE } from '@/constants/initialData';
+import type { AppState, SubItem } from '@/types';
+import { formatCurrency, SOCIAL_SECURITY_EMPLOYEE_RATE, SOCIAL_SECURITY_EMPLOYER_RATE } from '@/utils/calculations';
 
-const barcodePattern = [2, 1, 3, 1, 4, 2, 1, 3, 2, 1, 4, 2, 1, 3, 2, 1, 4];
+// Composables
+import { useTooltip } from '@/composables/useTooltip';
+import { useExpenses, type IVAKey } from '@/composables/useExpenses';
+import { useFiscalCalculations } from '@/composables/useFiscalCalculations';
+import { handleBoundedInput } from '@/composables/useBoundedInput';
 
-const recalcCategoryTotals = (expenses: CategoryExpense[]): CategoryExpense[] =>
-  expenses.map(cat => {
-    if (cat.subItems && cat.subItems.length > 0) {
-      const total = cat.subItems.reduce((sum, sub) => sum + sub.amount, 0);
-      return { ...cat, total };
-    }
-    return cat;
-  });
+// =============================================================================
+// State
+// =============================================================================
 
-const createInitialState = (): AppState => {
-  const clone = JSON.parse(JSON.stringify(INITIAL_STATE)) as AppState;
-  clone.expenses = recalcCategoryTotals(clone.expenses);
-  return clone;
+/**
+ * Main application state.
+ * Contains personal data, view preferences, and references expenses from useExpenses.
+ */
+const state = reactive<AppState>({
+  ...JSON.parse(JSON.stringify(INITIAL_STATE)),
+});
+
+// Expense management via composable
+const {
+  expenses,
+  totalMonthly: totalExpensesMonthly,
+  updateExpense,
+  updateSubItem,
+  updateIVADistribution,
+} = useExpenses(INITIAL_STATE.expenses);
+
+// Keep state.expenses in sync (for template compatibility)
+state.expenses = expenses;
+
+// =============================================================================
+// Tooltips (using useTooltip composable)
+// =============================================================================
+
+// Salary tooltip - appears to the right of focused expense inputs
+const salaryTooltip = useTooltip({ anchor: 'right' });
+
+// Info tooltip - appears below info icons, with section tracking
+const infoTooltipBase = useTooltip({ anchor: 'bottom' });
+const infoTooltipSection = ref<'costeEmpresa' | 'ssEmpresa' | 'salarioBruto' | 'irpf' | 'ssTrabajador' | 'impuestosIndirectos' | ''>('');
+
+// Wrapper for info tooltip to track which section is shown
+const infoTooltip = {
+  get visible() { return infoTooltipBase.state.visible; },
+  get section() { return infoTooltipSection.value; },
+  get position() { return infoTooltipBase.state.position; },
 };
 
-const state = reactive<AppState>(createInitialState());
+const showSalaryTooltip = (event: FocusEvent) => {
+  salaryTooltip.show(event);
+};
 
-const salaryTooltip = reactive({
-  visible: false,
-  targetElement: null as HTMLElement | null,
-  position: { x: 0, y: 0 },
+const hideSalaryTooltip = () => {
+  salaryTooltip.hide();
+};
+
+const showInfoTooltip = (section: typeof infoTooltipSection.value, event: MouseEvent) => {
+  infoTooltipSection.value = section;
+  infoTooltipBase.show(event);
+};
+
+const hideInfoTooltip = () => {
+  infoTooltipSection.value = '';
+  infoTooltipBase.hide();
+};
+
+// =============================================================================
+// Fiscal Calculations (using useFiscalCalculations composable)
+// =============================================================================
+
+const fiscal = useFiscalCalculations({
+  state,
+  expenses,
+  totalExpensesMonthly,
 });
 
-const infoTooltip = reactive({
-  visible: false,
-  section: '' as 'costeEmpresa' | 'ssEmpresa' | 'salarioBruto' | 'irpf' | 'ssTrabajador' | 'impuestosIndirectos' | '',
-  targetElement: null as HTMLElement | null,
-  position: { x: 0, y: 0 },
-});
+// Destructure for template convenience
+const {
+  annualGross,
+  employerCostAnnual,
+  employerSSAnnual,
+  employerSSBreakdown,
+  irpfRate,
+  irpfAnnual,
+  employeeSSAnnual,
+  employeeSSBreakdown,
+  netAnnual,
+  indirectTaxes,
+  totalIndirectAnnual,
+  stateShareAnnual,
+  userShareAnnual,
+  availableSalary,
+  displayFactor,
+  displayFactorExpenses,
+} = fiscal;
 
+// Individual SS breakdown for template (maintaining original variable names)
+const ccAnnual = employeeSSBreakdown.value.contingenciasComunes;
+const desempAnnual = employeeSSBreakdown.value.desempleo;
+const formAnnual = employeeSSBreakdown.value.formacion;
+const meiAnnual = employeeSSBreakdown.value.mei;
+
+const ccEmployerAnnual = employerSSBreakdown.value.contingenciasComunes;
+const desempEmployerAnnual = employerSSBreakdown.value.desempleo;
+const fogasaEmployerAnnual = employerSSBreakdown.value.fogasa;
+const formEmployerAnnual = employerSSBreakdown.value.formacion;
+const atepEmployerAnnual = employerSSBreakdown.value.atEp;
+const meiEmployerAnnual = employerSSBreakdown.value.mei;
+
+// =============================================================================
+// Event Handlers
+// =============================================================================
+
+/** Updates main application state */
 const updateState = (patch: Partial<AppState>) => {
   Object.assign(state, patch);
 };
 
-const updateExpense = (id: string, patch: Partial<CategoryExpense>) => {
-  const expense = state.expenses.find(exp => exp.id === id);
-  if (!expense) return;
-  Object.assign(expense, patch);
-};
-
-const handleSubItemChange = (catId: string, subId: string, patch: Partial<SubItem>) => {
-  const expense = state.expenses.find(exp => exp.id === catId);
-  if (!expense || !expense.subItems) return;
-  const subItem = expense.subItems.find(sub => sub.id === subId);
-  if (!subItem) return;
-  Object.assign(subItem, patch);
-  expense.total = expense.subItems.reduce((sum, sub) => sum + sub.amount, 0);
-};
-
-const handleIVAChange = (id: string, type: IVAKey, value: number) => {
-  updateExpense(id, { [type]: value } as Partial<CategoryExpense>);
-};
-
+/** Handles age input with empty string support */
 const handleAgeInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   state.age = target.value === '' ? '' : Number(target.value);
 };
 
+/**
+ * Handles sub-item amount input with budget validation.
+ * Uses handleBoundedInput to ensure user can't exceed available salary.
+ */
 const handleSubAmountInput = (catId: string, subId: string, event: Event) => {
-  const target = event.target as HTMLInputElement;
-  const newValue = Number(target.value || 0);
-
-  // Obtener el valor actual del subitem
-  const expense = state.expenses.find(exp => exp.id === catId);
+  const expense = expenses.find(exp => exp.id === catId);
   const currentSubItem = expense?.subItems?.find(sub => sub.id === subId);
   const currentValue = currentSubItem?.amount || 0;
 
-  // Calcular el máximo valor permitido
-  const netSalary = netAnnual.value * displayFactor.value;
-  const currentTotalExpenses = totalExpensesMonthly.value * displayFactorExpenses.value;
-  const maxAllowed = netSalary - (currentTotalExpenses - currentValue);
-
-  // Limitar el valor al máximo permitido
-  const limitedValue = Math.min(Math.max(0, newValue), Math.max(0, maxAllowed));
-
-  // Actualizar el input si el valor fue limitado
-  if (limitedValue !== newValue) {
-    target.value = limitedValue.toString();
-  }
-
-  handleSubItemChange(catId, subId, { amount: limitedValue });
+  handleBoundedInput(
+    event,
+    currentValue,
+    netAnnual.value * displayFactor.value,
+    totalExpensesMonthly.value * displayFactorExpenses.value,
+    (value) => updateSubItem(catId, subId, { amount: value })
+  );
 };
 
+/** Handles fuel price per unit input */
 const handleSubPriceInput = (catId: string, subId: string, event: Event) => {
   const target = event.target as HTMLInputElement;
-  handleSubItemChange(catId, subId, { pricePerUnit: Number(target.value || 0) });
+  updateSubItem(catId, subId, { pricePerUnit: Number(target.value || 0) });
 };
 
+/**
+ * Handles category total input with budget validation.
+ * Used in simple mode where user enters total for category.
+ */
 const handleCategoryTotalInput = (catId: string, event: Event) => {
-  const target = event.target as HTMLInputElement;
-  const newValue = Number(target.value || 0);
-
-  // Obtener el valor actual de la categoría
-  const expense = state.expenses.find(exp => exp.id === catId);
+  const expense = expenses.find(exp => exp.id === catId);
   const currentValue = expense?.total || 0;
 
-  // Calcular el máximo valor permitido
-  const netSalary = netAnnual.value * displayFactor.value;
-  const currentTotalExpenses = totalExpensesMonthly.value * displayFactorExpenses.value;
-  const maxAllowed = netSalary - (currentTotalExpenses - currentValue);
-
-  // Limitar el valor al máximo permitido
-  const limitedValue = Math.min(Math.max(0, newValue), Math.max(0, maxAllowed));
-
-  // Actualizar el input si el valor fue limitado
-  if (limitedValue !== newValue) {
-    target.value = limitedValue.toString();
-  }
-
-  updateExpense(catId, { total: limitedValue });
+  handleBoundedInput(
+    event,
+    currentValue,
+    netAnnual.value * displayFactor.value,
+    totalExpensesMonthly.value * displayFactorExpenses.value,
+    (value) => updateExpense(catId, { total: value })
+  );
 };
 
+/** Handles IVA distribution slider changes */
 const handleIVASlider = (catId: string, type: IVAKey, event: Event) => {
   const target = event.target as HTMLInputElement;
-  handleIVAChange(catId, type, Number(target.value || 0));
+  updateIVADistribution(catId, type, Number(target.value || 0));
 };
 
-const updateTooltipPosition = () => {
-  if (salaryTooltip.targetElement) {
-    const rect = salaryTooltip.targetElement.getBoundingClientRect();
-    const modalHeight = 87;
-    
-    salaryTooltip.position = {
-      x: rect.right + 16,
-      y: rect.top + (rect.height / 2)
-    };
-  }
-};
+// =============================================================================
+// Constants
+// =============================================================================
 
-const showSalaryTooltip = (event: FocusEvent) => {
-  const target = event.target as HTMLElement;
-  salaryTooltip.targetElement = target;
-  updateTooltipPosition();
-  salaryTooltip.visible = true;
+/** Barcode pattern for ticket decoration */
+const barcodePattern = [2, 1, 3, 1, 4, 2, 1, 3, 2, 1, 4, 2, 1, 3, 2, 1, 4];
 
-  // Añadir listener para scroll
-  window.addEventListener('scroll', updateTooltipPosition, true);
-  window.addEventListener('resize', updateTooltipPosition);
-};
-
-const hideSalaryTooltip = () => {
-  salaryTooltip.visible = false;
-  salaryTooltip.targetElement = null;
-
-  // Remover listeners
-  window.removeEventListener('scroll', updateTooltipPosition, true);
-  window.removeEventListener('resize', updateTooltipPosition);
-};
-
-const updateInfoTooltipPosition = () => {
-  if (infoTooltip.targetElement) {
-    const rect = infoTooltip.targetElement.getBoundingClientRect();
-    
-    infoTooltip.position = {
-      x: rect.left + (rect.width / 2),
-      y: rect.bottom + 8
-    };
-  }
-};
-
-const showInfoTooltip = (section: typeof infoTooltip.section, event: MouseEvent) => {
-  const target = event.currentTarget as HTMLElement;
-  infoTooltip.section = section;
-  infoTooltip.targetElement = target;
-  updateInfoTooltipPosition();
-  infoTooltip.visible = true;
-
-  window.addEventListener('scroll', updateInfoTooltipPosition, true);
-  window.addEventListener('resize', updateInfoTooltipPosition);
-};
-
-const hideInfoTooltip = () => {
-  infoTooltip.visible = false;
-  infoTooltip.section = '';
-  infoTooltip.targetElement = null;
-
-  window.removeEventListener('scroll', updateInfoTooltipPosition, true);
-  window.removeEventListener('resize', updateInfoTooltipPosition);
-};
-
-const annualGross = computed(() => state.grossSalary);
-const employerCostAnnual = computed(() => annualGross.value * (1 + SOCIAL_SECURITY_EMPLOYER_RATE));
-const employerSSAnnual = computed(() => annualGross.value * SOCIAL_SECURITY_EMPLOYER_RATE);
-
-const irpfRate = computed(() => calculateIRPF(annualGross.value, state));
-const irpfAnnual = computed(() => annualGross.value * irpfRate.value);
-const employeeSSAnnual = computed(() => annualGross.value * SOCIAL_SECURITY_EMPLOYEE_RATE);
-const netAnnual = computed(() => annualGross.value - irpfAnnual.value - employeeSSAnnual.value);
-
-const indirectTaxes = computed(() => calculateIVABreakdown(state));
-const totalExpensesMonthly = computed(() => state.expenses.reduce((acc, cat) => acc + cat.total, 0));
-const totalIndirectAnnual = computed(() => indirectTaxes.value.totalIndirect * 12);
-
-const availableSalary = computed(() => {
-  const netSalary = netAnnual.value * displayFactor.value;
-  const expenses = totalExpensesMonthly.value * displayFactorExpenses.value;
-  return netSalary - expenses;
-});
-
-const stateShareAnnual = computed(() => employerSSAnnual.value + irpfAnnual.value + employeeSSAnnual.value + totalIndirectAnnual.value);
-const userShareAnnual = computed(() => netAnnual.value - totalIndirectAnnual.value);
-
-const isAnnual = computed(() => state.viewMode === 'Anual');
-const displayFactor = computed(() => (isAnnual.value ? 1 : 1 / (state.numPayments || 12)));
-const displayFactorExpenses = computed(() => (isAnnual.value ? 12 : 1));
-
-const ccAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYEE.CONTINGENCIAS_COMUNES);
-const desempAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYEE.DESEMPLEO);
-const formAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYEE.FORMACION);
-const meiAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYEE.MEI);
-
-const ccEmployerAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYER.CONTINGENCIAS_COMUNES);
-const desempEmployerAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYER.DESEMPLEO);
-const fogasaEmployerAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYER.FOGASA);
-const formEmployerAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYER.FORMACION);
-const atepEmployerAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYER.AT_EP);
-const meiEmployerAnnual = computed(() => annualGross.value * RATES_SS_EMPLOYER.MEI);
-
+/** IVA distribution options for sliders */
 const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
   { key: 'iva4', label: 'Superreducido (4%)', color: 'emerald' },
   { key: 'iva10', label: 'Reducido (10%)', color: 'amber' },
@@ -759,11 +718,11 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
     <!-- Popup contextual de sueldo disponible -->
     <Teleport to="body">
       <div
-        v-if="salaryTooltip.visible"
+        v-if="salaryTooltip.state.visible"
         :style="{
           position: 'fixed',
-          left: `${salaryTooltip.position.x}px`,
-          top: `${salaryTooltip.position.y}px`,
+          left: `${salaryTooltip.state.position.x}px`,
+          top: `${salaryTooltip.state.position.y}px`,
           transform: 'translate(0, -50%)',
           zIndex: 9999,
           pointerEvents: 'none',

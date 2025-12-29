@@ -1,6 +1,30 @@
+/**
+ * Initial data configuration for the fiscal calculator.
+ *
+ * Contains default expense categories with their IVA rates and special taxes,
+ * as well as the initial application state.
+ *
+ * Why this file exists:
+ * - Centralizes all default values in one place
+ * - Separates data from logic (calculations.ts)
+ * - Makes it easy to modify initial values without touching business logic
+ */
 
-import { CategoryExpense, AppState } from './types';
+import type { CategoryExpense, AppState } from '@/types';
 
+/**
+ * Default expense categories with subcategories.
+ *
+ * Each category contains:
+ * - Metadata: id, name, icon, color
+ * - IVA distribution sliders (iva4, iva10, iva21) - used when no subItems
+ * - subItems: Detailed breakdown with specific IVA rates and special taxes
+ *
+ * Special tax flags:
+ * - isExciseDuty: Subject to excise duties (IEH for fuels, alcohol tax, tobacco tax)
+ * - isElectricityTax: Subject to electricity tax (IEE)
+ * - specialTaxRate: Fixed rate for insurance premiums (IPS)
+ */
 export const INITIAL_EXPENSES: CategoryExpense[] = [
   {
     id: 'transport',
@@ -54,27 +78,27 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
     iva21: 0,
     open: false,
     subItems: [
-      { 
-        id: 'food_4', 
-        name: 'Básicos (Pan, leche, fruta, aceite...)', 
-        amount: 150, 
-        ivaRate: 4, 
-        note: 'IVA Superreducido' 
+      {
+        id: 'food_4',
+        name: 'Básicos (Pan, leche, fruta, aceite...)',
+        amount: 150,
+        ivaRate: 4,
+        note: 'IVA Superreducido'
       },
-      { 
-        id: 'food_10', 
-        name: 'Carne, Pescado y Procesados', 
-        amount: 120, 
-        ivaRate: 10, 
-        note: 'IVA Reducido' 
+      {
+        id: 'food_10',
+        name: 'Carne, Pescado y Procesados',
+        amount: 120,
+        ivaRate: 10,
+        note: 'IVA Reducido'
       },
-      { 
-        id: 'food_21', 
-        name: 'Refrescos y Alcohol', 
-        amount: 40, 
-        ivaRate: 21, 
+      {
+        id: 'food_21',
+        name: 'Refrescos y Alcohol',
+        amount: 40,
+        ivaRate: 21,
         isExciseDuty: true,
-        note: 'IVA 21% + Imp. Alcohol' 
+        note: 'IVA 21% + Imp. Alcohol'
       },
       {
         id: 'tobacco',
@@ -174,6 +198,15 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
   }
 ];
 
+/**
+ * Default application state.
+ *
+ * Represents a typical Spanish worker profile:
+ * - Average salary: 28,000 EUR/year
+ * - 12 payments (no extra pagas)
+ * - Single, no children
+ * - Living in Madrid
+ */
 export const INITIAL_STATE: AppState = {
   grossSalary: 28000,
   numPayments: 12,

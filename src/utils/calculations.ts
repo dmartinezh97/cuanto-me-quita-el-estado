@@ -1,5 +1,11 @@
-
-import { AppState } from '../types';
+import type { AppState } from '@/types';
+import {
+  IEH_PER_LITER,
+  IVA_FACTOR_21,
+  GAS_TAX_RATE,
+  ALCOHOL_TAX_RATE,
+  TOBACCO_TAX_RATE,
+} from '@/constants/taxes';
 
 export const calculateIRPF = (gross: number, state: AppState): number => {
   let baseMinimum = 5550;
@@ -76,40 +82,42 @@ export const calculateIVABreakdown = (state: AppState) => {
         let specialType = '';
 
         if (sub.id === 'fuel' && sub.isExciseDuty) {
-          const pricePerLiter = sub.pricePerUnit; // TODO: Call external API for real-time fuel prices
+          // Fuel: IEH is a fixed amount per liter
+          const pricePerLiter = sub.pricePerUnit;
           const liters = totalPVP / pricePerLiter;
 
-          const special = liters * 0.4007;          // TODO: Create a constant for IEH
-          const basePlusIEH = totalPVP / 1.21;      // base + IEH (sin IVA) // Create a constant for IVA
-          iva = totalPVP - basePlusIEH;            // IVA incluido en el PVP
-          const base = basePlusIEH - special;       // base sin impuestos
+          const iehAmount = liters * IEH_PER_LITER;
+          const basePlusIEH = totalPVP / IVA_FACTOR_21;
+          iva = totalPVP - basePlusIEH;
 
-          totalIEH += special;
+          totalIEH += iehAmount;
+          special = iehAmount;
           specialType = 'IEH';
         } else if (sub.isElectricityTax && sub.specialTaxRate) {
-          const factor = (1 + sub.specialTaxRate) * 1.21;
+          // Electricity: IEE is applied to base before IVA
+          const factor = (1 + sub.specialTaxRate) * IVA_FACTOR_21;
           const base = totalPVP / factor;
           special = base * sub.specialTaxRate;
-          iva = totalPVP - (totalPVP / 1.21);
+          iva = totalPVP - (totalPVP / IVA_FACTOR_21);
           totalIEE += special;
           specialType = 'IEE';
         } else if (sub.id === 'gas' && sub.isExciseDuty) {
-          special = totalPVP * 0.025; 
-          iva = totalPVP - (totalPVP / 1.21);
+          // Natural gas: approximate IEH percentage
+          special = totalPVP * GAS_TAX_RATE;
+          iva = totalPVP - (totalPVP / IVA_FACTOR_21);
           totalIEH += special;
           specialType = 'IEH (Gas)';
         } else if (sub.id === 'food_21' && sub.isExciseDuty) {
-          special = totalPVP * 0.05;
-          iva = totalPVP - (totalPVP / 1.21);
+          // Alcohol: approximate excise duty
+          special = totalPVP * ALCOHOL_TAX_RATE;
+          iva = totalPVP - (totalPVP / IVA_FACTOR_21);
           totalSpecialOthers += special;
           specialType = 'Imp. Alcohol';
         } else if (sub.id === 'tobacco' && sub.isExciseDuty) {
-          // El Impuesto Especial del Tabaco se calcula sobre el PVP sin IVA
-          // PVP final = (Base + Imp. Especial) * 1.21
-          const pvpSinIVA = totalPVP / 1.21;
+          // Tobacco: special tax is ~57% of PVP before IVA
+          const pvpSinIVA = totalPVP / IVA_FACTOR_21;
           iva = totalPVP - pvpSinIVA;
-          // El impuesto especial es aproximadamente el 57% del PVP sin IVA
-          special = pvpSinIVA * 0.57;
+          special = pvpSinIVA * TOBACCO_TAX_RATE;
           totalSpecialOthers += special;
           specialType = 'Imp. Tabaco';
         } else if (sub.specialTaxRate && sub.ivaRate === 0) {
