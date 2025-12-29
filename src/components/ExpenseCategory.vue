@@ -11,9 +11,11 @@
   - Emits: update-amount, update-price, update-iva, update-total, focus, blur
   - Shows subItems if available, otherwise shows simple mode with IVA sliders
 
-  Note: This component deliberately keeps some template complexity because
-  the sub-item display has many edge cases (fuel, electricity, insurance, etc.)
-  that would be over-engineered to abstract further.
+  Data-driven UI:
+  The component now uses `sub.display` configuration to determine:
+  - Tax labels and colors (no more hardcoded v-if="sub.id === '...'")
+  - Input types (single currency or dual-input for fuel)
+  - Notes and additional information
 -->
 
 <script setup lang="ts">
@@ -57,28 +59,31 @@ const emit = defineEmits<{
 const iconContainerClass = `w-10 h-10 rounded-lg bg-${props.category.color}-100 dark:bg-${props.category.color}-900/30 text-${props.category.color}-600 dark:text-${props.category.color}-400 flex items-center justify-center`;
 
 /**
- * Determines if a sub-item's note indicates it's tax-free or deductible.
+ * Gets the label color class based on display configuration.
+ * Now uses sub.display.labelColor instead of hardcoded ID checks.
  */
-const isTaxFreeNote = (note?: string): boolean => {
-  if (!note) return false;
-  const lower = note.toLowerCase();
-  return lower.includes('deducible') || lower.includes('sin iva') || lower.includes('exento');
+const getLabelColorClass = (sub: SubItem): string => {
+  const color = sub.display?.labelColor ?? (sub.ivaRate > 0 ? 'red' : 'green');
+  return color === 'red' ? 'text-red-600' : 'text-green-600';
 };
 
 /**
- * Gets the appropriate tax info display for a sub-item.
+ * Gets the tax label for display.
+ * Uses sub.display.taxLabel or falls back to standard IVA display.
  */
-const getTaxInfoClass = (sub: SubItem): string => {
-  if (sub.id === 'fuel' || sub.id === 'insurance_car' || sub.id === 'electricity' || sub.id === 'gas') {
-    return 'text-red-600';
+const getTaxLabel = (sub: SubItem): string => {
+  if (sub.display?.taxLabel) {
+    return sub.display.taxLabel;
   }
-  if (sub.note && isTaxFreeNote(sub.note)) {
-    return 'text-green-600';
-  }
-  if (sub.specialTaxRate && sub.ivaRate === 0) {
-    return 'text-red-600';
-  }
-  return sub.ivaRate > 0 ? 'text-red-600' : 'text-green-600';
+  // Fallback for items without display config
+  return sub.ivaRate > 0 ? `IVA ${sub.ivaRate}%` : 'Exento';
+};
+
+/**
+ * Checks if sub-item uses dual-input mode (e.g., fuel with price per liter).
+ */
+const isDualInput = (sub: SubItem): boolean => {
+  return sub.display?.inputType === 'dual-input';
 };
 
 // Event handlers that delegate to parent
@@ -142,53 +147,26 @@ const handleBlur = (event: FocusEvent) => {
           :key="sub.id"
           class="flex flex-col gap-1.5 p-3 bg-stone-50 dark:bg-slate-900/50 rounded-lg border border-stone-100 dark:border-slate-700/50"
         >
-          <!-- Sub-item header with tax info -->
+          <!-- Sub-item header with tax info (DATA-DRIVEN) -->
           <div class="flex justify-between items-start text-xs font-bold text-stone-500 uppercase mb-1">
             <label class="pt-1">{{ sub.name }}</label>
             <span class="text-[10px] text-right">
-              <!-- Fuel: special display -->
-              <template v-if="sub.id === 'fuel'">
-                <span class="text-red-600">IEH (€0,4007/L) + IVA 21%</span>
+              <!-- Tax label from display config -->
+              <span :class="getLabelColorClass(sub)">
+                {{ getTaxLabel(sub) }}
+              </span>
+              <!-- Optional tax note -->
+              <template v-if="sub.display?.taxNote">
                 <br />
                 <span class="normal-case font-normal italic text-stone-400">
-                  se calcula al precio medio de la gasolina
-                </span>
-              </template>
-              <!-- Car insurance -->
-              <template v-else-if="sub.id === 'insurance_car'">
-                <span class="text-red-600">
-                  IPS {{ ((sub.specialTaxRate ?? 0) * 100).toFixed(0) }}% + recargos
-                </span>
-              </template>
-              <!-- Electricity -->
-              <template v-else-if="sub.id === 'electricity'">
-                <span class="text-red-600">IVA 21% + IEE</span>
-              </template>
-              <!-- Gas -->
-              <template v-else-if="sub.id === 'gas'">
-                <span class="text-red-600">IVA 21% + Imp. Hidrocarburos (0,00234 €/kWh)</span>
-              </template>
-              <!-- Items with notes (e.g., "Exento", "Deducible") -->
-              <template v-else-if="sub.note">
-                <span :class="isTaxFreeNote(sub.note) ? 'text-green-600' : 'text-stone-400'">
-                  {{ sub.note }}
-                </span>
-              </template>
-              <!-- Insurance premium tax -->
-              <template v-else-if="sub.specialTaxRate && sub.ivaRate === 0">
-                <span class="text-red-600">IPS {{ (sub.specialTaxRate * 100).toFixed(0) }}%</span>
-              </template>
-              <!-- Standard IVA -->
-              <template v-else>
-                <span :class="sub.ivaRate > 0 ? 'text-red-600' : 'text-green-600'">
-                  {{ sub.ivaRate > 0 ? `IVA ${sub.ivaRate}%` : 'Exento' }}
+                  {{ sub.display.taxNote }}
                 </span>
               </template>
             </span>
           </div>
 
-          <!-- Fuel: two inputs (amount + price per liter) -->
-          <div v-if="sub.id === 'fuel'" class="grid grid-cols-2 gap-4 mt-1">
+          <!-- Dual-input mode (e.g., fuel with amount + price per liter) -->
+          <div v-if="isDualInput(sub)" class="grid grid-cols-2 gap-4 mt-1">
             <div class="flex flex-col gap-1">
               <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
                 Importe Total
@@ -203,7 +181,7 @@ const handleBlur = (event: FocusEvent) => {
             </div>
             <div class="flex flex-col gap-1">
               <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
-                Precio medio €/L
+                {{ sub.display?.secondInputLabel ?? 'Precio unitario' }}
               </label>
               <input
                 type="number"
@@ -218,7 +196,7 @@ const handleBlur = (event: FocusEvent) => {
             </div>
           </div>
 
-          <!-- Standard sub-item: single amount input -->
+          <!-- Standard sub-item: single currency input -->
           <CurrencyInput
             v-else
             :model-value="sub.amount"

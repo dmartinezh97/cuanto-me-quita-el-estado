@@ -18,9 +18,10 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "allowJs": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
       ]
     },
     "allowImportingTsExtensions": true,

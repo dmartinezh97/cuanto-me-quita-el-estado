@@ -1,6 +1,80 @@
+/**
+ * Type definitions for the fiscal calculator.
+ *
+ * This file contains all TypeScript interfaces and types used across the app.
+ */
+
+// =============================================================================
+// User Profile Types
+// =============================================================================
+
 export type MaritalStatus = 'single' | 'married_working' | 'married_not_working';
 export type DisabilityLevel = 'none' | '33' | '65' | 'reduced_mobility';
 
+// =============================================================================
+// Display Configuration Types (Data-Driven UI)
+// =============================================================================
+
+/**
+ * Types of tax display for sub-items.
+ *
+ * Used to determine both the visual label and calculation logic.
+ * - 'standard': Regular IVA (4%, 10%, 21%)
+ * - 'exempt': No tax (education, health, etc.)
+ * - 'fuel': IEH per liter + IVA
+ * - 'electricity': IEE + IVA
+ * - 'gas': Hydrocarbon tax + IVA
+ * - 'insurance': IPS (no IVA)
+ * - 'alcohol': Alcohol excise + IVA
+ * - 'tobacco': Tobacco tax + IVA
+ */
+export type TaxDisplayType =
+  | 'standard'
+  | 'exempt'
+  | 'fuel'
+  | 'electricity'
+  | 'gas'
+  | 'insurance'
+  | 'alcohol'
+  | 'tobacco';
+
+/**
+ * Input type for expense sub-items.
+ * - 'currency': Single currency input with € prefix
+ * - 'dual-input': Two inputs (e.g., fuel amount + price per liter)
+ */
+export type InputType = 'currency' | 'dual-input';
+
+/**
+ * Configuration for how a sub-item is displayed in the UI.
+ *
+ * This replaces hardcoded v-if="sub.id === '...'" checks in templates.
+ * All display logic is now data-driven from initialData.ts.
+ */
+export interface SubItemDisplayConfig {
+  /** Type of tax for this item (determines calculation + default label) */
+  taxDisplayType: TaxDisplayType;
+  /** Custom tax label (overrides default based on taxDisplayType) */
+  taxLabel?: string;
+  /** Additional note shown below the tax label (e.g., "se calcula al precio medio") */
+  taxNote?: string;
+  /** Label color: 'red' for taxed items, 'green' for exempt */
+  labelColor: 'red' | 'green';
+  /** Type of input control */
+  inputType: InputType;
+  /** For dual-input: label for the second input field */
+  secondInputLabel?: string;
+}
+
+// =============================================================================
+// Expense Types
+// =============================================================================
+
+/**
+ * A sub-item within an expense category.
+ *
+ * Examples: "Gasolina", "Electricidad", "Seguro de coche"
+ */
 export interface SubItem {
   id: string;
   name: string;
@@ -11,8 +85,15 @@ export interface SubItem {
   isElectricityTax?: boolean; // for Electricity (IEE)
   pricePerUnit?: number; // for Fuel volume estimation
   note?: string; // Optional display note (e.g., "Casero paga IRPF")
+  /** Display configuration for this sub-item */
+  display: SubItemDisplayConfig;
 }
 
+/**
+ * An expense category containing multiple sub-items.
+ *
+ * Examples: "Transporte", "Hogar", "Alimentación"
+ */
 export interface CategoryExpense {
   id: string;
   name: string;
@@ -26,6 +107,47 @@ export interface CategoryExpense {
   subItems?: SubItem[];
 }
 
+// =============================================================================
+// IRPF Types (Autonomous Communities)
+// =============================================================================
+
+/**
+ * A single IRPF tax bracket.
+ *
+ * Tax is applied progressively: each bracket's rate applies only to
+ * the portion of income within that bracket's range.
+ */
+export interface IRPFBracket {
+  /** Upper limit of this bracket (use Infinity for the last bracket) */
+  limit: number;
+  /** Tax rate as decimal (e.g., 0.095 for 9.5%) */
+  rate: number;
+}
+
+/**
+ * An autonomous community with its IRPF brackets.
+ *
+ * Spain's IRPF is split ~50% state + ~50% autonomous community.
+ * Each community can set its own brackets for its portion.
+ */
+export interface AutonomousCommunity {
+  /** Unique identifier (e.g., 'madrid', 'cataluna') */
+  id: string;
+  /** Display name (e.g., 'Comunidad de Madrid') */
+  name: string;
+  /** Autonomous IRPF brackets for 2025 */
+  brackets: IRPFBracket[];
+}
+
+// =============================================================================
+// Application State
+// =============================================================================
+
+/**
+ * Main application state.
+ *
+ * Contains all user inputs and calculated values.
+ */
 export interface AppState {
   grossSalary: number;
   numPayments: 12 | 14;

@@ -13,6 +13,7 @@ import { reactive, ref } from 'vue';
 import { INITIAL_STATE } from '@/constants/initialData';
 import type { AppState, SubItem } from '@/types';
 import { formatCurrency, SOCIAL_SECURITY_EMPLOYEE_RATE, SOCIAL_SECURITY_EMPLOYER_RATE } from '@/utils/calculations';
+import { ALL_COMMUNITIES } from '@/constants/autonomousCommunities';
 
 // Composables
 import { useTooltip } from '@/composables/useTooltip';
@@ -198,6 +199,38 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
   { key: 'iva10', label: 'Reducido (10%)', color: 'amber' },
   { key: 'iva21', label: 'General (21%)', color: 'primary' },
 ];
+
+// =============================================================================
+// Data-Driven Display Helpers
+// =============================================================================
+
+/**
+ * Gets the label color class based on display configuration.
+ * Uses sub.display.labelColor or falls back to IVA-based coloring.
+ */
+const getLabelColorClass = (sub: SubItem): string => {
+  const color = sub.display?.labelColor ?? (sub.ivaRate > 0 ? 'red' : 'green');
+  return color === 'red' ? 'text-red-600' : 'text-green-600';
+};
+
+/**
+ * Gets the tax label for display.
+ * Uses sub.display.taxLabel or falls back to standard IVA display.
+ */
+const getTaxLabel = (sub: SubItem): string => {
+  if (sub.display?.taxLabel) {
+    return sub.display.taxLabel;
+  }
+  // Fallback for items without display config
+  return sub.ivaRate > 0 ? `IVA ${sub.ivaRate}%` : 'Exento';
+};
+
+/**
+ * Checks if sub-item uses dual-input mode (e.g., fuel with price per liter).
+ */
+const isDualInput = (sub: SubItem): boolean => {
+  return sub.display?.inputType === 'dual-input';
+};
 </script>
 
 <template>
@@ -299,6 +332,22 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
                   />
                 </div>
               </div>
+              <div>
+                <label class="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Comunidad Autónoma</label>
+                <div class="relative">
+                  <select
+                    class="w-full pl-4 pr-10 py-2.5 bg-stone-50 dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm text-stone-900 dark:text-white appearance-none"
+                    v-model="state.region"
+                  >
+                    <option v-for="cc in ALL_COMMUNITIES" :key="cc.id" :value="cc.id">
+                      {{ cc.name }}
+                    </option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-stone-500">
+                    <span class="material-symbols-outlined text-lg">expand_more</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </details>
         </div>
@@ -337,38 +386,26 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
                   :key="sub.id"
                   class="flex flex-col gap-1.5 p-3 bg-stone-50 dark:bg-slate-900/50 rounded-lg border border-stone-100 dark:border-slate-700/50"
                 >
+                  <!-- Sub-item header with tax info (DATA-DRIVEN) -->
                   <div class="flex justify-between items-start text-xs font-bold text-stone-500 uppercase mb-1">
                     <label class="pt-1">{{ sub.name }}</label>
                     <span class="text-[10px] text-right">
-                      <template v-if="sub.id === 'fuel'">
-                        <span class="text-red-600">IEH (€0,4007/L) + IVA 21%</span> <br />
-                        <span class="normal-case font-normal italic text-stone-400">se calcula al precio medio de la gasolina</span>
-                      </template>
-                      <template v-else-if="sub.id === 'insurance_car'">
-                        <span class="text-red-600">IPS {{ ((sub.specialTaxRate ?? 0) * 100).toFixed(0) }}% + recargos</span>
-                      </template>
-                      <template v-else-if="sub.id === 'electricity'">
-                        <span class="text-red-600">IVA 21% + IEE</span>
-                      </template>
-                      <template v-else-if="sub.id === 'gas'">
-                        <span class="text-red-600">IVA 21% + Imp. Hidrocarburos (0,00234 €/kWh)</span>
-                      </template>
-                      <template v-else-if="sub.note">
-                        <span 
-                          :class="sub.note.toLowerCase().includes('deducible') || sub.note.toLowerCase().includes('sin iva') ? 'text-green-600' : 'text-stone-400'"
-                          :style="sub.note.toLowerCase().includes('deducible') || sub.note.toLowerCase().includes('sin iva') ? 'color: rgb(22, 163, 74) !important;' : ''"
-                        >{{ sub.note }}</span>
-                      </template>
-                      <template v-else-if="sub.specialTaxRate && sub.ivaRate === 0">
-                        <span class="text-red-600">IPS {{ (sub.specialTaxRate * 100).toFixed(0) }}%</span>
-                      </template>
-                      <template v-else>
-                        <span :class="sub.ivaRate > 0 ? 'text-red-600' : 'text-green-600'">{{ sub.ivaRate > 0 ? `IVA ${sub.ivaRate}%` : 'Exento' }}</span>
+                      <!-- Tax label from display config -->
+                      <span :class="getLabelColorClass(sub)">
+                        {{ getTaxLabel(sub) }}
+                      </span>
+                      <!-- Optional tax note -->
+                      <template v-if="sub.display?.taxNote">
+                        <br />
+                        <span class="normal-case font-normal italic text-stone-400">
+                          {{ sub.display.taxNote }}
+                        </span>
                       </template>
                     </span>
                   </div>
 
-                  <div v-if="sub.id === 'fuel'" class="grid grid-cols-2 gap-4 mt-1">
+                  <!-- Dual-input mode (e.g., fuel with amount + price per liter) -->
+                  <div v-if="isDualInput(sub)" class="grid grid-cols-2 gap-4 mt-1">
                     <div class="flex flex-col gap-1">
                       <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Importe Total</label>
                       <div class="relative">
@@ -385,21 +422,22 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
                       </div>
                     </div>
                     <div class="flex flex-col gap-1">
-                      <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Precio medio €/L</label>
-                      <div class="relative">
-                    <input
-                      class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-sm text-stone-900 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      :value="sub.pricePerUnit ?? ''"
-                      @input="handleSubPriceInput(cat.id, sub.id, $event)"
-                      @focus="showSalaryTooltip"
-                      @blur="hideSalaryTooltip"
-                    />
-                      </div>
+                      <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+                        {{ sub.display?.secondInputLabel ?? 'Precio unitario' }}
+                      </label>
+                      <input
+                        class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-mono text-sm text-stone-900 dark:text-white"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        :value="sub.pricePerUnit ?? ''"
+                        @input="handleSubPriceInput(cat.id, sub.id, $event)"
+                        @focus="showSalaryTooltip"
+                        @blur="hideSalaryTooltip"
+                      />
                     </div>
                   </div>
+                  <!-- Standard sub-item: single currency input -->
                   <div v-else class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 font-mono">€</span>
                     <input

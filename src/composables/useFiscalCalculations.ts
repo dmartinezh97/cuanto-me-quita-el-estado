@@ -184,10 +184,13 @@ export function useFiscalCalculations(
   // ==========================================================================
 
   /**
-   * Effective IRPF rate based on income and personal circumstances.
+   * Effective IRPF rate based on income, personal circumstances, and autonomous community.
    * Returns a decimal (e.g., 0.15 for 15%).
+   *
+   * Uses state.region to determine autonomous community tax brackets.
+   * The region should be a community ID (e.g., 'madrid', 'cataluna').
    */
-  const irpfRate = computed(() => calculateIRPF(annualGross.value, state));
+  const irpfRate = computed(() => calculateIRPF(annualGross.value, state, state.region));
 
   /**
    * Annual IRPF amount (income tax).
