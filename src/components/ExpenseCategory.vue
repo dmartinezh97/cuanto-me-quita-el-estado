@@ -60,11 +60,19 @@ const iconContainerClass = `w-10 h-10 rounded-lg bg-${props.category.color}-100 
 
 /**
  * Gets the label color class based on display configuration.
- * Now uses sub.display.labelColor instead of hardcoded ID checks.
+ * Only shows red for double taxation (special tax + IVA).
+ * Standard IVA and exempt items use default text color.
  */
 const getLabelColorClass = (sub: SubItem): string => {
-  const color = sub.display?.labelColor ?? (sub.ivaRate > 0 ? 'red' : 'green');
-  return color === 'red' ? 'text-red-600' : 'text-green-600';
+  const taxType = sub.display?.taxDisplayType ?? 'standard';
+  // Double taxation types: fuel, electricity, gas, alcohol, tobacco, insurance
+  const hasDoubleTaxation = ['fuel', 'electricity', 'gas', 'alcohol', 'tobacco', 'insurance'].includes(taxType);
+
+  if (hasDoubleTaxation) {
+    return 'text-red-600 font-semibold';
+  }
+  // Standard IVA or exempt - use default text color
+  return 'text-stone-500';
 };
 
 /**

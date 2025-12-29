@@ -61,6 +61,13 @@ export const IEH_PER_LITER = 0.4007;
 export const GAS_TAX_RATE = 0.025;
 
 /**
+ * IEH per kWh for natural gas.
+ * Impuesto Especial de Hidrocarburos - specific amount per kilowatt-hour.
+ * Used for display purposes in gas natural item label.
+ */
+export const GAS_IEH_PER_KWH = 0.00234;
+
+/**
  * IEE - Impuesto Especial sobre la Electricidad (Electricity Tax)
  *
  * Rate applied to electricity consumption: 5.11%

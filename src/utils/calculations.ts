@@ -15,6 +15,8 @@ import {
   IVA_FACTOR_10,
   IVA_FACTOR_4,
   GAS_TAX_RATE,
+  ELECTRICITY_TAX_RATE,
+  INSURANCE_PREMIUM_TAX_RATE,
   ALCOHOL_TAX_RATE,
   TOBACCO_TAX_RATE,
   IRPF_PERSONAL_MINIMUM,
@@ -217,7 +219,7 @@ export const calculateIVABreakdown = (state: AppState) => {
 
           case 'electricity': {
             // Electricity: IEE is applied to base before IVA
-            const specialRate = sub.specialTaxRate ?? 0.0511;
+            const specialRate = sub.specialTaxRate ?? ELECTRICITY_TAX_RATE;
             const factor = (1 + specialRate) * IVA_FACTOR_21;
             const base = totalPVP / factor;
             special = base * specialRate;
@@ -257,7 +259,7 @@ export const calculateIVABreakdown = (state: AppState) => {
 
           case 'insurance': {
             // Insurance Premium Tax (IPS) - no IVA
-            const specialRate = sub.specialTaxRate ?? 0.06;
+            const specialRate = sub.specialTaxRate ?? INSURANCE_PREMIUM_TAX_RATE;
             const base = totalPVP / (1 + specialRate);
             special = totalPVP - base;
             iva = 0;

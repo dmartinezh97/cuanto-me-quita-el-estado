@@ -21,7 +21,12 @@
  */
 
 import type { CategoryExpense, AppState, SubItem } from '@/types';
-import { IEH_PER_LITER } from '@/constants/taxes';
+import {
+  IEH_PER_LITER,
+  GAS_IEH_PER_KWH,
+  ELECTRICITY_TAX_RATE,
+  INSURANCE_PREMIUM_TAX_RATE,
+} from '@/constants/taxes';
 
 /**
  * Helper to create a standard IVA display config.
@@ -125,10 +130,10 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         name: 'Seguro de coche',
         amount: 50,
         ivaRate: 0,
-        specialTaxRate: 0.06,
+        specialTaxRate: INSURANCE_PREMIUM_TAX_RATE,
         display: {
           taxDisplayType: 'insurance',
-          taxLabel: 'IPS 6% + recargos',
+          taxLabel: `IPS ${Math.round(INSURANCE_PREMIUM_TAX_RATE * 100)}% + recargos`,
           labelColor: 'red',
           inputType: 'currency',
         },
@@ -172,10 +177,10 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         amount: 60,
         ivaRate: 21,
         isElectricityTax: true,
-        specialTaxRate: 0.0511,
+        specialTaxRate: ELECTRICITY_TAX_RATE,
         display: {
           taxDisplayType: 'electricity',
-          taxLabel: 'IVA 21% + IEE',
+          taxLabel: `IEE (${(ELECTRICITY_TAX_RATE * 100).toFixed(2)}%) + IVA 21%`,
           labelColor: 'red',
           inputType: 'currency',
         },
@@ -189,7 +194,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         note: '+ Imp. Hidrocarburos',
         display: {
           taxDisplayType: 'gas',
-          taxLabel: 'IVA 21% + Imp. Hidrocarburos (0,00234 €/kWh)',
+          taxLabel: `Imp. Hidrocarburos (€${GAS_IEH_PER_KWH}/kWh) + IVA 21%`,
           labelColor: 'red',
           inputType: 'currency',
         },
@@ -221,9 +226,9 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         name: 'Seguro de hogar',
         amount: 20,
         ivaRate: 0,
-        specialTaxRate: 0.06,
-        note: 'IPS (~6%)',
-        display: insuranceDisplay(0.06),
+        specialTaxRate: INSURANCE_PREMIUM_TAX_RATE,
+        note: `IPS (~${Math.round(INSURANCE_PREMIUM_TAX_RATE * 100)}%)`,
+        display: insuranceDisplay(INSURANCE_PREMIUM_TAX_RATE),
       },
       {
         id: 'cleaning',
@@ -283,10 +288,10 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         amount: 40,
         ivaRate: 21,
         isExciseDuty: true,
-        note: 'IVA 21% + Imp. Alcohol',
+        note: 'Imp. Alcohol + IVA 21%',
         display: {
           taxDisplayType: 'alcohol',
-          taxLabel: 'IVA 21% + Imp. Alcohol',
+          taxLabel: 'Imp. Alcohol + IVA 21%',
           labelColor: 'red',
           inputType: 'currency',
         },
@@ -560,9 +565,9 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         name: 'Seguro médico privado',
         amount: 50,
         ivaRate: 0,
-        specialTaxRate: 0.06,
-        note: 'IPS (~6%)',
-        display: insuranceDisplay(0.06),
+        specialTaxRate: INSURANCE_PREMIUM_TAX_RATE,
+        note: `IPS (~${Math.round(INSURANCE_PREMIUM_TAX_RATE * 100)}%)`,
+        display: insuranceDisplay(INSURANCE_PREMIUM_TAX_RATE),
       },
       {
         id: 'dentist',
