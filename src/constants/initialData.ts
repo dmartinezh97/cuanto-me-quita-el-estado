@@ -671,7 +671,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       },
       {
         id: 'donations',
-        name: 'Donaciones a ONG',
+        name: 'Donaciones (ONG, afiliaciones, otras)',
         amount: 0,
         ivaRate: 0,
         note: 'Sin IVA (deducible IRPF)',

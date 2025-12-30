@@ -522,8 +522,8 @@ const isDualInput = (sub: SubItem): boolean => {
               <div class="w-12 h-12 mb-2 bg-stone-900 text-white rounded-full flex items-center justify-center">
                 <span class="material-symbols-outlined text-3xl">account_balance</span>
               </div>
-              <h1 class="text-stone-900 text-2xl font-black tracking-tight uppercase text-center leading-none">Ticket de Contribución</h1>
-              <p class="text-stone-500 text-[10px] font-medium tracking-[0.2em] uppercase mt-2">Versión Fiscal 2024</p>
+              <h1 class="text-stone-900 text-2xl font-black tracking-tight uppercase text-center leading-none">Factura del Estado</h1>
+              <p class="text-stone-500 text-[10px] font-medium tracking-[0.2em] uppercase mt-2">Hacienda somos todos (S.A.)</p>
               <div class="mt-4 w-full">
                 <div class="flex h-10 w-full items-center justify-center rounded-lg bg-stone-200/50 p-1">
                   <button
