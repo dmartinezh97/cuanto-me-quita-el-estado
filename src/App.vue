@@ -9,7 +9,7 @@
  * - Input validation (handleBoundedInput)
  */
 
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch, nextTick } from 'vue';
 import { INITIAL_STATE } from '@/constants/initialData';
 import type { AppState, SubItem } from '@/types';
 import { formatCurrency, SOCIAL_SECURITY_EMPLOYEE_RATE, SOCIAL_SECURITY_EMPLOYER_RATE } from '@/utils/calculations';
@@ -55,13 +55,25 @@ const salaryTooltip = useTooltip({ anchor: 'right' });
 // Info tooltip - appears below info icons, with section tracking
 const infoTooltipBase = useTooltip({ anchor: 'bottom' });
 const infoTooltipSection = ref<'costeEmpresa' | 'ssEmpresa' | 'salarioBruto' | 'irpf' | 'ssTrabajador' | 'impuestosIndirectos' | ''>('');
+const infoTooltipRef = ref<HTMLElement | null>(null);
 
 // Wrapper for info tooltip to track which section is shown
 const infoTooltip = {
   get visible() { return infoTooltipBase.state.visible; },
   get section() { return infoTooltipSection.value; },
   get position() { return infoTooltipBase.state.position; },
+  get placement() { return infoTooltipBase.state.placement; },
+  get maxHeight() { return infoTooltipBase.state.maxHeight; },
 };
+
+// Register tooltip ref after render for accurate positioning
+watch(() => infoTooltip.visible, async (visible) => {
+  if (visible) {
+    await nextTick();
+    infoTooltipBase.setTooltipRef(infoTooltipRef.value);
+    infoTooltipBase.updatePosition();
+  }
+});
 
 const showSalaryTooltip = (event: FocusEvent) => {
   salaryTooltip.show(event);
@@ -846,6 +858,7 @@ const isDualInput = (sub: SubItem): boolean => {
         }"
       >
         <div
+          ref="infoTooltipRef"
           @click.stop
           :style="{
             position: 'fixed',
@@ -855,26 +868,47 @@ const isDualInput = (sub: SubItem): boolean => {
             zIndex: 9999,
             maxWidth: '380px',
             width: '90vw',
+            maxHeight: infoTooltip.maxHeight ? `${infoTooltip.maxHeight}px` : undefined,
+            display: 'flex',
+            flexDirection: 'column',
           }"
         >
-          <div style="position: relative;">
-            <!-- Flecha apuntando arriba -->
-            <div :style="{
-              position: 'absolute',
-              left: '50%',
-              top: '0',
-              transform: 'translate(-50%, -8px)',
-              width: 0,
-              height: 0,
-              borderLeft: '8px solid transparent',
-              borderRight: '8px solid transparent',
-              borderBottom: '8px solid #f5f5f4',
-            }"></div>
+          <div style="position: relative; display: flex; flex-direction: column; min-height: 0;">
+            <!-- Flecha apuntando arriba (tooltip debajo del botón) -->
+            <div
+              v-if="infoTooltip.placement === 'below'"
+              :style="{
+                position: 'absolute',
+                left: '50%',
+                top: '0',
+                transform: 'translate(-50%, -8px)',
+                width: 0,
+                height: 0,
+                borderLeft: '8px solid transparent',
+                borderRight: '8px solid transparent',
+                borderBottom: '8px solid #f5f5f4',
+              }"
+            ></div>
+            <!-- Flecha apuntando abajo (tooltip encima del botón) -->
+            <div
+              v-else
+              :style="{
+                position: 'absolute',
+                left: '50%',
+                bottom: '0',
+                transform: 'translate(-50%, 8px)',
+                width: 0,
+                height: 0,
+                borderLeft: '8px solid transparent',
+                borderRight: '8px solid transparent',
+                borderTop: '8px solid #f5f5f4',
+              }"
+            ></div>
 
             <!-- Contenido del tooltip -->
-            <div class="bg-ticket-bg rounded-lg shadow-2xl border border-stone-300 overflow-hidden">
+            <div class="bg-ticket-bg rounded-lg shadow-2xl border border-stone-300 overflow-hidden flex flex-col min-h-0">
               <!-- Header con botón cerrar -->
-              <div class="flex items-center justify-between p-3 bg-stone-100 border-b border-stone-300">
+              <div class="flex items-center justify-between p-3 bg-stone-100 border-b border-stone-300 flex-shrink-0">
                 <h4 class="text-xs font-bold text-stone-800 uppercase tracking-wide">
                   {{ infoTooltip.section === 'costeEmpresa' ? 'Coste Total Empresa' : '' }}
                   {{ infoTooltip.section === 'ssEmpresa' ? 'Seguridad Social Empresa' : '' }}
@@ -891,7 +925,7 @@ const isDualInput = (sub: SubItem): boolean => {
               </div>
 
               <!-- Contenido según sección -->
-              <div class="p-4 space-y-3 max-h-[70vh] overflow-y-auto">
+              <div class="p-4 space-y-3 overflow-y-auto flex-1 min-h-0" :style="{ maxHeight: infoTooltip.maxHeight ? `${infoTooltip.maxHeight - 60}px` : '70vh' }">
                 
                 <!-- COSTE EMPRESA -->
                 <template v-if="infoTooltip.section === 'costeEmpresa'">
