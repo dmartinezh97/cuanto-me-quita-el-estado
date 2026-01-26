@@ -92,7 +92,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'fuel',
         name: 'Gasolina/Gasóleo (vehículo propio)',
-        amount: 150,
+        amount: 0,
         ivaRate: 21,
         isExciseDuty: true,
         pricePerUnit: 1.60,
@@ -122,21 +122,21 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'parking',
         name: 'Parking y peajes',
-        amount: 75,
+        amount: 0,
         ivaRate: 21,
         display: standardDisplay(21),
       },
       {
         id: 'maintenance',
         name: 'Mantenimiento vehículo (taller, ITV)',
-        amount: 3.38,
+        amount: 0,
         ivaRate: 21,
         display: standardDisplay(21),
       },
       {
         id: 'insurance_car',
         name: 'Seguro de coche',
-        amount: 50,
+        amount: 0,
         ivaRate: 0,
         specialTaxRate: INSURANCE_PREMIUM_TAX_RATE,
         display: {
@@ -157,7 +157,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
     name: 'Hogar y Suministros',
     icon: 'home',
     color: 'orange',
-    total: 800,
+    total: 0,
     iva4: 0,
     iva10: 0,
     iva21: 0,
@@ -166,7 +166,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'rent',
         name: 'Alquiler vivienda',
-        amount: 600,
+        amount: 0,
         ivaRate: 0,
         note: 'Exento (casero paga IRPF)',
         display: exemptDisplay('Exento (casero paga IRPF)'),
@@ -182,7 +182,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'electricity',
         name: 'Electricidad',
-        amount: 60,
+        amount: 0,
         ivaRate: 21,
         isElectricityTax: true,
         specialTaxRate: ELECTRICITY_TAX_RATE,
@@ -196,7 +196,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'gas',
         name: 'Gas natural',
-        amount: 40,
+        amount: 0,
         ivaRate: 21,
         isExciseDuty: true,
         note: '+ Imp. Hidrocarburos',
@@ -210,14 +210,14 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'water',
         name: 'Agua',
-        amount: 20,
+        amount: 0,
         ivaRate: 10,
         display: standardDisplay(10),
       },
       {
         id: 'internet',
         name: 'Internet y teléfono',
-        amount: 40,
+        amount: 0,
         ivaRate: 21,
         display: standardDisplay(21),
       },
@@ -232,7 +232,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'insurance_home',
         name: 'Seguro de hogar',
-        amount: 20,
+        amount: 0,
         ivaRate: 0,
         specialTaxRate: INSURANCE_PREMIUM_TAX_RATE,
         note: `IPS (~${Math.round(INSURANCE_PREMIUM_TAX_RATE * 100)}%)`,
@@ -241,7 +241,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'cleaning',
         name: 'Productos de limpieza',
-        amount: 20,
+        amount: 0,
         ivaRate: 21,
         display: standardDisplay(21),
       },
@@ -256,7 +256,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
     name: 'Alimentación y Supermercado',
     icon: 'shopping_cart',
     color: 'yellow',
-    total: 350,
+    total: 0,
     iva4: 0,
     iva10: 0,
     iva21: 0,
@@ -265,7 +265,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'food_4',
         name: 'Básicos (Pan, leche, fruta, aceite...)',
-        amount: 150,
+        amount: 0,
         ivaRate: 4,
         note: 'IVA Superreducido',
         display: {
@@ -279,7 +279,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'food_10',
         name: 'Carne, Pescado y Procesados',
-        amount: 120,
+        amount: 0,
         ivaRate: 10,
         note: 'IVA Reducido',
         display: {
@@ -293,7 +293,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'food_21',
         name: 'Refrescos y Alcohol',
-        amount: 40,
+        amount: 0,
         ivaRate: 21,
         isExciseDuty: true,
         note: 'Imp. Alcohol + IVA 21%',
@@ -307,7 +307,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'tobacco',
         name: 'Tabaco',
-        amount: 40,
+        amount: 0,
         ivaRate: 21,
         isExciseDuty: true,
         note: 'Imp. Labores del Tabaco + IVA 21%',
@@ -330,7 +330,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
     name: 'Ocio y Restauración',
     icon: 'restaurant',
     color: 'pink',
-    total: 100,
+    total: 0,
     iva4: 0,
     iva10: 0,
     iva21: 0,
@@ -339,7 +339,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'restaurantes',
         name: 'Restaurantes y bares',
-        amount: 60,
+        amount: 0,
         ivaRate: 10,
         display: standardDisplay(10),
       },
@@ -374,7 +374,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'gimnasio',
         name: 'Gimnasio / Deportes',
-        amount: 40,
+        amount: 0,
         ivaRate: 21,
         note: 'IVA 21% (General)',
         display: standardDisplay(21),
@@ -562,7 +562,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
     name: 'Salud y Educación',
     icon: 'health_and_safety',
     color: 'emerald',
-    total: 50,
+    total: 0,
     iva4: 0,
     iva10: 0,
     iva21: 0,
@@ -571,7 +571,7 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
       {
         id: 'health_ins',
         name: 'Seguro médico privado',
-        amount: 50,
+        amount: 0,
         ivaRate: 0,
         specialTaxRate: INSURANCE_PREMIUM_TAX_RATE,
         note: `IPS (~${Math.round(INSURANCE_PREMIUM_TAX_RATE * 100)}%)`,
