@@ -12,8 +12,12 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/vue": "^5.0.4",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/newsreader": "^5.2.10",
+    "@resvg/resvg-js": "^2.6.2",
     "astro": "^5.2.5",
     "lucide-vue-next": "^0.563.0",
+    "satori": "^0.19.1",
     "vue": "^3.5.13"
   },
   "devDependencies": {
