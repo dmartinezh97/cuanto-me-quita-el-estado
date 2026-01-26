@@ -10,7 +10,7 @@
 import { reactive, ref, computed, watch, nextTick } from 'vue';
 import { Calculator } from 'lucide-vue-next';
 import { INITIAL_STATE } from '@fiscal/data/initial-state';
-import type { AppState, SubItem } from '@/types';
+import type { AppState, SubItem, CategoryExpense } from '@/types';
 import { formatCurrency, SOCIAL_SECURITY_EMPLOYEE_RATE, SOCIAL_SECURITY_EMPLOYER_RATE } from '@fiscal/calculations';
 import { ALL_COMMUNITIES } from '@fiscal/constants';
 
@@ -25,6 +25,7 @@ import PersonalDataForm from './PersonalDataForm.vue';
 import ExpenseCategories from './ExpenseCategories.vue';
 import InitialStateView from './InitialStateView.vue';
 import ResultsPanel from '../results/ResultsPanel.vue';
+import CategoryEditDialog from '../dialog/CategoryEditDialog.vue';
 
 // =============================================================================
 // State
@@ -32,6 +33,12 @@ import ResultsPanel from '../results/ResultsPanel.vue';
 
 /** Whether the user has calculated their fiscal data */
 const hasCalculated = ref(false);
+
+/** Category currently being edited in the dialog (null = dialog closed) */
+const editingCategory = ref<CategoryExpense | null>(null);
+
+/** Computed visibility for the edit dialog */
+const isEditDialogVisible = computed(() => editingCategory.value !== null);
 
 /**
  * Main application state.
@@ -191,6 +198,33 @@ const calculate = () => {
 };
 
 // =============================================================================
+// Category Edit Dialog Handlers
+// =============================================================================
+
+/** Open the category edit dialog */
+const openCategoryEdit = (category: CategoryExpense) => {
+  editingCategory.value = category;
+};
+
+/** Close the category edit dialog */
+const closeCategoryEdit = () => {
+  editingCategory.value = null;
+};
+
+/** Save changes from the category edit dialog */
+const saveCategoryEdit = (
+  categoryId: string,
+  subItems: Array<{ id: string; amount: number }>
+) => {
+  // Update each sub-item with its new amount
+  for (const item of subItems) {
+    updateSubItem(categoryId, item.id, { amount: item.amount });
+  }
+  // Close the dialog
+  editingCategory.value = null;
+};
+
+// =============================================================================
 // Data-Driven Display Helpers
 // =============================================================================
 
@@ -266,6 +300,7 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
           @handle-iva-slider="handleIVASlider"
           @show-salary-tooltip="showSalaryTooltip"
           @hide-salary-tooltip="hideSalaryTooltip"
+          @open-category-edit="openCategoryEdit"
         />
 
         <!-- Calculate Button -->
@@ -541,4 +576,13 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
       </div>
     </div>
   </Teleport>
+
+  <!-- Category Edit Dialog -->
+  <CategoryEditDialog
+    :visible="isEditDialogVisible"
+    :category="editingCategory"
+    :format-currency="formatCurrency"
+    @close="closeCategoryEdit"
+    @save="saveCategoryEdit"
+  />
 </template>

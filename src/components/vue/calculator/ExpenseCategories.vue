@@ -41,6 +41,7 @@ const emit = defineEmits<{
   (e: 'handle-iva-slider', catId: string, type: IVAKey, event: Event): void;
   (e: 'show-salary-tooltip', event: FocusEvent): void;
   (e: 'hide-salary-tooltip'): void;
+  (e: 'open-category-edit', category: CategoryExpense): void;
 }>();
 
 // Track which categories are expanded
@@ -55,6 +56,17 @@ const toggleCategory = (catId: string) => {
 };
 
 const isExpanded = (catId: string) => expandedCategories.value.has(catId);
+
+// Handle category click - open dialog if has subItems, otherwise toggle expand
+const handleCategoryClick = (cat: CategoryExpense) => {
+  if (cat.subItems && cat.subItems.length > 0) {
+    // Categories with sub-items open the edit dialog
+    emit('open-category-edit', cat);
+  } else {
+    // Categories with IVA sliders (no sub-items) expand inline
+    toggleCategory(cat.id);
+  }
+};
 
 // Map category IDs to Lucide icons
 const categoryIcons: Record<string, Component> = {
@@ -84,7 +96,7 @@ const getIcon = (catId: string): Component => {
       >
         <!-- Category Row (Collapsed) -->
         <button
-          @click="toggleCategory(cat.id)"
+          @click="handleCategoryClick(cat)"
           class="category-row w-full"
           :class="{ 'border-primary bg-primary-light': isExpanded(cat.id) }"
         >
