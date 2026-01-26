@@ -20,8 +20,11 @@ import {
   ALCOHOL_TAX_RATE,
   TOBACCO_TAX_RATE,
   IRPF_PERSONAL_MINIMUM,
+  IRPF_CHILD_DEDUCTIONS,
   IRPF_CHILD_DEDUCTION,
   IRPF_CHILD_UNDER_3_BONUS,
+  WORK_INCOME_GENERAL_EXPENSE,
+  WORK_INCOME_REDUCTION,
 } from '@/constants/taxes';
 import {
   STATE_IRPF_BRACKETS,
@@ -35,11 +38,60 @@ import {
 // =============================================================================
 
 /**
+ * Calculate the work income reduction (reducción por rendimientos del trabajo).
+ *
+ * This reduction applies to net work income (after SS deductions) and makes
+ * low salaries effectively tax-free. Only applies if other income ≤ €6,500.
+ *
+ * @param netWorkIncome - Net work income (gross - SS employee contributions)
+ * @param hasOtherIncome - Whether the person has other income > €6,500
+ * @returns The reduction amount to subtract from net income
+ */
+export const calculateWorkIncomeReduction = (
+  netWorkIncome: number,
+  hasOtherIncome: boolean = false
+): number => {
+  const {
+    MAX_NET_INCOME,
+    THRESHOLD_1,
+    THRESHOLD_2,
+    FULL_REDUCTION,
+    REDUCTION_AT_T2,
+    FACTOR_1,
+    FACTOR_2,
+  } = WORK_INCOME_REDUCTION;
+
+  // No reduction if other income exceeds limit or net income too high
+  if (hasOtherIncome || netWorkIncome > MAX_NET_INCOME) {
+    return 0;
+  }
+
+  // Full reduction for low incomes
+  if (netWorkIncome <= THRESHOLD_1) {
+    return FULL_REDUCTION;
+  }
+
+  // Gradual reduction between THRESHOLD_1 and THRESHOLD_2
+  if (netWorkIncome <= THRESHOLD_2) {
+    return FULL_REDUCTION - FACTOR_1 * (netWorkIncome - THRESHOLD_1);
+  }
+
+  // Gradual reduction between THRESHOLD_2 and MAX_NET_INCOME
+  return Math.max(0, REDUCTION_AT_T2 - FACTOR_2 * (netWorkIncome - THRESHOLD_2));
+};
+
+/**
  * Calculate IRPF rate for a given gross salary and autonomous community.
  *
  * Spain's IRPF works differently depending on the region:
  * - Régimen común (most regions): 50% state + 50% autonomous brackets
  * - Régimen foral (Navarra, País Vasco): Single unified scale
+ *
+ * The calculation follows the official AEAT process:
+ * 1. Net work income = Gross - SS employee contributions
+ * 2. Apply work income reduction (for low salaries)
+ * 3. Apply personal and family minimums
+ * 4. Calculate progressive tax on taxable base
  *
  * @param gross - Annual gross salary
  * @param state - Application state with family situation
@@ -53,16 +105,35 @@ export const calculateIRPF = (
 ): number => {
   if (gross <= 0) return 0;
 
-  // Calculate personal minimum (reduces taxable base)
+  // Step 1: Calculate net work income (rendimiento neto del trabajo)
+  // Deductible expenses: SS employee contributions + €2,000 general expense (art. 19.2.f LIRPF)
+  const ssContributions = gross * SOCIAL_SECURITY_EMPLOYEE_RATE;
+  const deductibleExpenses = ssContributions + WORK_INCOME_GENERAL_EXPENSE;
+  const netWorkIncome = Math.max(0, gross - deductibleExpenses);
+
+  // Step 2: Apply work income reduction (reducción por rendimientos del trabajo)
+  // This is what makes low salaries (like SMI) effectively tax-free
+  const workReduction = calculateWorkIncomeReduction(netWorkIncome);
+  const reducedNetIncome = Math.max(0, netWorkIncome - workReduction);
+
+  // Step 3: Calculate personal and family minimum (mínimo personal y familiar)
   let baseMinimum = IRPF_PERSONAL_MINIMUM;
+
+  // Mínimo por descendientes - escalonado según orden del hijo
   if (state.numChildren > 0) {
-    baseMinimum += state.numChildren * IRPF_CHILD_DEDUCTION;
+    for (let i = 0; i < state.numChildren; i++) {
+      const deductionIndex = Math.min(i, IRPF_CHILD_DEDUCTIONS.length - 1);
+      baseMinimum += IRPF_CHILD_DEDUCTIONS[deductionIndex];
+    }
   }
+
+  // Incremento por descendiente menor de 3 años
   if (state.numChildrenUnder3 > 0) {
     baseMinimum += state.numChildrenUnder3 * IRPF_CHILD_UNDER_3_BONUS;
   }
 
-  const taxableIncome = Math.max(0, gross - baseMinimum);
+  // Step 4: Calculate taxable income (base liquidable)
+  const taxableIncome = Math.max(0, reducedNetIncome - baseMinimum);
 
   // Get community brackets
   const community = getCommunityById(communityId);
