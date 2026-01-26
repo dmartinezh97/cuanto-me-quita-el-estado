@@ -122,26 +122,39 @@ export function calculateIRPF(
     baseMinimum += state.numChildrenUnder3 * IRPF_CHILD_UNDER_3_BONUS;
   }
 
-  // Step 4: Calculate taxable income (base liquidable)
-  const taxableIncome = Math.max(0, reducedNetIncome - baseMinimum);
+  // Step 4: Calculate tax using the correct AEAT method
+  // The minimum is NOT subtracted from the base. Instead:
+  // 1. Calculate tax on the taxable base (reducedNetIncome)
+  // 2. Calculate tax on the personal/family minimum (baseMinimum)
+  // 3. Subtract the two tax amounts
 
   // Get community brackets
   const community = getCommunityById(communityId);
   if (!community) {
     // Fallback to state brackets only if community not found
-    const tax = calculateProgressiveTax(taxableIncome, STATE_IRPF_BRACKETS);
-    return tax / gross;
+    const taxOnBase = calculateProgressiveTax(reducedNetIncome, STATE_IRPF_BRACKETS);
+    const taxOnMinimum = calculateProgressiveTax(baseMinimum, STATE_IRPF_BRACKETS);
+    return Math.max(0, taxOnBase - taxOnMinimum) / gross;
   }
 
   let totalTax: number;
 
   if (isForalCommunity(communityId)) {
     // Foral regime: Use only the community's unified scale
-    totalTax = calculateProgressiveTax(taxableIncome, community.brackets);
+    const taxOnBase = calculateProgressiveTax(reducedNetIncome, community.brackets);
+    const taxOnMinimum = calculateProgressiveTax(baseMinimum, community.brackets);
+    totalTax = Math.max(0, taxOnBase - taxOnMinimum);
   } else {
     // Common regime: State portion + Autonomous portion
-    const stateTax = calculateProgressiveTax(taxableIncome, STATE_IRPF_BRACKETS);
-    const autonomicTax = calculateProgressiveTax(taxableIncome, community.brackets);
+    // Apply the minimum deduction method to BOTH state and autonomous portions
+    const stateTaxOnBase = calculateProgressiveTax(reducedNetIncome, STATE_IRPF_BRACKETS);
+    const stateTaxOnMinimum = calculateProgressiveTax(baseMinimum, STATE_IRPF_BRACKETS);
+    const stateTax = Math.max(0, stateTaxOnBase - stateTaxOnMinimum);
+
+    const autonomicTaxOnBase = calculateProgressiveTax(reducedNetIncome, community.brackets);
+    const autonomicTaxOnMinimum = calculateProgressiveTax(baseMinimum, community.brackets);
+    const autonomicTax = Math.max(0, autonomicTaxOnBase - autonomicTaxOnMinimum);
+
     totalTax = stateTax + autonomicTax;
   }
 
