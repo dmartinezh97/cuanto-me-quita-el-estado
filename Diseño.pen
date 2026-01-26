@@ -11013,6 +11013,2337 @@
           ]
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "j0ijv",
+      "x": 0,
+      "y": 4630,
+      "name": "Calculadora Visual",
+      "width": 1440,
+      "fill": "#FAFAFA",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "N1hkd",
+          "name": "Header",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "stroke": {
+            "thickness": {
+              "bottom": 1
+            },
+            "fill": "#E5E5E5"
+          },
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            48,
+            80
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "fLIXw",
+              "name": "title",
+              "fill": "#1A1A1A",
+              "content": "Calculadora Fiscal",
+              "fontFamily": "Newsreader",
+              "fontSize": 36,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "Mndmi",
+              "name": "subtitle",
+              "fill": "#666666",
+              "content": "Descubre cuánto te quita realmente el Estado de cada euro que generas",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "nqyoJ",
+          "name": "Main Content",
+          "width": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "0ImL0",
+              "name": "Panel Inputs",
+              "width": 400,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": {
+                  "right": 1
+                },
+                "fill": "#E5E5E5"
+              },
+              "layout": "vertical",
+              "gap": 32,
+              "padding": 40,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Dsoms",
+                  "name": "Salary Section",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "nHmFd",
+                      "name": "salaryLabel",
+                      "fill": "#888888",
+                      "content": "SALARIO BRUTO ANUAL",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 11,
+                      "fontWeight": "600",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "frame",
+                      "id": "IW2yU",
+                      "name": "Input Salario",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "padding": [
+                        0,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "DYNWY",
+                          "name": "salaryValue",
+                          "fill": "#1A1A1A",
+                          "content": "35.000",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "T8e9c",
+                          "name": "salaryUnit",
+                          "fill": "#888888",
+                          "content": "€/año",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "aKVdL",
+                  "name": "Personal Section",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "09FUl",
+                      "name": "personalLabel",
+                      "fill": "#888888",
+                      "content": "SITUACIÓN PERSONAL",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 11,
+                      "fontWeight": "600",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lG4K3",
+                      "name": "personalRow1",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "xxyZU",
+                          "name": "ccaaInput",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "lIgnU",
+                              "name": "ccaaLabel",
+                              "fill": "#666666",
+                              "content": "Comunidad",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "g1K4M",
+                              "name": "ccaaField",
+                              "width": "fill_container",
+                              "height": 44,
+                              "fill": "#FFFFFF",
+                              "cornerRadius": 8,
+                              "stroke": {
+                                "thickness": 1,
+                                "fill": "#E5E5E5"
+                              },
+                              "padding": [
+                                0,
+                                12
+                              ],
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "VskIk",
+                                  "name": "ccaaValue",
+                                  "fill": "#1A1A1A",
+                                  "content": "Madrid",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "6vzi3",
+                                  "name": "ccaaChevron",
+                                  "width": 16,
+                                  "height": 16,
+                                  "iconFontName": "chevron-down",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#888888"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "uG4HH",
+                          "name": "pagasInput",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Oqi9x",
+                              "name": "pagasLabel",
+                              "fill": "#666666",
+                              "content": "Pagas",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "U1YFP",
+                              "name": "pagasField",
+                              "width": "fill_container",
+                              "height": 44,
+                              "fill": "#FFFFFF",
+                              "cornerRadius": 8,
+                              "stroke": {
+                                "thickness": 1,
+                                "fill": "#E5E5E5"
+                              },
+                              "padding": [
+                                0,
+                                12
+                              ],
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "psAQ2",
+                                  "name": "pagasValue",
+                                  "fill": "#1A1A1A",
+                                  "content": "12 pagas",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "dsElr",
+                                  "name": "pagasChevron",
+                                  "width": 16,
+                                  "height": 16,
+                                  "iconFontName": "chevron-down",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#888888"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UUn5b",
+                      "name": "hijosSection",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "hvWPK",
+                          "name": "edadInput",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "SL7Rz",
+                              "name": "edadLabel",
+                              "fill": "#666666",
+                              "content": "Edad",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "GZwCN",
+                              "name": "edadField",
+                              "width": "fill_container",
+                              "height": 44,
+                              "fill": "#FFFFFF",
+                              "cornerRadius": 8,
+                              "stroke": {
+                                "thickness": 1,
+                                "fill": "#E5E5E5"
+                              },
+                              "padding": [
+                                0,
+                                12
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "irwGL",
+                                  "name": "edadValue",
+                                  "fill": "#1A1A1A",
+                                  "content": "35",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "cf5vn",
+                          "name": "hijosInput",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "1cJZJ",
+                              "name": "hijosLabel",
+                              "fill": "#666666",
+                              "content": "Hijos",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "A3sLx",
+                              "name": "hijosField",
+                              "width": "fill_container",
+                              "height": 44,
+                              "fill": "#FFFFFF",
+                              "cornerRadius": 8,
+                              "stroke": {
+                                "thickness": 1,
+                                "fill": "#E5E5E5"
+                              },
+                              "padding": [
+                                0,
+                                12
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "KtrZX",
+                                  "name": "hijosValue",
+                                  "fill": "#1A1A1A",
+                                  "content": "0",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "IW3Zn",
+                  "name": "Gastos Section",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "zFBcO",
+                      "name": "gastosLabel",
+                      "fill": "#888888",
+                      "content": "GASTOS MENSUALES",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 11,
+                      "fontWeight": "600",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "frame",
+                      "id": "5pbQ9",
+                      "name": "Input Gastos",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "gap": 8,
+                      "padding": [
+                        0,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "pUODS",
+                          "name": "gastosValue",
+                          "fill": "#1A1A1A",
+                          "content": "1.850",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gE5tz",
+                          "name": "gastosUnit",
+                          "fill": "#888888",
+                          "content": "€/mes",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "5N1bK",
+                  "name": "Calc Button",
+                  "width": "fill_container",
+                  "height": 52,
+                  "fill": "#0D6E6E",
+                  "cornerRadius": 10,
+                  "gap": 10,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "TMgzb",
+                      "name": "calcIcon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "calculator",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "R1bKc",
+                      "name": "calcText",
+                      "fill": "#FFFFFF",
+                      "content": "Calcular mi carga fiscal",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "BgEtN",
+              "name": "Panel Visual",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 40,
+              "padding": [
+                40,
+                60
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Sa8Pr",
+                  "name": "Summary Row",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "7mkPT",
+                      "name": "Summary Numbers",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 24,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "yvY0G",
+                          "name": "Coste Empresa Card",
+                          "width": "fill_container",
+                          "fill": "#0D6E6E",
+                          "cornerRadius": 12,
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": 24,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RLLSK",
+                              "name": "costeLabel",
+                              "opacity": 0.7,
+                              "fill": "#FFFFFF",
+                              "content": "COSTE TOTAL EMPRESA",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10,
+                              "fontWeight": "600",
+                              "letterSpacing": 1
+                            },
+                            {
+                              "type": "text",
+                              "id": "YBVUj",
+                              "name": "costeValue",
+                              "fill": "#FFFFFF",
+                              "content": "46.193 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 36,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "JD3cB",
+                              "name": "costeDesc",
+                              "opacity": 0.8,
+                              "fill": "#FFFFFF",
+                              "content": "Lo que realmente cuesta contratarte",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XocqF",
+                          "name": "Neto Card",
+                          "width": "fill_container",
+                          "fill": "#1A1A1A",
+                          "cornerRadius": 12,
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": 24,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "K7lT0",
+                              "name": "netoLabel",
+                              "opacity": 0.7,
+                              "fill": "#FFFFFF",
+                              "content": "TU SALARIO NETO",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10,
+                              "fontWeight": "600",
+                              "letterSpacing": 1
+                            },
+                            {
+                              "type": "text",
+                              "id": "NbTax",
+                              "name": "netoValue",
+                              "fill": "#FFFFFF",
+                              "content": "22.018 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 36,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "oFK4g",
+                              "name": "netoDesc",
+                              "opacity": 0.8,
+                              "fill": "#FFFFFF",
+                              "content": "Lo que realmente recibes",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "1m8y6",
+                      "name": "Presion Fiscal Card",
+                      "width": 280,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 24,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "5JSPZ",
+                          "name": "presionTitle",
+                          "fill": "#888888",
+                          "content": "PRESIÓN FISCAL REAL",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 1
+                        },
+                        {
+                          "type": "frame",
+                          "id": "LXxwz",
+                          "name": "Donut Container",
+                          "width": 160,
+                          "height": 160,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "Jdnx4",
+                              "x": 0,
+                              "y": 0,
+                              "name": "bgRing",
+                              "innerRadius": 0.625,
+                              "fill": "#E8F5F5",
+                              "width": 160,
+                              "height": 160
+                            },
+                            {
+                              "type": "ellipse",
+                              "id": "0RgSf",
+                              "x": 0,
+                              "y": 0,
+                              "name": "fillRing",
+                              "innerRadius": 0.625,
+                              "startAngle": 90,
+                              "sweepAngle": -188,
+                              "fill": "#0D6E6E",
+                              "width": 160,
+                              "height": 160
+                            },
+                            {
+                              "type": "frame",
+                              "id": "RwOc8",
+                              "x": 30,
+                              "y": 30,
+                              "name": "donutText",
+                              "width": 100,
+                              "height": 100,
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "hagR3",
+                                  "name": "donutPercent",
+                                  "fill": "#0D6E6E",
+                                  "content": "52,3%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 28,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "VvYUc",
+                                  "name": "donutLabel",
+                                  "fill": "#666666",
+                                  "content": "impuestos",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "H0Tn7",
+                          "name": "presionLegend",
+                          "width": "fill_container",
+                          "gap": 16,
+                          "justifyContent": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "7P1YU",
+                              "name": "legendEstado",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "lrooQ",
+                                  "name": "legendEstadoDot",
+                                  "fill": "#0D6E6E",
+                                  "width": 10,
+                                  "height": 10
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "dbpQE",
+                                  "name": "legendEstadoText",
+                                  "fill": "#666666",
+                                  "content": "Estado",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "n2UsP",
+                              "name": "legendTu",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "N38Vv",
+                                  "name": "legendTuDot",
+                                  "fill": "#E8F5F5",
+                                  "width": 10,
+                                  "height": 10
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "Dygh6",
+                                  "name": "legendTuText",
+                                  "fill": "#666666",
+                                  "content": "Tú",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "D0XkH",
+                          "name": "presionAmount",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Rn5P7",
+                              "name": "presionAmountValue",
+                              "fill": "#1A1A1A",
+                              "content": "24.175 €/año",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "SpVR2",
+                              "name": "presionAmountLabel",
+                              "fill": "#888888",
+                              "content": "en impuestos totales",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "nSqEt",
+                  "name": "IRPF Section",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E5E5"
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "G1kud",
+                      "name": "irpfHeader",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "cSDhx",
+                          "name": "irpfTitleGroup",
+                          "gap": 10,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "by17F",
+                              "name": "irpfIcon",
+                              "width": 36,
+                              "height": 36,
+                              "fill": "#FEF3EE",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon_font",
+                                  "id": "x3hGk",
+                                  "name": "irpfIconInner",
+                                  "width": 18,
+                                  "height": 18,
+                                  "iconFontName": "percent",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#E07A3D"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "SLAyy",
+                              "name": "irpfTitleText",
+                              "layout": "vertical",
+                              "gap": 2,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "zzt05",
+                                  "name": "irpfTitle",
+                                  "fill": "#1A1A1A",
+                                  "content": "IRPF - Tramos progresivos",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 16,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "ijJao",
+                                  "name": "irpfSubtitle",
+                                  "fill": "#888888",
+                                  "content": "Solo pagas el % más alto por lo que supera cada tramo",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "xbnbe",
+                          "name": "irpfTotal",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "9CLji",
+                              "name": "irpfTotalValue",
+                              "fill": "#E07A3D",
+                              "content": "5.397 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 20,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "pQuzV",
+                              "name": "irpfTotalLabel",
+                              "fill": "#888888",
+                              "content": "15,42% efectivo",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SBDrL",
+                      "name": "Tramos Container",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Gnvpn",
+                          "name": "tramo1",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "ubeCT",
+                              "name": "tramo1Info",
+                              "width": 140,
+                              "layout": "vertical",
+                              "gap": 2,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "BeMW8",
+                                  "name": "tramo1Range",
+                                  "fill": "#1A1A1A",
+                                  "content": "0 - 12.450€",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "983GC",
+                                  "name": "tramo1Rate",
+                                  "fill": "#888888",
+                                  "content": "19%",
+                                  "fontFamily": "JetBrains Mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "9DbaE",
+                              "name": "tramo1BarBg",
+                              "width": "fill_container",
+                              "height": 24,
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 4,
+                              "layout": "none",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "HtlGR",
+                                  "x": 0,
+                                  "y": 0,
+                                  "name": "tramo1BarFill",
+                                  "width": 300,
+                                  "height": 24,
+                                  "fill": "#E07A3D",
+                                  "cornerRadius": 4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "HAEf8",
+                              "name": "tramo1Amount",
+                              "fill": "#1A1A1A",
+                              "content": "2.365€",
+                              "textAlign": "right",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "v9jvu",
+                          "name": "tramo2",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "lccIK",
+                              "name": "tramo2Info",
+                              "width": 140,
+                              "layout": "vertical",
+                              "gap": 2,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "xMHZu",
+                                  "name": "tramo2Range",
+                                  "fill": "#1A1A1A",
+                                  "content": "12.450 - 20.200€",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "2QTN5",
+                                  "name": "tramo2Rate",
+                                  "fill": "#888888",
+                                  "content": "24%",
+                                  "fontFamily": "JetBrains Mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "HH70c",
+                              "name": "tramo2BarBg",
+                              "width": "fill_container",
+                              "height": 24,
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 4,
+                              "layout": "none",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "GGETg",
+                                  "x": 0,
+                                  "y": 0,
+                                  "name": "tramo2BarFill",
+                                  "width": 300,
+                                  "height": 24,
+                                  "fill": "#E8935A",
+                                  "cornerRadius": 4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "7qPvd",
+                              "name": "tramo2Amount",
+                              "fill": "#1A1A1A",
+                              "content": "1.860€",
+                              "textAlign": "right",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "4WwGY",
+                          "name": "tramo3",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "UadQO",
+                              "name": "tramo3Info",
+                              "width": 140,
+                              "layout": "vertical",
+                              "gap": 2,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "xFzzI",
+                                  "name": "tramo3Range",
+                                  "fill": "#1A1A1A",
+                                  "content": "20.200 - 35.200€",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "q8gr3",
+                                  "name": "tramo3Rate",
+                                  "fill": "#888888",
+                                  "content": "30%",
+                                  "fontFamily": "JetBrains Mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Q00dH",
+                              "name": "tramo3BarBg",
+                              "width": "fill_container",
+                              "height": 24,
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 4,
+                              "layout": "none",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "2pNOa",
+                                  "x": 0,
+                                  "y": 0,
+                                  "name": "tramo3BarFill",
+                                  "width": 280,
+                                  "height": 24,
+                                  "fill": "#F0AC7E",
+                                  "cornerRadius": 4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "QBHgR",
+                              "name": "tramo3Amount",
+                              "fill": "#1A1A1A",
+                              "content": "1.172€",
+                              "textAlign": "right",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "1Ttrs",
+                          "name": "tramo4",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "XyTHV",
+                              "name": "tramo4Info",
+                              "width": 140,
+                              "layout": "vertical",
+                              "gap": 2,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "1WRRM",
+                                  "name": "tramo4Range",
+                                  "fill": "#666666",
+                                  "content": "35.200 - 60.000€",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "oqfzb",
+                                  "name": "tramo4Rate",
+                                  "fill": "#AAAAAA",
+                                  "content": "37%",
+                                  "fontFamily": "JetBrains Mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "YuwIg",
+                              "name": "tramo4BarBg",
+                              "width": "fill_container",
+                              "height": 24,
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jOCD4",
+                                  "name": "tramo4Label",
+                                  "fill": "#AAAAAA",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "No aplica",
+                                  "lineHeight": 1.8,
+                                  "textAlign": "center",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "8sr0M",
+                              "name": "tramo4Amount",
+                              "fill": "#AAAAAA",
+                              "content": "0€",
+                              "textAlign": "right",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zF0cQ",
+                  "name": "SS Section",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "kS0gc",
+                      "name": "SS Empresa Card",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "kVUxH",
+                          "name": "ssEmpresaHeader",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "XQI1N",
+                              "name": "ssEmpresaTitleGroup",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "nVc0r",
+                                  "name": "ssEmpresaIcon",
+                                  "width": 32,
+                                  "height": 32,
+                                  "fill": "#E8F5F5",
+                                  "cornerRadius": 8,
+                                  "justifyContent": "center",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "icon_font",
+                                      "id": "ucoD5",
+                                      "name": "ssEmpresaIconInner",
+                                      "width": 16,
+                                      "height": 16,
+                                      "iconFontName": "building-2",
+                                      "iconFontFamily": "lucide",
+                                      "fill": "#0D6E6E"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "iDCGi",
+                                  "name": "ssEmpresaTitle",
+                                  "fill": "#1A1A1A",
+                                  "content": "SS Empresa",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "wxEMz",
+                              "name": "ssEmpresaTotal",
+                              "fill": "#0D6E6E",
+                              "content": "11.193 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "CtRFC",
+                          "name": "ssEmpresaItems",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "jIhqo",
+                              "name": "ssItem1",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "3RpGF",
+                                  "name": "ssItem1Label",
+                                  "fill": "#666666",
+                                  "content": "Contingencias (23,6%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "vC737",
+                                  "name": "ssItem1Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "8.260 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "MLuao",
+                              "name": "ssItem2",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "9l7WX",
+                                  "name": "ssItem2Label",
+                                  "fill": "#666666",
+                                  "content": "Desempleo (5,5%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "lWOoa",
+                                  "name": "ssItem2Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "1.925 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "zu3n2",
+                              "name": "ssItem3",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "7olPc",
+                                  "name": "ssItem3Label",
+                                  "fill": "#666666",
+                                  "content": "FOGASA (0,2%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "S5KdZ",
+                                  "name": "ssItem3Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "70 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "KYSib",
+                              "name": "ssItem4",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "kJw8B",
+                                  "name": "ssItem4Label",
+                                  "fill": "#666666",
+                                  "content": "Formación (0,6%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "mjqFc",
+                                  "name": "ssItem4Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "210 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "kbfTo",
+                              "name": "ssItem5",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Ufnsx",
+                                  "name": "ssItem5Label",
+                                  "fill": "#666666",
+                                  "content": "Accidentes (2,08%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "28usc",
+                                  "name": "ssItem5Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "728 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "7LUoy",
+                      "name": "SS Empleado Card",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ivloN",
+                          "name": "ssEmpleadoHeader",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "c4mym",
+                              "name": "ssEmpleadoTitleGroup",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "pBqma",
+                                  "name": "ssEmpleadoIcon",
+                                  "width": 32,
+                                  "height": 32,
+                                  "fill": "#EEF2FF",
+                                  "cornerRadius": 8,
+                                  "justifyContent": "center",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "icon_font",
+                                      "id": "y4T1X",
+                                      "name": "ssEmpleadoIconInner",
+                                      "width": 16,
+                                      "height": 16,
+                                      "iconFontName": "user",
+                                      "iconFontFamily": "lucide",
+                                      "fill": "#5B6AD0"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "7LrMC",
+                                  "name": "ssEmpleadoTitle",
+                                  "fill": "#1A1A1A",
+                                  "content": "SS Empleado",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "WRXe6",
+                              "name": "ssEmpleadoTotal",
+                              "fill": "#5B6AD0",
+                              "content": "2.265 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Ga9hl",
+                          "name": "ssEmpleadoItems",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "u2ncu",
+                              "name": "ssEmpItem1",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "n9FFZ",
+                                  "name": "ssEmpItem1Label",
+                                  "fill": "#666666",
+                                  "content": "Contingencias (4,7%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "YvYM4",
+                                  "name": "ssEmpItem1Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "1.645 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "KSfQW",
+                              "name": "ssEmpItem2",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "QWuqh",
+                                  "name": "ssEmpItem2Label",
+                                  "fill": "#666666",
+                                  "content": "Desempleo (1,55%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "Q8glm",
+                                  "name": "ssEmpItem2Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "543 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "WAt9J",
+                              "name": "ssEmpItem3",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "zCZad",
+                                  "name": "ssEmpItem3Label",
+                                  "fill": "#666666",
+                                  "content": "Formación (0,1%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "iCmuA",
+                                  "name": "ssEmpItem3Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "35 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "MYV5p",
+                              "name": "ssEmpItem4",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "klwgd",
+                                  "name": "ssEmpItem4Label",
+                                  "fill": "#666666",
+                                  "content": "MEI (0,12%)",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "LxRKK",
+                                  "name": "ssEmpItem4Value",
+                                  "fill": "#1A1A1A",
+                                  "content": "42 €",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "8HvGx",
+                  "name": "IVA Section",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E5E5"
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "PiSci",
+                      "name": "ivaHeader",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "rYg9n",
+                          "name": "ivaTitleGroup",
+                          "gap": 10,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "wdwaq",
+                              "name": "ivaIcon",
+                              "width": 36,
+                              "height": 36,
+                              "fill": "#FEF7E6",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon_font",
+                                  "id": "IOOZ1",
+                                  "name": "ivaIconInner",
+                                  "width": 18,
+                                  "height": 18,
+                                  "iconFontName": "shopping-cart",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#D4A017"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "A14cd",
+                              "name": "ivaTitleText",
+                              "layout": "vertical",
+                              "gap": 2,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "86Vm2",
+                                  "name": "ivaTitle",
+                                  "fill": "#1A1A1A",
+                                  "content": "IVA en tu consumo mensual",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 16,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "iEyEY",
+                                  "name": "ivaSubtitle",
+                                  "fill": "#888888",
+                                  "content": "Desglose por categoría de gasto",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "eh3Ew",
+                          "name": "ivaTotal",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rCIcY",
+                              "name": "ivaTotalValue",
+                              "fill": "#D4A017",
+                              "content": "321 €/mes",
+                              "fontFamily": "Inter",
+                              "fontSize": 20,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "8ePsQ",
+                              "name": "ivaTotalYear",
+                              "fill": "#888888",
+                              "content": "3.852 €/año",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LrPwK",
+                      "name": "ivaCategorias",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "awhaw",
+                          "name": "ivaCat1",
+                          "width": "fill_container",
+                          "fill": "#FAFAFA",
+                          "cornerRadius": 8,
+                          "layout": "vertical",
+                          "gap": 12,
+                          "padding": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "6bffd",
+                              "name": "ivaCat1Icon",
+                              "width": 24,
+                              "height": 24,
+                              "iconFontName": "fuel",
+                              "iconFontFamily": "lucide",
+                              "fill": "#666666"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CbMyM",
+                              "name": "ivaCat1Name",
+                              "fill": "#666666",
+                              "content": "Transporte",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "9DxbD",
+                              "name": "ivaCat1Amount",
+                              "fill": "#1A1A1A",
+                              "content": "87 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "9K5oA",
+                              "name": "ivaCat1Rate",
+                              "fill": "#D4A017",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "2ybek",
+                                  "name": "ivaCat1RateText",
+                                  "fill": "#FFFFFF",
+                                  "content": "21%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "QpVec",
+                          "name": "ivaCat2",
+                          "width": "fill_container",
+                          "fill": "#FAFAFA",
+                          "cornerRadius": 8,
+                          "layout": "vertical",
+                          "gap": 12,
+                          "padding": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "32LLV",
+                              "name": "ivaCat2Icon",
+                              "width": 24,
+                              "height": 24,
+                              "iconFontName": "lamp",
+                              "iconFontFamily": "lucide",
+                              "fill": "#666666"
+                            },
+                            {
+                              "type": "text",
+                              "id": "zGA29",
+                              "name": "ivaCat2Name",
+                              "fill": "#666666",
+                              "content": "Hogar",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "D9N9f",
+                              "name": "ivaCat2Amount",
+                              "fill": "#1A1A1A",
+                              "content": "63 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "BUOYR",
+                              "name": "ivaCat2Rate",
+                              "fill": "#F59E0B",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "pLP4V",
+                                  "name": "ivaCat2RateText",
+                                  "fill": "#FFFFFF",
+                                  "content": "10%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "db24z",
+                          "name": "ivaCat3",
+                          "width": "fill_container",
+                          "fill": "#FAFAFA",
+                          "cornerRadius": 8,
+                          "layout": "vertical",
+                          "gap": 12,
+                          "padding": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "q8TKd",
+                              "name": "ivaCat3Icon",
+                              "width": 24,
+                              "height": 24,
+                              "iconFontName": "apple",
+                              "iconFontFamily": "lucide",
+                              "fill": "#666666"
+                            },
+                            {
+                              "type": "text",
+                              "id": "WzbSZ",
+                              "name": "ivaCat3Name",
+                              "fill": "#666666",
+                              "content": "Alimentación",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Ii717",
+                              "name": "ivaCat3Amount",
+                              "fill": "#1A1A1A",
+                              "content": "18 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "328U2",
+                              "name": "ivaCat3Rate",
+                              "fill": "#22C55E",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "feMGZ",
+                                  "name": "ivaCat3RateText",
+                                  "fill": "#FFFFFF",
+                                  "content": "4%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XvatG",
+                          "name": "ivaCat4",
+                          "width": "fill_container",
+                          "fill": "#FAFAFA",
+                          "cornerRadius": 8,
+                          "layout": "vertical",
+                          "gap": 12,
+                          "padding": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "tQEVI",
+                              "name": "ivaCat4Icon",
+                              "width": 24,
+                              "height": 24,
+                              "iconFontName": "tv",
+                              "iconFontFamily": "lucide",
+                              "fill": "#666666"
+                            },
+                            {
+                              "type": "text",
+                              "id": "IUqtl",
+                              "name": "ivaCat4Name",
+                              "fill": "#666666",
+                              "content": "Ocio",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "TarhS",
+                              "name": "ivaCat4Amount",
+                              "fill": "#1A1A1A",
+                              "content": "73 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "RsoKk",
+                              "name": "ivaCat4Rate",
+                              "fill": "#D4A017",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "cbj7W",
+                                  "name": "ivaCat4RateText",
+                                  "fill": "#FFFFFF",
+                                  "content": "21%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "m4zal",
+                          "name": "ivaCat5",
+                          "width": "fill_container",
+                          "fill": "#FAFAFA",
+                          "cornerRadius": 8,
+                          "layout": "vertical",
+                          "gap": 12,
+                          "padding": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "5TDWB",
+                              "name": "ivaCat5Icon",
+                              "width": 24,
+                              "height": 24,
+                              "iconFontName": "shirt",
+                              "iconFontFamily": "lucide",
+                              "fill": "#666666"
+                            },
+                            {
+                              "type": "text",
+                              "id": "NUEnr",
+                              "name": "ivaCat5Name",
+                              "fill": "#666666",
+                              "content": "Compras",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ch07p",
+                              "name": "ivaCat5Amount",
+                              "fill": "#1A1A1A",
+                              "content": "52 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "c2G6d",
+                              "name": "ivaCat5Rate",
+                              "fill": "#D4A017",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "GFevc",
+                                  "name": "ivaCat5RateText",
+                                  "fill": "#FFFFFF",
+                                  "content": "21%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "N5iEd",
+                          "name": "ivaCat6",
+                          "width": "fill_container",
+                          "fill": "#FAFAFA",
+                          "cornerRadius": 8,
+                          "layout": "vertical",
+                          "gap": 12,
+                          "padding": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "SruCR",
+                              "name": "ivaCat6Icon",
+                              "width": 24,
+                              "height": 24,
+                              "iconFontName": "stethoscope",
+                              "iconFontFamily": "lucide",
+                              "fill": "#666666"
+                            },
+                            {
+                              "type": "text",
+                              "id": "TQ8TW",
+                              "name": "ivaCat6Name",
+                              "fill": "#666666",
+                              "content": "Salud",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "hRRmg",
+                              "name": "ivaCat6Amount",
+                              "fill": "#1A1A1A",
+                              "content": "28 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ha6el",
+                              "name": "ivaCat6Rate",
+                              "fill": "#22C55E",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "fabjF",
+                                  "name": "ivaCat6RateText",
+                                  "fill": "#FFFFFF",
+                                  "content": "4%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Fr6rD",
+                  "name": "Resumen Final",
+                  "width": "fill_container",
+                  "fill": "#1A1A1A",
+                  "cornerRadius": 12,
+                  "gap": 32,
+                  "padding": 24,
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "cH01N",
+                      "name": "resumenTexto",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kpwgx",
+                          "name": "resumenTitulo",
+                          "opacity": 0.7,
+                          "fill": "#FFFFFF",
+                          "content": "Del coste total de tu trabajo...",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "38a24",
+                          "name": "resumenValor",
+                          "fill": "#FFFFFF",
+                          "content": "El Estado se queda con 24.175 € al año",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QEDAf",
+                      "name": "resumenStats",
+                      "gap": 32,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ka1o3",
+                          "name": "stat1",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "1TFmC",
+                              "name": "stat1Value",
+                              "fill": "#0D6E6E",
+                              "content": "1.835 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 24,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "PX2A2",
+                              "name": "stat1Label",
+                              "opacity": 0.7,
+                              "fill": "#FFFFFF",
+                              "content": "Neto mensual (12p)",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ySeAy",
+                          "name": "stat2",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "SsCdz",
+                              "name": "stat2Value",
+                              "fill": "#0D6E6E",
+                              "content": "1.573 €",
+                              "fontFamily": "Inter",
+                              "fontSize": 24,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Y0hjr",
+                              "name": "stat2Label",
+                              "opacity": 0.7,
+                              "fill": "#FFFFFF",
+                              "content": "Neto mensual (14p)",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
