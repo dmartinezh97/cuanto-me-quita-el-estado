@@ -36,6 +36,9 @@ import LearnModeTopBar from '../ui/LearnModeTopBar.vue';
 /** Whether the user has calculated their fiscal data */
 const hasCalculated = ref(false);
 
+/** Ref for scroll target after calculation */
+const learnModeBarRef = ref<HTMLElement | null>(null);
+
 /** Category currently being edited in the dialog (null = dialog closed) */
 const editingCategory = ref<CategoryExpense | null>(null);
 
@@ -199,6 +202,9 @@ const handleIVASlider = (catId: string, type: IVAKey, event: Event) => {
 const calculate = () => {
   if (canCalculate.value) {
     hasCalculated.value = true;
+    nextTick(() => {
+      (learnModeBarRef.value as any)?.$el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 };
 
@@ -265,10 +271,10 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
 </script>
 
 <template>
-  <div class="flex min-h-screen">
+  <div class="flex flex-col lg:flex-row min-h-screen">
     <!-- Left Panel: Inputs -->
-    <div class="w-[480px] flex-shrink-0 bg-surface border-r border-border flex flex-col">
-      <div class="flex flex-col gap-6 p-10 pb-12">
+    <div class="w-full lg:w-[480px] flex-shrink-0 bg-surface border-b lg:border-b-0 lg:border-r border-border flex flex-col">
+      <div class="flex flex-col gap-6 p-6 lg:p-10 pb-8 lg:pb-12">
         <!-- Header -->
         <div class="flex flex-col gap-2">
           <h1 class="font-display text-[32px] font-medium text-text-primary">
@@ -323,16 +329,17 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
 
     <!-- Right Panel: Results or Initial State -->
     <div
-      class="flex-1 bg-surface-secondary flex justify-center p-12"
-      :class="hasCalculated ? 'items-start overflow-y-auto' : 'items-center sticky top-0 h-screen'"
+      class="flex-1 bg-surface-secondary flex justify-center p-6 lg:p-12"
+      :class="hasCalculated ? 'items-start overflow-y-auto' : 'items-center lg:sticky lg:top-0 lg:h-screen'"
     >
       <!-- Initial State -->
       <InitialStateView v-if="!hasCalculated" />
 
       <!-- Results -->
-      <div v-else class="flex flex-col gap-6 w-full max-w-5xl">
+      <div v-else class="flex flex-col gap-4 lg:gap-6 w-full max-w-5xl">
         <!-- Learn Mode Top Bar -->
         <LearnModeTopBar
+          ref="learnModeBarRef"
           :is-active="learnModeActive"
           @toggle="toggleLearnMode"
         />

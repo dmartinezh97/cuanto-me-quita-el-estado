@@ -113,7 +113,7 @@ const categoryIVA = computed(() => {
     </div>
 
     <!-- Category grid -->
-    <div class="grid grid-cols-4 gap-3">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <IVACategoryCard
         v-for="cat in categoryIVA"
         :key="cat.id"
@@ -133,15 +133,24 @@ const categoryIVA = computed(() => {
       Introduce tus gastos mensuales para ver el desglose de IVA
     </div>
 
-    <!-- Learn Mode Explanation -->
+    <!-- Learn Mode Explanations -->
     <Transition name="explanation">
-      <ExplanationBox
-        v-if="learnModeActive"
-        variant="yellow"
-        :title="LEARN_CONTENT.iva.title"
-        :content="LEARN_CONTENT.iva.content"
-        :details="LEARN_CONTENT.iva.details"
-      />
+      <div v-if="learnModeActive" class="flex flex-col lg:flex-row gap-4">
+        <ExplanationBox
+          variant="yellow"
+          :title="LEARN_CONTENT.iva.title"
+          :content="LEARN_CONTENT.iva.content"
+          :details="LEARN_CONTENT.iva.details"
+          class="flex-1"
+        />
+        <ExplanationBox
+          variant="orange"
+          :title="LEARN_CONTENT.doblesImposiciones.title"
+          :content="LEARN_CONTENT.doblesImposiciones.content"
+          :details="LEARN_CONTENT.doblesImposiciones.details"
+          class="flex-1"
+        />
+      </div>
     </Transition>
   </div>
 </template>

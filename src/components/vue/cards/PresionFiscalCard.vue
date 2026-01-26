@@ -21,7 +21,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-4 rounded-xl bg-surface border border-border p-6 w-[280px]">
+  <div class="flex flex-col items-center gap-4 rounded-xl bg-surface border border-border p-6 w-full lg:w-[280px]">
     <!-- Title -->
     <span class="font-mono text-[10px] font-semibold tracking-wider text-text-muted">
       PRESION FISCAL REAL

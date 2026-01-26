@@ -68,15 +68,19 @@ const barColor = BRACKET_COLORS[props.index] || BRACKET_COLORS[0];
           :class="{ 'rounded-r': fillPercent < 100 }"
           :style="{ width: `${fillPercent}%`, backgroundColor: barColor }"
         />
+        <!-- Amount inside bar (mobile only) -->
+        <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[11px] font-semibold text-black lg:hidden">
+          {{ formatCurrency(amount) }}
+        </span>
       </template>
       <template v-else>
         <span class="text-text-disabled text-[11px]">No aplica</span>
       </template>
     </div>
 
-    <!-- Amount -->
+    <!-- Amount outside (desktop only) -->
     <span
-      class="text-[13px] font-semibold text-right w-[80px] flex-shrink-0"
+      class="hidden lg:block text-[13px] font-semibold text-right w-[80px] flex-shrink-0"
       :class="isActive ? 'text-text-primary' : 'text-text-disabled'"
     >
       {{ formatCurrency(amount) }}

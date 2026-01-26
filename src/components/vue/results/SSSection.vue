@@ -51,7 +51,7 @@ const employeeItems: SSBreakdownItem[] = [
 <template>
   <div class="flex flex-col gap-5">
     <!-- Cards row -->
-    <div class="flex gap-6">
+    <div class="flex flex-col md:flex-row gap-4 md:gap-6">
       <SSBreakdownCard
         title="S.S. Empresa"
         :total="employerTotal"
@@ -72,7 +72,7 @@ const employeeItems: SSBreakdownItem[] = [
 
     <!-- Learn Mode Explanations -->
     <Transition name="explanation">
-      <div v-if="learnModeActive" class="flex gap-4">
+      <div v-if="learnModeActive" class="flex flex-col lg:flex-row gap-4">
         <ExplanationBox
           variant="teal"
           :title="LEARN_CONTENT.ssEmpresa.title"

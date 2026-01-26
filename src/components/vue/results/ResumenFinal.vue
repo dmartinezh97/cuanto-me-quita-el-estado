@@ -20,8 +20,8 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex items-center justify-between rounded-xl bg-text-primary p-6">
-    <!-- Left: Text summary -->
+  <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between rounded-xl bg-text-primary p-6 gap-4 lg:gap-0">
+    <!-- Left: Text summary (arriba en móvil) -->
     <div class="flex flex-col gap-1">
       <span class="text-sm text-white/70">
         Del coste total de tu trabajo...
@@ -31,8 +31,8 @@ defineProps<Props>();
       </span>
     </div>
 
-    <!-- Right: Monthly stats -->
-    <div class="flex gap-8">
+    <!-- Right: Monthly stats (abajo en móvil) -->
+    <div class="flex gap-8 justify-center lg:justify-end">
       <div class="flex flex-col items-center gap-1">
         <span class="text-2xl font-bold text-primary">
           {{ formatCurrency(netMonthly12) }}

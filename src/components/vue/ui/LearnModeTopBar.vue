@@ -23,13 +23,13 @@ defineEmits<Emits>();
 
 <template>
   <div
-    class="flex items-center justify-between px-6 py-3 rounded-xl border transition-colors duration-200"
+    class="flex items-center justify-between px-4 lg:px-6 py-3 rounded-xl border transition-colors duration-200"
     :class="isActive ? 'bg-primary-light border-primary/20' : 'bg-surface border-border'"
   >
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 lg:gap-3">
       <!-- Icon -->
       <div
-        class="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200"
+        class="w-8 h-8 lg:w-9 lg:h-9 rounded-lg flex items-center justify-center transition-colors duration-200"
         :class="isActive ? 'bg-primary/10' : 'bg-surface-tertiary'"
       >
         <GraduationCap

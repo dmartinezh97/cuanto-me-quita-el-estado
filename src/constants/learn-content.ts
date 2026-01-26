@@ -47,11 +47,24 @@ export const LEARN_CONTENT = {
 
   iva: {
     title: 'IVA en tu Consumo',
-    content: 'El IVA es un impuesto al consumo que pagas cada vez que compras algo. En España hay tres tipos: superreducido (4%) para alimentos básicos, reducido (10%) para alimentos, transporte y hostelería, y general (21%) para la mayoría de productos.',
+    content: 'El IVA grava el consumo con tres tipos (4%, 10%, 21%). Pero algunos productos sufren doble imposición: pagan un impuesto especial Y además IVA sobre el precio que ya incluye ese impuesto.',
     details: [
-      'IVA 4%: Pan, leche, huevos, frutas, verduras, libros, medicamentos',
-      'IVA 10%: Carne, pescado, transporte, hostelería, vivienda nueva',
-      'IVA 21%: Ropa, electrónica, combustible, servicios generales',
+      'IVA 4%: Alimentos básicos, libros, medicamentos',
+      'IVA 10%: Alimentos, transporte, hostelería',
+      'IVA 21%: Ropa, electrónica, servicios generales',
+    ],
+  },
+
+  doblesImposiciones: {
+    title: 'Dobles Imposiciones',
+    content: 'Algunos productos pagan un impuesto especial ANTES del IVA, y luego el IVA se calcula sobre el precio que ya incluye ese impuesto. Es un "impuesto sobre impuesto".',
+    details: [
+      'Combustibles: IEH (0,40€/L fijo) + IVA 21%',
+      'Electricidad: IEE (5,11%) + IVA 21%',
+      'Gas Natural: Imp. Hidrocarburos + IVA 21%',
+      'Alcohol: Imp. Especial (~5%) + IVA 21%',
+      'Tabaco: Imp. Labores (~57%) + IVA 21%',
+      'Seguros: IPS (6%) - exentos de IVA pero con impuesto propio',
     ],
   },
 

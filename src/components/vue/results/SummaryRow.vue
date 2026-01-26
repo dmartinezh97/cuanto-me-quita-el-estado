@@ -33,9 +33,9 @@ const props = defineProps<Props>();
 
 <template>
   <div class="flex flex-col gap-5">
-    <div class="flex gap-6 w-full">
+    <div class="flex flex-col lg:flex-row gap-6 w-full">
       <!-- Two stacked hero cards -->
-      <div class="flex flex-col gap-6 flex-1">
+      <div class="flex flex-col gap-4 lg:gap-6 flex-1">
         <HeroCard
           label="COSTE TOTAL EMPRESA"
           :value="employerCost"
@@ -54,6 +54,7 @@ const props = defineProps<Props>();
 
       <!-- Presion fiscal card -->
       <PresionFiscalCard
+        class="w-full lg:w-auto"
         :state-percent="statePercent"
         :total-taxes="totalTaxes"
         :format-currency="formatCurrency"
