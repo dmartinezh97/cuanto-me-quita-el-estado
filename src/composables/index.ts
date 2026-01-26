@@ -1,22 +1,10 @@
 /**
- * Composables index file.
+ * Composables index.
  *
- * Re-exports all composables for convenient importing:
- * import { useTooltip, useExpenses } from '@/composables';
+ * Re-exports all composables for convenient importing.
  */
 
-export { useTooltip } from './useTooltip';
-export type { TooltipState, UseTooltipOptions, UseTooltipReturn } from './useTooltip';
-
+export { useExpenses, type IVAKey, type UseExpensesReturn } from './useExpenses';
+export { useFiscalCalculations, type UseFiscalCalculationsParams, type UseFiscalCalculationsReturn } from './useFiscalCalculations';
+export { useTooltip, type TooltipState, type UseTooltipOptions, type UseTooltipReturn } from './useTooltip';
 export { calculateBoundedValue, handleBoundedInput } from './useBoundedInput';
-
-export { useExpenses } from './useExpenses';
-export type { IVAKey, UseExpensesReturn } from './useExpenses';
-
-export { useFiscalCalculations } from './useFiscalCalculations';
-export type {
-  SSBreakdown,
-  IVABreakdown,
-  UseFiscalCalculationsParams,
-  UseFiscalCalculationsReturn,
-} from './useFiscalCalculations';

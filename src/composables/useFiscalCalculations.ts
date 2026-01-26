@@ -16,8 +16,8 @@
  * - State share + user share = employer cost (for verification)
  */
 
-import { computed, type Ref, type ComputedRef } from 'vue';
-import type { AppState, CategoryExpense } from '@/types';
+import { computed, type ComputedRef } from 'vue';
+import type { AppState, CategoryExpense, SSBreakdown, IVABreakdown } from '@/types';
 import {
   calculateIRPF,
   calculateIVABreakdown,
@@ -25,34 +25,7 @@ import {
   SOCIAL_SECURITY_EMPLOYER_RATE,
   RATES_SS_EMPLOYEE,
   RATES_SS_EMPLOYER,
-} from '@/utils/calculations';
-
-/**
- * Social Security breakdown for display in the ticket.
- */
-export interface SSBreakdown {
-  contingenciasComunes: number;
-  desempleo: number;
-  formacion: number;
-  mei: number;
-  fogasa?: number;  // Only for employer
-  atEp?: number;    // Only for employer
-}
-
-/**
- * IVA breakdown from calculateIVABreakdown.
- */
-export interface IVABreakdown {
-  iva4: number;
-  iva10: number;
-  iva21: number;
-  ieh: number;
-  ips: number;
-  iee: number;
-  specialOthers: number;
-  totalIndirect: number;
-  detailedItems: { name: string; iva: number; special: number; type: string }[];
-}
+} from '@fiscal/calculations';
 
 export interface UseFiscalCalculationsParams {
   /** Reactive application state */

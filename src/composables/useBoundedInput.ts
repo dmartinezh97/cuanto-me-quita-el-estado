@@ -2,8 +2,7 @@
  * Composable for handling inputs that are bounded by available salary.
  *
  * Why this exists:
- * - Eliminates exact duplication between handleSubAmountInput and
- *   handleCategoryTotalInput in App.vue (23 lines x2 → 1 function)
+ * - Eliminates duplication between handleSubAmountInput and handleCategoryTotalInput
  * - Both functions had identical logic:
  *   1. Get new value from input
  *   2. Calculate max allowed based on (netSalary - otherExpenses)

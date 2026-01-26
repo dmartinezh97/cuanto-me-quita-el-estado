@@ -2,7 +2,7 @@
  * Composable for managing expense categories and sub-items.
  *
  * Why this exists:
- * - Centralizes expense state management (previously scattered in App.vue)
+ * - Centralizes expense state management
  * - Encapsulates: updateExpense, handleSubItemChange, handleIVAChange
  * - Provides computed total for monthly expenses
  *

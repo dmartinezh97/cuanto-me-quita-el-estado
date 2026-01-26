@@ -1,17 +1,17 @@
 /**
- * Initial data configuration for the fiscal calculator.
+ * Initial expense categories configuration.
  *
  * Contains default expense categories with their IVA rates, special taxes,
  * and display configurations for the UI.
  *
  * Why this file exists:
  * - Centralizes all default values in one place
- * - Separates data from logic (calculations.ts)
+ * - Separates data from logic (calculations)
  * - Makes it easy to modify initial values without touching business logic
  * - Contains display configuration to make templates data-driven
  *
  * Display Configuration:
- * Each SubItem now has a `display` property that controls:
+ * Each SubItem has a `display` property that controls:
  * - taxDisplayType: Type of tax calculation and default label
  * - taxLabel: Custom override for the tax label
  * - taxNote: Additional note shown below the label
@@ -20,13 +20,17 @@
  * - secondInputLabel: Label for second input (when inputType is 'dual-input')
  */
 
-import type { CategoryExpense, AppState, SubItem } from '@/types';
+import type { CategoryExpense, SubItem } from '@/types';
 import {
   IEH_PER_LITER,
   GAS_IEH_PER_KWH,
   ELECTRICITY_TAX_RATE,
   INSURANCE_PREMIUM_TAX_RATE,
-} from '@/constants/taxes';
+} from '@fiscal/constants';
+
+// =============================================================================
+// Display Configuration Helpers
+// =============================================================================
 
 /**
  * Helper to create a standard IVA display config.
@@ -57,6 +61,10 @@ const insuranceDisplay = (rate: number): SubItem['display'] => ({
   labelColor: 'red',
   inputType: 'currency',
 });
+
+// =============================================================================
+// Initial Expenses
+// =============================================================================
 
 /**
  * Default expense categories with subcategories.
@@ -686,26 +694,3 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
     ],
   },
 ];
-
-/**
- * Default application state.
- *
- * Represents a typical Spanish worker profile:
- * - Average salary: 28,000 EUR/year
- * - 12 payments (no extra pagas)
- * - Single, no children
- * - Living in Madrid
- */
-export const INITIAL_STATE: AppState = {
-  grossSalary: 28000,
-  numPayments: 12,
-  age: '',
-  region: 'madrid', // Changed to ID format for lookup
-  maritalStatus: 'single',
-  numChildren: 0,
-  numChildrenUnder3: 0,
-  disability: 'none',
-  expenses: INITIAL_EXPENSES,
-  viewMode: 'Mensual',
-  consumptionDetailMode: 'Sencillo',
-};

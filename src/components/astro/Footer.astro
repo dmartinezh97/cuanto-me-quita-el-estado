@@ -1,0 +1,17 @@
+---
+// Footer component - static, rendered at build time
+interface Props {
+  email?: string;
+}
+
+const { email = "example@gmail.com" } = Astro.props;
+---
+
+<footer class="w-full bg-stone-100 dark:bg-slate-900 border-t border-stone-200 dark:border-stone-700 py-6 mt-8">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-center text-sm text-stone-600 dark:text-stone-400">
+      La información proporcionada puede contener errores. Si encuentras algún error o tienes sugerencias de mejora, por favor contacta con
+      <a href={`mailto:${email}`} class="text-primary hover:underline font-medium">{email}</a>.
+    </p>
+  </div>
+</footer>

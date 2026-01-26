@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/astro/Footer.astro';
+import FiscalCalculator from '../components/vue/calculator/FiscalCalculator.vue';
+---
+
+<BaseLayout>
+  <div class="flex flex-col min-h-screen">
+    <main class="flex-grow">
+      <FiscalCalculator client:only="vue" />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

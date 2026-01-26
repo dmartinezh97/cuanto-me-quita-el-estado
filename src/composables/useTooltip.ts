@@ -2,9 +2,7 @@
  * Composable for managing tooltip visibility and positioning.
  *
  * Why this exists:
- * - Eliminates duplication of tooltip logic in App.vue (6 functions → 1 composable)
- * - Previously: updateTooltipPosition, updateInfoTooltipPosition,
- *               showSalaryTooltip, hideSalaryTooltip, showInfoTooltip, hideInfoTooltip
+ * - Eliminates duplication of tooltip logic
  * - Centralizes event listener management to prevent memory leaks
  *
  * Contract:

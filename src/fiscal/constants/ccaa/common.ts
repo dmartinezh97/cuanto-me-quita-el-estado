@@ -1,16 +1,11 @@
 /**
- * Autonomous Communities IRPF Tax Brackets 2025.
+ * Autonomous Communities IRPF Tax Brackets 2025 - Common Regime.
  *
  * Spain's IRPF (income tax) is split approximately 50/50 between:
  * - State portion (escala estatal): Same for all residents
  * - Autonomous portion (escala autonómica): Varies by region
  *
- * This file contains the autonomous brackets for each community.
- * The state brackets are also included for calculation purposes.
- *
- * IMPORTANT: Navarra and País Vasco have "foral" regimes with completely
- * independent tax systems. Their brackets include BOTH state and autonomous
- * portions combined into a single scale.
+ * This file contains the autonomous brackets for common regime communities.
  *
  * Sources:
  * - Agencia Tributaria Cataluña: https://atc.gencat.cat/es/tributs/irpf/
@@ -55,10 +50,7 @@ export const STATE_IRPF_BRACKETS: IRPFBracket[] = [
  * Total IRPF = State portion + Autonomous portion
  */
 export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
-  // -------------------------------------------------------------------------
   // Andalucía
-  // Source: Junta de Andalucía - Decreto-Ley 7/2022
-  // -------------------------------------------------------------------------
   {
     id: 'andalucia',
     name: 'Andalucía',
@@ -71,10 +63,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Aragón
-  // Source: Decreto Legislativo 1/2005, art. 110-1
-  // -------------------------------------------------------------------------
   {
     id: 'aragon',
     name: 'Aragón',
@@ -91,10 +80,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Asturias
-  // Source: Ley del Principado de Asturias 4/2023
-  // -------------------------------------------------------------------------
   {
     id: 'asturias',
     name: 'Principado de Asturias',
@@ -110,10 +96,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
-  // Baleares (Illes Balears)
-  // Source: Ley 13/2023 - Presupuestos 2024
-  // -------------------------------------------------------------------------
+  // Baleares
   {
     id: 'baleares',
     name: 'Illes Balears',
@@ -130,10 +113,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Canarias
-  // Source: Ley 7/2023 de Presupuestos
-  // -------------------------------------------------------------------------
   {
     id: 'canarias',
     name: 'Canarias',
@@ -148,10 +128,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Cantabria
-  // Source: Ley de Cantabria 11/2022
-  // -------------------------------------------------------------------------
   {
     id: 'cantabria',
     name: 'Cantabria',
@@ -165,10 +142,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Castilla-La Mancha
-  // Source: Ley 1/2023 de Presupuestos
-  // -------------------------------------------------------------------------
   {
     id: 'castilla_la_mancha',
     name: 'Castilla-La Mancha',
@@ -181,10 +155,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Castilla y León
-  // Source: Ley de Castilla y León 2/2023
-  // -------------------------------------------------------------------------
   {
     id: 'castilla_leon',
     name: 'Castilla y León',
@@ -197,10 +168,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Cataluña
-  // Source: Agència Tributària de Catalunya - Decreto Ley 5/2025
-  // -------------------------------------------------------------------------
   {
     id: 'cataluna',
     name: 'Cataluña',
@@ -216,10 +184,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Ceuta
-  // Source: Uses state scale as reference (ciudad autónoma)
-  // -------------------------------------------------------------------------
   {
     id: 'ceuta',
     name: 'Ceuta',
@@ -233,10 +198,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Extremadura
-  // Source: Ley de Extremadura 2/2023
-  // -------------------------------------------------------------------------
   {
     id: 'extremadura',
     name: 'Extremadura',
@@ -251,10 +213,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Galicia
-  // Source: Decreto Legislativo 1/2011, art. 4
-  // -------------------------------------------------------------------------
   {
     id: 'galicia',
     name: 'Galicia',
@@ -267,10 +226,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Madrid
-  // Source: Ley 13/2023 de la Comunidad de Madrid
-  // -------------------------------------------------------------------------
   {
     id: 'madrid',
     name: 'Comunidad de Madrid',
@@ -283,10 +239,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Melilla
-  // Source: Uses state scale as reference (ciudad autónoma)
-  // -------------------------------------------------------------------------
   {
     id: 'melilla',
     name: 'Melilla',
@@ -300,10 +253,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Murcia
-  // Source: Ley 11/2023 de la Región de Murcia
-  // -------------------------------------------------------------------------
   {
     id: 'murcia',
     name: 'Región de Murcia',
@@ -316,10 +266,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // La Rioja
-  // Source: Ley de La Rioja 3/2023
-  // -------------------------------------------------------------------------
   {
     id: 'la_rioja',
     name: 'La Rioja',
@@ -334,10 +281,7 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 
-  // -------------------------------------------------------------------------
   // Comunitat Valenciana
-  // Source: Ley 9/2022 de la Comunitat Valenciana
-  // -------------------------------------------------------------------------
   {
     id: 'valencia',
     name: 'Comunitat Valenciana',
@@ -356,110 +300,3 @@ export const AUTONOMOUS_COMMUNITIES: AutonomousCommunity[] = [
     ],
   },
 ];
-
-// =============================================================================
-// Foral Regime Communities (Complete scales, not split)
-// =============================================================================
-
-/**
- * Navarra and País Vasco have "foral" (chartered) tax regimes.
- * Their IRPF is completely independent from the state system.
- * These brackets represent the TOTAL tax, not just an autonomous portion.
- *
- * IMPORTANT: When calculating IRPF for these regions, do NOT add state brackets.
- * Use only the foral brackets for the full tax calculation.
- */
-export const FORAL_COMMUNITIES: AutonomousCommunity[] = [
-  // -------------------------------------------------------------------------
-  // Navarra (Régimen Foral)
-  // Source: Ley Foral 13/1992
-  // Note: Navarra has full fiscal autonomy - these are TOTAL IRPF rates
-  // -------------------------------------------------------------------------
-  {
-    id: 'navarra',
-    name: 'Navarra',
-    brackets: [
-      { limit: 4000, rate: 0.13 },
-      { limit: 10200, rate: 0.22 },
-      { limit: 17500, rate: 0.25 },
-      { limit: 27000, rate: 0.28 },
-      { limit: 52000, rate: 0.355 },
-      { limit: 70000, rate: 0.40 },
-      { limit: 90000, rate: 0.43 },
-      { limit: 125000, rate: 0.45 },
-      { limit: 160000, rate: 0.47 },
-      { limit: 300000, rate: 0.49 },
-      { limit: Infinity, rate: 0.52 },
-    ],
-  },
-
-  // -------------------------------------------------------------------------
-  // País Vasco (Régimen Foral)
-  // Note: Each province (Álava, Bizkaia, Gipuzkoa) has its own scale
-  // This is the most common scale (Bizkaia/Gipuzkoa)
-  // Source: Norma Foral de Bizkaia/Gipuzkoa
-  // -------------------------------------------------------------------------
-  {
-    id: 'pais_vasco',
-    name: 'País Vasco',
-    brackets: [
-      { limit: 17720, rate: 0.23 },
-      { limit: 33040, rate: 0.28 },
-      { limit: 49380, rate: 0.35 },
-      { limit: 78820, rate: 0.40 },
-      { limit: 106700, rate: 0.45 },
-      { limit: 179460, rate: 0.47 },
-      { limit: Infinity, rate: 0.49 },
-    ],
-  },
-];
-
-// =============================================================================
-// Helper Functions
-// =============================================================================
-
-/**
- * Get all communities (common + foral) for display purposes.
- */
-export const ALL_COMMUNITIES: AutonomousCommunity[] = [
-  ...AUTONOMOUS_COMMUNITIES,
-  ...FORAL_COMMUNITIES,
-].sort((a, b) => a.name.localeCompare(b.name, 'es'));
-
-/**
- * Find a community by its ID.
- */
-export function getCommunityById(id: string): AutonomousCommunity | undefined {
-  return ALL_COMMUNITIES.find(c => c.id === id);
-}
-
-/**
- * Check if a community uses the foral regime.
- */
-export function isForalCommunity(id: string): boolean {
-  return FORAL_COMMUNITIES.some(c => c.id === id);
-}
-
-/**
- * Calculate progressive tax for a given income using brackets.
- *
- * @param income - Taxable income
- * @param brackets - Tax brackets to apply
- * @returns Total tax amount
- */
-export function calculateProgressiveTax(income: number, brackets: IRPFBracket[]): number {
-  let tax = 0;
-  let remaining = income;
-  let previousLimit = 0;
-
-  for (const bracket of brackets) {
-    const bracketIncome = Math.min(remaining, bracket.limit - previousLimit);
-    if (bracketIncome <= 0) break;
-
-    tax += bracketIncome * bracket.rate;
-    remaining -= bracketIncome;
-    previousLimit = bracket.limit;
-  }
-
-  return tax;
-}
