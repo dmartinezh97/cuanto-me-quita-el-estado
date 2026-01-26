@@ -19,9 +19,24 @@ interface Props {
   isActive: boolean;
   /** Currency formatter function */
   formatCurrency: (val: number) => string;
+  /** Bracket index for gradient coloring (0-based) */
+  index?: number;
 }
 
-defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  index: 0,
+});
+
+// Gradient colors from dark to light orange
+const BRACKET_COLORS = [
+  '#E07A3D', // Tramo 1 - naranja oscuro
+  '#E8935A', // Tramo 2 - naranja medio
+  '#F0AC7E', // Tramo 3 - naranja claro
+  '#F5C4A1', // Tramo 4 - naranja más claro
+  '#FADCC4', // Tramo 5 - naranja muy claro
+];
+
+const barColor = BRACKET_COLORS[props.index] || BRACKET_COLORS[0];
 </script>
 
 <template>
@@ -49,9 +64,9 @@ defineProps<Props>();
     >
       <template v-if="isActive">
         <div
-          class="absolute left-0 top-0 h-full bg-accent transition-all duration-500"
+          class="absolute left-0 top-0 h-full transition-all duration-500"
           :class="{ 'rounded-r': fillPercent < 100 }"
-          :style="{ width: `${fillPercent}%` }"
+          :style="{ width: `${fillPercent}%`, backgroundColor: barColor }"
         />
       </template>
       <template v-else>

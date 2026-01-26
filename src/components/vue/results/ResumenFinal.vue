@@ -27,7 +27,7 @@ defineProps<Props>();
         Del coste total de tu trabajo...
       </span>
       <span class="text-xl font-semibold text-white">
-        El Estado se queda con {{ formatCurrency(stateShareAnnual) }} al ano
+        El Estado se queda con <span class="text-red-500">{{ formatCurrency(stateShareAnnual) }}</span> al año
       </span>
     </div>
 

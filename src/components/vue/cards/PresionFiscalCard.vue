@@ -51,7 +51,7 @@ const props = defineProps<Props>();
     <!-- Total Amount -->
     <div class="flex flex-col items-center gap-1 w-full">
       <span class="text-lg font-semibold text-text-primary">
-        {{ formatCurrency(totalTaxes) }}/ano
+        {{ formatCurrency(totalTaxes) }}/año
       </span>
       <span class="text-xs text-text-muted">
         en impuestos totales

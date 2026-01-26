@@ -94,8 +94,8 @@ const categoryIVA = computed(() => {
           <ShoppingBag class="w-5 h-5 text-warning" />
         </div>
         <div class="flex flex-col">
-          <span class="text-base font-semibold text-text-primary">Impuestos Indirectos</span>
-          <span class="text-xs text-text-muted">IVA y especiales</span>
+          <span class="text-base font-semibold text-text-primary">IVA en tu consumo mensual</span>
+          <span class="text-xs text-text-muted">Desglose por categoría de gasto</span>
         </div>
       </div>
       <div class="flex flex-col items-end">
@@ -103,13 +103,13 @@ const categoryIVA = computed(() => {
           {{ formatCurrency(totalIndirectMonthly) }}/mes
         </span>
         <span class="text-xs text-text-muted">
-          {{ formatCurrency(totalIndirectAnnual) }}/ano
+          {{ formatCurrency(totalIndirectAnnual) }}/año
         </span>
       </div>
     </div>
 
     <!-- Category grid -->
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-4 gap-3">
       <IVACategoryCard
         v-for="cat in categoryIVA"
         :key="cat.id"

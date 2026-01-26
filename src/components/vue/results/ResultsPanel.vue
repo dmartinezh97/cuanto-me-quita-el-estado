@@ -64,7 +64,7 @@ const totalIndirectMonthly = computed(() => totalIndirectAnnual.value / 12);
 </script>
 
 <template>
-  <div class="flex flex-col gap-10 w-full max-w-[800px]">
+  <div class="flex flex-col gap-10 w-full max-w-5xl">
     <!-- Summary Row -->
     <SummaryRow
       :employer-cost="employerCostAnnual"

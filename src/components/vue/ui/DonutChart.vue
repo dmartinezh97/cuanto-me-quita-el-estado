@@ -49,21 +49,20 @@ const center = props.size / 2;
         :cx="center"
         :cy="center"
         :r="radius"
-        :stroke="bgColor"
+        :stroke="fillColor"
         :stroke-width="strokeWidth"
         fill="none"
       />
-      <!-- Filled arc -->
+      <!-- Filled arc (inverted - shows unfilled portion) -->
       <circle
         :cx="center"
         :cy="center"
         :r="radius"
-        :stroke="fillColor"
+        :stroke="bgColor"
         :stroke-width="strokeWidth"
         fill="none"
         :stroke-dasharray="circumference"
-        :stroke-dashoffset="strokeDashoffset"
-        stroke-linecap="round"
+        :stroke-dashoffset="circumference - strokeDashoffset"
         class="transition-all duration-700 ease-out"
       />
     </svg>

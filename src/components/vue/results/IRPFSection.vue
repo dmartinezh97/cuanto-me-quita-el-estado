@@ -98,8 +98,8 @@ const formatRange = (from: number, to: number): string => {
           <Receipt class="w-5 h-5 text-accent" />
         </div>
         <div class="flex flex-col">
-          <span class="text-base font-semibold text-text-primary">IRPF</span>
-          <span class="text-xs text-text-muted">Impuesto sobre la Renta</span>
+          <span class="text-base font-semibold text-text-primary">IRPF - Tramos progresivos</span>
+          <span class="text-xs text-text-muted">Solo pagas el % más alto por lo que supera cada tramo</span>
         </div>
       </div>
       <div class="flex flex-col items-end">
@@ -115,7 +115,7 @@ const formatRange = (from: number, to: number): string => {
     <!-- Bracket bars -->
     <div class="flex flex-col gap-2">
       <TramoBar
-        v-for="tramo in tramos"
+        v-for="(tramo, index) in tramos"
         :key="tramo.from"
         :range-label="formatRange(tramo.from, tramo.to)"
         :rate="tramo.rate * 100"
@@ -123,6 +123,7 @@ const formatRange = (from: number, to: number): string => {
         :fill-percent="tramo.fillPercent"
         :is-active="tramo.isActive"
         :format-currency="formatCurrency"
+        :index="index"
       />
     </div>
   </div>

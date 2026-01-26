@@ -7,7 +7,7 @@
  * - employee (purple): SS contributions by employee
  */
 
-import DataRow from '../ui/DataRow.vue';
+import { Building2, User } from 'lucide-vue-next';
 import type { SSBreakdownItem } from '@/types';
 
 interface Props {
@@ -25,37 +25,65 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const headerBgClass = props.variant === 'employer'
-  ? 'bg-primary'
-  : 'bg-purple';
+// Color configuration per variant
+const variantConfig = {
+  employer: {
+    iconBg: '#E8F5F5',
+    iconColor: '#0D6E6E',
+    totalColor: '#0D6E6E',
+  },
+  employee: {
+    iconBg: '#EEF2FF',
+    iconColor: '#5B6AD0',
+    totalColor: '#5B6AD0',
+  },
+};
+
+const config = variantConfig[props.variant];
 </script>
 
 <template>
-  <div class="flex flex-col rounded-xl bg-surface border border-border overflow-hidden">
+  <div class="flex flex-col rounded-xl bg-white border border-[#E5E5E5] overflow-hidden">
     <!-- Header -->
-    <div
-      class="flex items-center justify-between px-5 py-4"
-      :class="headerBgClass"
-    >
-      <span class="text-sm font-semibold text-white">
-        {{ title }}
-      </span>
-      <span class="text-lg font-bold text-white">
+    <div class="flex items-center justify-between px-5 py-4">
+      <div class="flex items-center gap-3">
+        <!-- Icon with colored background -->
+        <div
+          class="w-8 h-8 rounded-lg flex items-center justify-center"
+          :style="{ backgroundColor: config.iconBg }"
+        >
+          <component
+            :is="variant === 'employer' ? Building2 : User"
+            class="w-4 h-4"
+            :style="{ color: config.iconColor }"
+          />
+        </div>
+        <!-- Title -->
+        <span class="text-sm font-semibold text-[#1A1A1A]">
+          {{ title }}
+        </span>
+      </div>
+      <!-- Total -->
+      <span
+        class="text-lg font-bold"
+        :style="{ color: config.totalColor }"
+      >
         {{ formatCurrency(total) }}
       </span>
     </div>
 
     <!-- Breakdown Items -->
-    <div class="flex flex-col gap-1 p-4">
-      <DataRow
+    <div class="flex flex-col gap-1 px-5 pb-4">
+      <div
         v-for="item in items"
         :key="item.label"
-        :label="item.label"
-        :rate="item.rate"
-        :value="item.value"
-        :format-currency="formatCurrency"
-        :muted="true"
-      />
+        class="flex items-center justify-between"
+      >
+        <span class="text-[13px] text-[#666666]">
+          {{ item.label }} <span class="text-[#999999]">({{ item.rate }})</span>
+        </span>
+        <span class="text-[13px] text-[#1A1A1A] font-medium">{{ formatCurrency(item.value) }}</span>
+      </div>
     </div>
   </div>
 </template>
