@@ -34,4 +34,5 @@ export interface AppState {
   expenses: CategoryExpense[];
   viewMode: ViewMode;
   consumptionDetailMode: ConsumptionDetailMode;
+  learnMode: boolean;
 }

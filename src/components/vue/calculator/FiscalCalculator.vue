@@ -19,6 +19,7 @@ import { useTooltip } from '@/composables/useTooltip';
 import { useExpenses, type IVAKey } from '@/composables/useExpenses';
 import { useFiscalCalculations } from '@/composables/useFiscalCalculations';
 import { handleBoundedInput } from '@/composables/useBoundedInput';
+import { useLearnMode } from '@/composables/useLearnMode';
 
 // Sub-components
 import PersonalDataForm from './PersonalDataForm.vue';
@@ -26,6 +27,7 @@ import ExpenseCategories from './ExpenseCategories.vue';
 import InitialStateView from './InitialStateView.vue';
 import ResultsPanel from '../results/ResultsPanel.vue';
 import CategoryEditDialog from '../dialog/CategoryEditDialog.vue';
+import LearnModeTopBar from '../ui/LearnModeTopBar.vue';
 
 // =============================================================================
 // State
@@ -58,6 +60,9 @@ const {
 
 // Keep state.expenses in sync
 state.expenses = expenses;
+
+// Learn mode state
+const { isActive: learnModeActive, toggle: toggleLearnMode } = useLearnMode();
 
 // =============================================================================
 // Tooltips
@@ -263,7 +268,7 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
   <div class="flex min-h-screen">
     <!-- Left Panel: Inputs -->
     <div class="w-[480px] flex-shrink-0 bg-surface border-r border-border flex flex-col">
-      <div class="flex flex-col gap-8 p-10 pb-12">
+      <div class="flex flex-col gap-6 p-10 pb-12">
         <!-- Header -->
         <div class="flex flex-col gap-2">
           <h1 class="font-display text-[32px] font-medium text-text-primary">
@@ -317,18 +322,30 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
     </div>
 
     <!-- Right Panel: Results or Initial State -->
-    <div class="flex-1 bg-surface-secondary flex items-start justify-center p-12 overflow-y-auto">
+    <div
+      class="flex-1 bg-surface-secondary flex justify-center p-12"
+      :class="hasCalculated ? 'items-start overflow-y-auto' : 'items-center sticky top-0 h-screen'"
+    >
       <!-- Initial State -->
-      <InitialStateView v-if="!hasCalculated" class="my-auto" />
+      <InitialStateView v-if="!hasCalculated" />
 
       <!-- Results -->
-      <ResultsPanel
-        v-else
-        :state="state"
-        :fiscal="fiscal"
-        :expenses="expenses"
-        :format-currency="formatCurrency"
-      />
+      <div v-else class="flex flex-col gap-6 w-full max-w-5xl">
+        <!-- Learn Mode Top Bar -->
+        <LearnModeTopBar
+          :is-active="learnModeActive"
+          @toggle="toggleLearnMode"
+        />
+
+        <!-- Results Panel -->
+        <ResultsPanel
+          :state="state"
+          :fiscal="fiscal"
+          :expenses="expenses"
+          :format-currency="formatCurrency"
+          :learn-mode-active="learnModeActive"
+        />
+      </div>
     </div>
   </div>
 

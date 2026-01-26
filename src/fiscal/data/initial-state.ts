@@ -26,4 +26,5 @@ export const INITIAL_STATE: AppState = {
   expenses: INITIAL_EXPENSES,
   viewMode: 'Mensual',
   consumptionDetailMode: 'Sencillo',
+  learnMode: false,
 };

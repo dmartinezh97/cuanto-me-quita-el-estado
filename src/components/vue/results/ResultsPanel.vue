@@ -29,6 +29,8 @@ interface Props {
   expenses: CategoryExpense[];
   /** Currency formatter */
   formatCurrency: (val: number) => string;
+  /** Whether learn mode is active */
+  learnModeActive?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -72,6 +74,7 @@ const totalIndirectMonthly = computed(() => totalIndirectAnnual.value / 12);
       :state-percent="statePercent"
       :total-taxes="stateShareAnnual"
       :format-currency="formatCurrency"
+      :learn-mode-active="learnModeActive"
     />
 
     <!-- IRPF Section -->
@@ -80,6 +83,7 @@ const totalIndirectMonthly = computed(() => totalIndirectAnnual.value / 12);
       :irpf-rate="irpfRate"
       :gross-salary="annualGross"
       :format-currency="formatCurrency"
+      :learn-mode-active="learnModeActive"
     />
 
     <!-- SS Section -->
@@ -89,6 +93,7 @@ const totalIndirectMonthly = computed(() => totalIndirectAnnual.value / 12);
       :employer-total="employerSSAnnual"
       :employee-total="employeeSSAnnual"
       :format-currency="formatCurrency"
+      :learn-mode-active="learnModeActive"
     />
 
     <!-- IVA Section -->
@@ -98,6 +103,7 @@ const totalIndirectMonthly = computed(() => totalIndirectAnnual.value / 12);
       :expenses="expenses"
       :iva-breakdown="indirectTaxes"
       :format-currency="formatCurrency"
+      :learn-mode-active="learnModeActive"
     />
 
     <!-- Resumen Final -->

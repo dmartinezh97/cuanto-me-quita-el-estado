@@ -9,7 +9,9 @@
 import { computed } from 'vue';
 import { ShoppingBag } from 'lucide-vue-next';
 import IVACategoryCard from '../cards/IVACategoryCard.vue';
+import ExplanationBox from '../ui/ExplanationBox.vue';
 import type { CategoryExpense, IVABreakdown } from '@/types';
+import { LEARN_CONTENT } from '@/constants/learn-content';
 
 interface Props {
   /** Total indirect taxes (monthly) */
@@ -22,6 +24,8 @@ interface Props {
   ivaBreakdown: IVABreakdown;
   /** Currency formatter */
   formatCurrency: (val: number) => string;
+  /** Whether learn mode is active */
+  learnModeActive?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -128,5 +132,16 @@ const categoryIVA = computed(() => {
     >
       Introduce tus gastos mensuales para ver el desglose de IVA
     </div>
+
+    <!-- Learn Mode Explanation -->
+    <Transition name="explanation">
+      <ExplanationBox
+        v-if="learnModeActive"
+        variant="yellow"
+        :title="LEARN_CONTENT.iva.title"
+        :content="LEARN_CONTENT.iva.content"
+        :details="LEARN_CONTENT.iva.details"
+      />
+    </Transition>
   </div>
 </template>

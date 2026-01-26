@@ -8,7 +8,9 @@
  */
 
 import SSBreakdownCard from '../cards/SSBreakdownCard.vue';
+import ExplanationBox from '../ui/ExplanationBox.vue';
 import type { SSBreakdown, SSBreakdownItem } from '@/types';
+import { LEARN_CONTENT } from '@/constants/learn-content';
 
 interface Props {
   /** Employer SS breakdown */
@@ -21,6 +23,8 @@ interface Props {
   employeeTotal: number;
   /** Currency formatter */
   formatCurrency: (val: number) => string;
+  /** Whether learn mode is active */
+  learnModeActive?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -45,22 +49,43 @@ const employeeItems: SSBreakdownItem[] = [
 </script>
 
 <template>
-  <div class="flex gap-6">
-    <SSBreakdownCard
-      title="S.S. Empresa"
-      :total="employerTotal"
-      variant="employer"
-      :items="employerItems"
-      :format-currency="formatCurrency"
-      class="flex-1"
-    />
-    <SSBreakdownCard
-      title="S.S. Empleado"
-      :total="employeeTotal"
-      variant="employee"
-      :items="employeeItems"
-      :format-currency="formatCurrency"
-      class="flex-1"
-    />
+  <div class="flex flex-col gap-5">
+    <!-- Cards row -->
+    <div class="flex gap-6">
+      <SSBreakdownCard
+        title="S.S. Empresa"
+        :total="employerTotal"
+        variant="employer"
+        :items="employerItems"
+        :format-currency="formatCurrency"
+        class="flex-1"
+      />
+      <SSBreakdownCard
+        title="S.S. Empleado"
+        :total="employeeTotal"
+        variant="employee"
+        :items="employeeItems"
+        :format-currency="formatCurrency"
+        class="flex-1"
+      />
+    </div>
+
+    <!-- Learn Mode Explanations -->
+    <Transition name="explanation">
+      <div v-if="learnModeActive" class="flex gap-4">
+        <ExplanationBox
+          variant="teal"
+          :title="LEARN_CONTENT.ssEmpresa.title"
+          :content="LEARN_CONTENT.ssEmpresa.content"
+          class="flex-1"
+        />
+        <ExplanationBox
+          variant="orange"
+          :title="LEARN_CONTENT.ssEmpleado.title"
+          :content="LEARN_CONTENT.ssEmpleado.content"
+          class="flex-1"
+        />
+      </div>
+    </Transition>
   </div>
 </template>

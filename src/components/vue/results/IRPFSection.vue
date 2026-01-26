@@ -9,7 +9,9 @@
 import { computed } from 'vue';
 import { Receipt } from 'lucide-vue-next';
 import TramoBar from '../ui/TramoBar.vue';
+import ExplanationBox from '../ui/ExplanationBox.vue';
 import type { IRPFTramoDisplay } from '@/types';
+import { LEARN_CONTENT } from '@/constants/learn-content';
 
 interface Props {
   /** Total IRPF amount */
@@ -20,6 +22,8 @@ interface Props {
   grossSalary: number;
   /** Currency formatter */
   formatCurrency: (val: number) => string;
+  /** Whether learn mode is active */
+  learnModeActive?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -126,5 +130,16 @@ const formatRange = (from: number, to: number): string => {
         :index="index"
       />
     </div>
+
+    <!-- Learn Mode Explanation -->
+    <Transition name="explanation">
+      <ExplanationBox
+        v-if="learnModeActive"
+        variant="orange"
+        :title="LEARN_CONTENT.irpf.title"
+        :content="LEARN_CONTENT.irpf.content"
+        :details="LEARN_CONTENT.irpf.details"
+      />
+    </Transition>
   </div>
 </template>
