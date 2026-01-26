@@ -24,7 +24,7 @@ import { handleBoundedInput } from '@/composables/useBoundedInput';
 import PersonalDataForm from './PersonalDataForm.vue';
 import ExpenseCategories from './ExpenseCategories.vue';
 import InitialStateView from './InitialStateView.vue';
-import FiscalTicket from '../ticket/FiscalTicket.vue';
+import ResultsPanel from '../results/ResultsPanel.vue';
 
 // =============================================================================
 // State
@@ -218,8 +218,6 @@ const isDualInput = (sub: SubItem): boolean => {
 // Constants
 // =============================================================================
 
-const barcodePattern = [2, 1, 3, 1, 4, 2, 1, 3, 2, 1, 4, 2, 1, 3, 2, 1, 4];
-
 const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
   { key: 'iva4', label: 'Superreducido (4%)', color: 'emerald' },
   { key: 'iva10', label: 'Reducido (10%)', color: 'amber' },
@@ -284,23 +282,17 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
     </div>
 
     <!-- Right Panel: Results or Initial State -->
-    <div class="flex-1 bg-surface-secondary flex items-center justify-center p-12">
+    <div class="flex-1 bg-surface-secondary flex items-start justify-center p-12 overflow-y-auto">
       <!-- Initial State -->
-      <InitialStateView v-if="!hasCalculated" />
+      <InitialStateView v-if="!hasCalculated" class="my-auto" />
 
       <!-- Results -->
-      <FiscalTicket
+      <ResultsPanel
         v-else
         :state="state"
         :fiscal="fiscal"
-        :total-expenses-monthly="totalExpensesMonthly"
+        :expenses="expenses"
         :format-currency="formatCurrency"
-        :barcode-pattern="barcodePattern"
-        :social-security-employee-rate="SOCIAL_SECURITY_EMPLOYEE_RATE"
-        :social-security-employer-rate="SOCIAL_SECURITY_EMPLOYER_RATE"
-        @update-state="updateState"
-        @show-info-tooltip="showInfoTooltip"
-        @hide-info-tooltip="hideInfoTooltip"
       />
     </div>
   </div>

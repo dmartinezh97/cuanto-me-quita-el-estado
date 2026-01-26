@@ -34,3 +34,19 @@ export type {
   IVADetailedItem,
   IVABreakdown,
 } from './calculations';
+
+// Results panel types
+export type {
+  HeroCardProps,
+  PresionFiscalCardProps,
+  TramoBarProps,
+  SSBreakdownCardProps,
+  SSBreakdownItem,
+  IVACategoryCardProps,
+  DonutChartProps,
+  SectionHeaderProps,
+  BadgeProps,
+  ResumenFinalProps,
+  IRPFTramoDisplay,
+  IVACategoryDisplay,
+} from './results';
