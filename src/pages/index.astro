@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/astro/Footer.astro';
+import CookieBanner from '../components/astro/CookieBanner.astro';
 import FiscalCalculator from '../components/vue/calculator/FiscalCalculator.vue';
 ---
 
@@ -10,5 +11,6 @@ import FiscalCalculator from '../components/vue/calculator/FiscalCalculator.vue'
       <FiscalCalculator client:only="vue" />
     </main>
     <Footer />
+    <CookieBanner />
   </div>
 </BaseLayout>

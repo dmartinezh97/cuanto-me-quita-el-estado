@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/astro/Footer.astro';
+import CookieBanner from '../components/astro/CookieBanner.astro';
+---
+
+<BaseLayout
+  title="Política de Privacidad - Cuánto me quita el Estado"
+  description="Política de privacidad y protección de datos de cuantomequitaelestado.com"
+>
+  <div class="flex flex-col min-h-screen">
+    <main class="flex-grow py-8 px-4 sm:px-6 lg:px-8">
+      <article class="max-w-3xl mx-auto prose prose-stone dark:prose-invert">
+        <a href="/" class="text-primary hover:underline text-sm no-underline">&larr; Volver a la calculadora</a>
+
+        <h1 class="mt-6">Política de Privacidad</h1>
+        <p class="text-sm text-stone-500">Última actualización: Enero 2025</p>
+
+        <h2>1. Responsable del Tratamiento</h2>
+        <p>
+          El responsable del tratamiento de los datos recogidos en este sitio web es:
+        </p>
+        <ul>
+          <li><strong>Sitio web:</strong> cuantomequitaelestado.com</li>
+          <li><strong>Email de contacto:</strong> dmartinezh@protonmail.com</li>
+        </ul>
+
+        <h2>2. Datos que Recopilamos</h2>
+        <p>
+          Esta calculadora fiscal funciona <strong>completamente en tu navegador</strong>.
+          Los datos que introduces (salario, gastos, etc.) <strong>no se envían a ningún servidor</strong>
+          y no los almacenamos ni procesamos.
+        </p>
+        <p>
+          Si aceptas las cookies de análisis, podemos recopilar:
+        </p>
+        <ul>
+          <li>Datos de navegación anónimos (páginas visitadas, tiempo de permanencia)</li>
+          <li>Información técnica (tipo de dispositivo, navegador, país)</li>
+        </ul>
+        <p>
+          Esta información se utiliza exclusivamente para mejorar el servicio y entender cómo se usa la herramienta.
+        </p>
+
+        <h2>3. Base Legal del Tratamiento</h2>
+        <p>
+          La base legal para el tratamiento de datos de análisis es tu <strong>consentimiento</strong>,
+          que puedes otorgar o revocar en cualquier momento a través del banner de cookies o la
+          <a href="/politica-cookies">Política de Cookies</a>.
+        </p>
+
+        <h2>4. Tus Derechos (RGPD)</h2>
+        <p>
+          Conforme al Reglamento General de Protección de Datos (RGPD), tienes derecho a:
+        </p>
+        <ul>
+          <li><strong>Acceso:</strong> Conocer qué datos tenemos sobre ti</li>
+          <li><strong>Rectificación:</strong> Corregir datos inexactos</li>
+          <li><strong>Supresión:</strong> Solicitar la eliminación de tus datos</li>
+          <li><strong>Oposición:</strong> Oponerte al tratamiento de tus datos</li>
+          <li><strong>Portabilidad:</strong> Recibir tus datos en formato estructurado</li>
+          <li><strong>Limitación:</strong> Solicitar que limitemos el uso de tus datos</li>
+        </ul>
+        <p>
+          Para ejercer estos derechos, contacta con nosotros en
+          <a href="mailto:dmartinezh@protonmail.com">dmartinezh@protonmail.com</a>.
+        </p>
+
+        <h2>5. Seguridad</h2>
+        <p>
+          Implementamos medidas técnicas y organizativas apropiadas para proteger los datos
+          contra acceso no autorizado, alteración, divulgación o destrucción.
+        </p>
+
+        <h2>6. Cookies</h2>
+        <p>
+          Utilizamos cookies propias y de terceros. Para más información, consulta nuestra
+          <a href="/politica-cookies">Política de Cookies</a>.
+        </p>
+
+        <h2>7. Cambios en esta Política</h2>
+        <p>
+          Nos reservamos el derecho de modificar esta política para adaptarla a novedades
+          legislativas o jurisprudenciales. Los cambios se publicarán en esta página.
+        </p>
+
+        <h2>8. Contacto</h2>
+        <p>
+          Si tienes preguntas sobre esta política o sobre el tratamiento de tus datos,
+          puedes contactarnos en <a href="mailto:dmartinezh@protonmail.com">dmartinezh@protonmail.com</a>.
+        </p>
+      </article>
+    </main>
+    <Footer />
+    <CookieBanner />
+  </div>
+</BaseLayout>
+
+<style>
+  .prose {
+    --tw-prose-links: var(--color-primary);
+  }
+  .prose h1 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+  .prose h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 640px) {
+    .prose h1 {
+      font-size: 1.875rem;
+    }
+    .prose h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>

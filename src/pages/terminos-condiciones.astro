@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/astro/Footer.astro';
+import CookieBanner from '../components/astro/CookieBanner.astro';
+---
+
+<BaseLayout
+  title="Términos y Condiciones - Cuánto me quita el Estado"
+  description="Términos y condiciones de uso de cuantomequitaelestado.com"
+>
+  <div class="flex flex-col min-h-screen">
+    <main class="flex-grow py-8 px-4 sm:px-6 lg:px-8">
+      <article class="max-w-3xl mx-auto prose prose-stone dark:prose-invert">
+        <a href="/" class="text-primary hover:underline text-sm no-underline">&larr; Volver a la calculadora</a>
+
+        <h1 class="mt-6">Términos y Condiciones</h1>
+        <p class="text-sm text-stone-500">Última actualización: Enero 2025</p>
+
+        <h2>1. Objeto</h2>
+        <p>
+          Los presentes Términos y Condiciones regulan el acceso y uso del sitio web
+          cuantomequitaelestado.com (en adelante, "el Sitio"), que ofrece una calculadora
+          fiscal orientativa para residentes en España.
+        </p>
+
+        <h2>2. Aceptación</h2>
+        <p>
+          El acceso y uso del Sitio implica la aceptación plena de estos Términos y Condiciones.
+          Si no estás de acuerdo con alguno de ellos, te rogamos que no utilices el Sitio.
+        </p>
+
+        <h2>3. Naturaleza del Servicio</h2>
+        <p>
+          La calculadora fiscal proporcionada en este Sitio es una <strong>herramienta orientativa</strong>
+          diseñada con fines educativos e informativos. Los cálculos se basan en la normativa fiscal
+          vigente en España, pero:
+        </p>
+        <ul>
+          <li>Pueden contener errores o imprecisiones</li>
+          <li>No contemplan todas las situaciones personales posibles</li>
+          <li>No sustituyen al asesoramiento profesional</li>
+          <li>La normativa fiscal puede cambiar</li>
+        </ul>
+
+        <h2>4. Exención de Responsabilidad</h2>
+        <p>
+          <strong>IMPORTANTE:</strong> Los resultados de la calculadora son meramente orientativos
+          y no constituyen asesoramiento fiscal, financiero o legal.
+        </p>
+        <p>
+          El titular del Sitio no se hace responsable de:
+        </p>
+        <ul>
+          <li>Decisiones tomadas en base a los resultados de la calculadora</li>
+          <li>Errores en los cálculos o en los datos fiscales utilizados</li>
+          <li>Pérdidas económicas derivadas del uso de la información</li>
+          <li>Cambios en la normativa fiscal no reflejados inmediatamente</li>
+        </ul>
+        <p>
+          Para cuestiones fiscales importantes, <strong>consulta siempre con un asesor fiscal
+          profesional</strong> o con la Agencia Tributaria.
+        </p>
+
+        <h2>5. Uso Correcto del Sitio</h2>
+        <p>El usuario se compromete a:</p>
+        <ul>
+          <li>Utilizar el Sitio de conformidad con la ley y estos Términos</li>
+          <li>No realizar actividades que puedan dañar, sobrecargar o deteriorar el Sitio</li>
+          <li>No intentar acceder a áreas restringidas del Sitio</li>
+          <li>No utilizar el Sitio para fines ilegales o no autorizados</li>
+        </ul>
+
+        <h2>6. Propiedad Intelectual</h2>
+        <p>
+          El código fuente, diseño, textos, gráficos, logotipos y demás elementos del Sitio
+          están protegidos por derechos de propiedad intelectual.
+        </p>
+        <p>
+          Se permite el uso personal y no comercial del Sitio. Queda prohibida la reproducción,
+          distribución o modificación del contenido sin autorización expresa.
+        </p>
+
+        <h2>7. Enlaces a Terceros</h2>
+        <p>
+          El Sitio puede contener enlaces a sitios web de terceros. No nos hacemos responsables
+          del contenido, políticas de privacidad o prácticas de dichos sitios.
+        </p>
+
+        <h2>8. Modificaciones</h2>
+        <p>
+          Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento.
+          Los cambios entrarán en vigor desde su publicación en esta página.
+        </p>
+
+        <h2>9. Legislación Aplicable</h2>
+        <p>
+          Estos Términos se rigen por la legislación española. Para cualquier controversia
+          derivada del uso del Sitio, las partes se someten a los juzgados y tribunales
+          competentes según la normativa vigente.
+        </p>
+
+        <h2>10. Contacto</h2>
+        <p>
+          Para cualquier consulta sobre estos Términos, puedes contactarnos en
+          <a href="mailto:dmartinezh@protonmail.com">dmartinezh@protonmail.com</a>.
+        </p>
+      </article>
+    </main>
+    <Footer />
+    <CookieBanner />
+  </div>
+</BaseLayout>
+
+<style>
+  .prose {
+    --tw-prose-links: var(--color-primary);
+  }
+  .prose h1 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+  .prose h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 640px) {
+    .prose h1 {
+      font-size: 1.875rem;
+    }
+    .prose h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>

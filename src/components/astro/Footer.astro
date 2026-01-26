@@ -5,13 +5,32 @@ interface Props {
 }
 
 const { email = "dmartinezh@protonmail.com" } = Astro.props;
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="w-full bg-stone-100 dark:bg-slate-900 border-t border-stone-200 dark:border-stone-700 py-6 mt-8">
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
     <p class="text-center text-sm text-stone-600 dark:text-stone-400">
       La información proporcionada puede contener errores. Si encuentras algún error o tienes sugerencias de mejora, por favor contacta con
       <a href={`mailto:${email}`} class="text-primary hover:underline font-medium">{email}</a>.
+    </p>
+
+    <nav class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
+      <a href="/politica-privacidad" class="text-stone-500 dark:text-stone-400 hover:text-primary transition-colors">
+        Política de Privacidad
+      </a>
+      <span class="text-stone-300 dark:text-stone-600">·</span>
+      <a href="/terminos-condiciones" class="text-stone-500 dark:text-stone-400 hover:text-primary transition-colors">
+        Términos y Condiciones
+      </a>
+      <span class="text-stone-300 dark:text-stone-600">·</span>
+      <a href="/politica-cookies" class="text-stone-500 dark:text-stone-400 hover:text-primary transition-colors">
+        Política de Cookies
+      </a>
+    </nav>
+
+    <p class="text-center text-xs text-stone-400 dark:text-stone-500">
+      © {currentYear} cuantomequitaelestado.com
     </p>
   </div>
 </footer>

@@ -1,0 +1,95 @@
+---
+// Cookie consent banner - GDPR/LSSI-CE compliant
+// Shows only if user hasn't made a choice yet
+// Stores preference in localStorage as 'cookie_consent'
+---
+
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 hidden">
+  <div class="bg-white dark:bg-slate-800 border-t border-stone-200 dark:border-stone-700 shadow-lg">
+    <div class="max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-5">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex-1">
+          <p class="text-sm text-stone-700 dark:text-stone-300">
+            Usamos cookies para mejorar tu experiencia y analizar el uso del sitio.
+            Más información en nuestra
+            <a href="/politica-cookies" class="text-primary hover:underline font-medium">Política de Cookies</a>.
+          </p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+          <button
+            id="cookie-reject"
+            class="px-4 py-2 text-sm font-medium text-stone-700 dark:text-stone-300 bg-stone-100 dark:bg-slate-700 hover:bg-stone-200 dark:hover:bg-slate-600 rounded-lg transition-colors"
+          >
+            Rechazar
+          </button>
+          <button
+            id="cookie-accept"
+            class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
+          >
+            Aceptar todas
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const COOKIE_CONSENT_KEY = 'cookie_consent';
+
+  function getCookieConsent(): string | null {
+    return localStorage.getItem(COOKIE_CONSENT_KEY);
+  }
+
+  function setCookieConsent(value: 'accepted' | 'rejected'): void {
+    localStorage.setItem(COOKIE_CONSENT_KEY, value);
+    hideBanner();
+
+    // Dispatch event for analytics scripts to listen to
+    window.dispatchEvent(new CustomEvent('cookieConsentChanged', { detail: { consent: value } }));
+  }
+
+  function showBanner(): void {
+    const banner = document.getElementById('cookie-banner');
+    if (banner) {
+      banner.classList.remove('hidden');
+    }
+  }
+
+  function hideBanner(): void {
+    const banner = document.getElementById('cookie-banner');
+    if (banner) {
+      banner.classList.add('hidden');
+    }
+  }
+
+  function initCookieBanner(): void {
+    const consent = getCookieConsent();
+
+    if (!consent) {
+      showBanner();
+    }
+
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+
+    acceptBtn?.addEventListener('click', () => setCookieConsent('accepted'));
+    rejectBtn?.addEventListener('click', () => setCookieConsent('rejected'));
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCookieBanner);
+  } else {
+    initCookieBanner();
+  }
+
+  // Expose function to reset consent (useful for cookie policy page)
+  (window as any).resetCookieConsent = function(): void {
+    localStorage.removeItem(COOKIE_CONSENT_KEY);
+    showBanner();
+  };
+
+  // Expose function to check consent status
+  (window as any).getCookieConsent = getCookieConsent;
+</script>
