@@ -1,0 +1,305 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/astro/Footer.astro';
+import CookieBanner from '../components/astro/CookieBanner.astro';
+import FiscalCalculator from '../components/vue/calculator/FiscalCalculator.vue';
+import { ALL_COMMUNITIES, isForalCommunity } from '@fiscal/constants';
+import type { CCAASalary } from '@/types/salaries';
+import salariesData from '../data/salaries.json';
+
+/**
+ * Generate static paths for all autonomous communities.
+ * Maps community IDs to URL-friendly slugs.
+ */
+export function getStaticPaths() {
+  return ALL_COMMUNITIES.map((community) => {
+    // Convert underscore IDs to hyphen URLs (castilla_leon -> castilla-leon)
+    const slug = community.id.replace(/_/g, '-');
+
+    return {
+      params: { ccaa: slug },
+      props: { community },
+    };
+  });
+}
+
+const { community } = Astro.props;
+const ccaaId = community.id.replace(/-/g, '_'); // Convert URL back to ID with underscores
+
+// Get salary data for this CCAA
+const salaryData: CCAASalary | undefined = salariesData.byCCAA[ccaaId as keyof typeof salariesData.byCCAA];
+const nationalAvg = salariesData.national.avgMonthly;
+
+// Calculate fiscal characteristics
+const isForal = isForalCommunity(community.id);
+const maxRate = community.brackets[community.brackets.length - 1].rate;
+const minRate = community.brackets[0].rate;
+
+// SEO meta tags
+const title = `Calculadora IRPF ${community.name} 2026 - Impuestos y Salario Neto`;
+const description = `Calcula tu IRPF en ${community.name}. Salario medio: ${salaryData ? `€${salaryData.avgMonthly.toLocaleString('es-ES')}/mes` : 'ver datos'}. Tipo marginal máximo: ${(maxRate * 100).toFixed(1)}%. Descubre cuánto te quita el Estado con nuestra calculadora fiscal.`;
+
+// Related communities for comparison (simple logic: nearest alphabetically)
+const allCommunityIds = ALL_COMMUNITIES.map(c => c.id);
+const currentIndex = allCommunityIds.indexOf(community.id);
+const relatedCommunities = [
+  ALL_COMMUNITIES[(currentIndex + 1) % ALL_COMMUNITIES.length],
+  ALL_COMMUNITIES[(currentIndex + 2) % ALL_COMMUNITIES.length],
+  ALL_COMMUNITIES[(currentIndex - 1 + ALL_COMMUNITIES.length) % ALL_COMMUNITIES.length],
+].filter(c => c.id !== community.id).slice(0, 3);
+
+// Schema.org structured data
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": `${Astro.site}${Astro.url.pathname}`,
+  "inLanguage": "es-ES",
+  "about": {
+    "@type": "Place",
+    "name": community.name,
+    "geo": {
+      "@type": "Country",
+      "name": "España"
+    }
+  },
+  "mainEntity": {
+    "@type": "WebApplication",
+    "name": `Calculadora IRPF ${community.name}`,
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+};
+
+// Format salary for display
+const formatCurrency = (amount: number) => `€${amount.toLocaleString('es-ES')}`;
+---
+
+<BaseLayout {title} {description}>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+  <div class="flex flex-col min-h-screen">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-surface to-surface-secondary border-b border-border">
+      <div class="container mx-auto px-4 py-12 max-w-5xl">
+        <!-- Breadcrumbs -->
+        <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+          <ol class="flex items-center space-x-2 text-text-secondary">
+            <li><a href="/" class="hover:text-text-primary transition-colors">Inicio</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li class="text-text-primary" aria-current="page">{community.name}</li>
+          </ol>
+        </nav>
+
+        <!-- Main heading -->
+        <h1 class="font-display text-4xl md:text-5xl font-semibold text-text-primary mb-4">
+          Calculadora IRPF {community.name}
+        </h1>
+
+        <p class="text-lg text-text-secondary mb-8 max-w-3xl">
+          Descubre cuánto pagas en impuestos en {community.name}. Calcula tu IRPF, Seguridad Social e impuestos indirectos con datos fiscales actualizados a 2026.
+        </p>
+
+        <!-- Key stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <!-- Salary stat -->
+          {salaryData && (
+            <div class="bg-surface border border-border rounded-lg p-6">
+              <div class="text-sm text-text-secondary mb-1">Salario medio</div>
+              <div class="font-display text-3xl font-semibold text-text-primary mb-1">
+                {formatCurrency(salaryData.avgMonthly)}
+              </div>
+              <div class="text-xs text-text-tertiary">
+                {formatCurrency(salaryData.avgAnnual)}/año
+                {salaryData.vsNational !== 0 && (
+                  <span class={salaryData.vsNational > 0 ? 'text-green-600' : 'text-red-600'}>
+                    {' '}({salaryData.vsNational > 0 ? '+' : ''}{salaryData.vsNational.toFixed(1)}% vs. media nacional)
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          <!-- Tax rate stat -->
+          <div class="bg-surface border border-border rounded-lg p-6">
+            <div class="text-sm text-text-secondary mb-1">Tipo marginal máximo</div>
+            <div class="font-display text-3xl font-semibold text-text-primary mb-1">
+              {(maxRate * 100).toFixed(1)}%
+            </div>
+            <div class="text-xs text-text-tertiary">
+              {isForal ? 'Régimen foral (escala única)' : 'Régimen común (+ 50% estatal)'}
+            </div>
+          </div>
+
+          <!-- Ranking stat -->
+          {salaryData && (
+            <div class="bg-surface border border-border rounded-lg p-6">
+              <div class="text-sm text-text-secondary mb-1">Ranking salarial</div>
+              <div class="font-display text-3xl font-semibold text-text-primary mb-1">
+                #{salaryData.rank}
+              </div>
+              <div class="text-xs text-text-tertiary">
+                de 19 comunidades autónomas
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Info box about regional differences -->
+        <div class="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <h2 class="font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            ¿Por qué varían los impuestos por comunidad autónoma?
+          </h2>
+          <p class="text-sm text-blue-800 dark:text-blue-200">
+            En España, el IRPF se divide aproximadamente al 50% entre el Estado y la comunidad autónoma.
+            Cada región establece sus propios tramos y tipos, por lo que el impuesto final varía según dónde residas.
+            {isForal && ` ${community.name} tiene un régimen foral, con competencias fiscales propias y escala unificada.`}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <main class="flex-grow">
+      <FiscalCalculator client:only="vue" />
+    </main>
+
+    <!-- Comparisons Section -->
+    <section class="bg-surface-secondary border-t border-border py-12">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="font-display text-2xl font-semibold text-text-primary mb-6">
+          Compara {community.name} con otras comunidades
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {relatedCommunities.map((related) => {
+            const relatedSlug = related.id.replace(/_/g, '-');
+            const relatedSalary = salariesData.byCCAA[related.id.replace(/-/g, '_') as keyof typeof salariesData.byCCAA];
+
+            return (
+              <a
+                href={`/comparador/${ccaaId.replace(/_/g, '-')}-vs-${relatedSlug}`}
+                class="block bg-surface border border-border rounded-lg p-6 hover:border-accent transition-colors group"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="font-semibold text-text-primary group-hover:text-accent transition-colors">
+                    {community.name} vs {related.name}
+                  </h3>
+                  <svg class="w-5 h-5 text-text-tertiary group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+                {relatedSalary && salaryData && (
+                  <p class="text-sm text-text-secondary">
+                    Diferencia salarial: {Math.abs(relatedSalary.avgMonthly - salaryData.avgMonthly) < 10
+                      ? 'Similar'
+                      : `${formatCurrency(Math.abs(relatedSalary.avgMonthly - salaryData.avgMonthly))}/mes`
+                    }
+                  </p>
+                )}
+              </a>
+            );
+          })}
+        </div>
+
+        <!-- Link to all comparisons -->
+        <div class="mt-8 text-center">
+          <a href="/" class="text-accent hover:text-accent-dark font-medium inline-flex items-center gap-2">
+            Ver todas las comunidades autónomas
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="bg-surface border-t border-border py-12">
+      <div class="container mx-auto px-4 max-w-3xl">
+        <h2 class="font-display text-2xl font-semibold text-text-primary mb-8">
+          Preguntas frecuentes sobre IRPF en {community.name}
+        </h2>
+
+        <div class="space-y-6">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-text-primary mb-2 flex items-center justify-between">
+              ¿Cuál es el tipo marginal máximo en {community.name}?
+              <svg class="w-5 h-5 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-text-secondary text-sm pl-4 border-l-2 border-border">
+              El tipo marginal máximo en {community.name} es del <strong>{(maxRate * 100).toFixed(1)}%</strong> para la parte autonómica.
+              {!isForal && ` Sumando la parte estatal (24.5%), el tipo marginal total alcanza el ${((maxRate + 0.245) * 100).toFixed(1)}% para las rentas más altas.`}
+              {isForal && ` Al ser régimen foral, esta es la tasa total, sin sumar parte estatal adicional.`}
+            </p>
+          </details>
+
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-text-primary mb-2 flex items-center justify-between">
+              ¿Cómo se calcula el IRPF en {community.name}?
+              <svg class="w-5 h-5 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-text-secondary text-sm pl-4 border-l-2 border-border">
+              {isForal
+                ? `${community.name} tiene un sistema foral propio que aplica directamente sus tramos progresivos sobre la base imponible. No se añade una parte estatal adicional.`
+                : `En ${community.name}, el IRPF se calcula aplicando dos escalas progresivas: la estatal (igual para todas las CCAA de régimen común) y la autonómica (específica de ${community.name}). Aproximadamente el 50% del impuesto va al Estado y el 50% a la comunidad autónoma.`
+              }
+            </p>
+          </details>
+
+          {salaryData && (
+            <details class="group">
+              <summary class="cursor-pointer font-semibold text-text-primary mb-2 flex items-center justify-between">
+                ¿Cuál es el salario medio en {community.name}?
+                <svg class="w-5 h-5 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <p class="text-text-secondary text-sm pl-4 border-l-2 border-border">
+                Según datos del INE (2024), el salario medio bruto en {community.name} es de <strong>{formatCurrency(salaryData.avgMonthly)}/mes</strong>
+                ({formatCurrency(salaryData.avgAnnual)}/año). Esto representa un {salaryData.vsNational > 0 ? '+' : ''}{salaryData.vsNational.toFixed(1)}%
+                {salaryData.vsNational > 0 ? 'más' : 'menos'} que la media nacional de {formatCurrency(nationalAvg)}/mes.
+              </p>
+            </details>
+          )}
+
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-text-primary mb-2 flex items-center justify-between">
+              ¿Qué impuestos incluye esta calculadora además del IRPF?
+              <svg class="w-5 h-5 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-text-secondary text-sm pl-4 border-l-2 border-border">
+              Además del IRPF específico de {community.name}, la calculadora muestra tu carga fiscal completa: Seguridad Social (parte del trabajador y de la empresa),
+              IVA según tu patrón de consumo, e impuestos especiales (hidrocarburos, electricidad, alcohol, tabaco). Obtendrás una visión realista de cuánto pagas en impuestos totales.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+    <CookieBanner />
+  </div>
+</BaseLayout>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

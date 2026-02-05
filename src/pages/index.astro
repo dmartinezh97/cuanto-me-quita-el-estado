@@ -3,9 +3,86 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/astro/Footer.astro';
 import CookieBanner from '../components/astro/CookieBanner.astro';
 import FiscalCalculator from '../components/vue/calculator/FiscalCalculator.vue';
+
+const title = "Calculadora Fiscal España 2026: IRPF, IVA y Carga Fiscal Real | Cuánto Me Quita el Estado";
+const description = "Descubre cuánto pagas realmente en impuestos. Calcula IRPF, Seguridad Social, IVA e impuestos especiales. Ticket fiscal completo por comunidad autónoma.";
+
+// Schema.org structured data para SEO
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Cuánto Me Quita el Estado",
+      "url": Astro.site,
+      "description": "Calculadora fiscal completa para España que muestra IRPF, Seguridad Social, IVA e impuestos especiales",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "featureList": [
+        "Cálculo de IRPF por comunidad autónoma",
+        "Desglose de Seguridad Social (empleado y empresa)",
+        "Cálculo de IVA e impuestos indirectos",
+        "Visualización de ticket fiscal completo",
+        "Comparación entre comunidades autónomas"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cómo calcula esta herramienta los impuestos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La calculadora utiliza las escalas oficiales de IRPF 2025 de cada comunidad autónoma, las tasas de Seguridad Social vigentes y los tipos de IVA establecidos por la Agencia Tributaria para calcular tu carga fiscal total."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué comunidades autónomas tienen menor IRPF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Madrid, Andalucía y Galicia suelen tener los tipos autonómicos más bajos para salarios medios. Sin embargo, la diferencia fiscal varía según el nivel de ingresos. País Vasco y Navarra tienen sistemas forales propios."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Incluye la calculadora impuestos indirectos como el IVA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, además de IRPF y Seguridad Social, la calculadora muestra los impuestos indirectos que pagas en tu consumo: IVA, impuestos especiales (hidrocarburos, electricidad, alcohol, tabaco) y otros tributos, ofreciendo una visión completa de tu carga fiscal."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "name": "Cuánto Me Quita el Estado",
+      "url": Astro.site,
+      "description": description,
+      "inLanguage": "es-ES",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${Astro.site}?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout>
+<BaseLayout {title} {description}>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
   <div class="flex flex-col min-h-screen">
     <main class="flex-grow">
       <FiscalCalculator client:only="vue" />

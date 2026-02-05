@@ -1,0 +1,381 @@
+{
+  "$schema": "./salaries.schema.json",
+  "meta": {
+    "source": "Instituto Nacional de Estadística (INE)",
+    "year": 2024,
+    "lastUpdated": "2026-01",
+    "notes": "Salarios medios brutos mensuales y anuales por comunidad autónoma. Datos extraídos de la Encuesta de Población Activa (EPA) y Estructura Salarial del INE."
+  },
+  "national": {
+    "avgMonthly": 2385.60,
+    "avgAnnual": 33398,
+    "medianMonthly": 2100,
+    "medianAnnual": 29400
+  },
+  "byCCAA": {
+    "andalucia": {
+      "name": "Andalucía",
+      "avgMonthly": 2250,
+      "avgAnnual": 31500,
+      "rank": 14,
+      "vsNational": -5.7,
+      "population": 8500000
+    },
+    "aragon": {
+      "name": "Aragón",
+      "avgMonthly": 2450,
+      "avgAnnual": 34300,
+      "rank": 7,
+      "vsNational": 2.7,
+      "population": 1330000
+    },
+    "asturias": {
+      "name": "Principado de Asturias",
+      "avgMonthly": 2420,
+      "avgAnnual": 33880,
+      "rank": 9,
+      "vsNational": 1.4,
+      "population": 1010000
+    },
+    "baleares": {
+      "name": "Illes Balears",
+      "avgMonthly": 2300,
+      "avgAnnual": 32200,
+      "rank": 12,
+      "vsNational": -3.6,
+      "population": 1200000
+    },
+    "canarias": {
+      "name": "Canarias",
+      "avgMonthly": 2051.70,
+      "avgAnnual": 28723,
+      "rank": 19,
+      "vsNational": -14.0,
+      "population": 2200000
+    },
+    "cantabria": {
+      "name": "Cantabria",
+      "avgMonthly": 2380,
+      "avgAnnual": 33320,
+      "rank": 10,
+      "vsNational": -0.2,
+      "population": 580000
+    },
+    "castilla_leon": {
+      "name": "Castilla y León",
+      "avgMonthly": 2350,
+      "avgAnnual": 32900,
+      "rank": 11,
+      "vsNational": -1.5,
+      "population": 2400000
+    },
+    "castilla_la_mancha": {
+      "name": "Castilla-La Mancha",
+      "avgMonthly": 2200,
+      "avgAnnual": 30800,
+      "rank": 16,
+      "vsNational": -7.8,
+      "population": 2050000
+    },
+    "cataluna": {
+      "name": "Cataluña",
+      "avgMonthly": 2500,
+      "avgAnnual": 35000,
+      "rank": 5,
+      "vsNational": 4.8,
+      "population": 7800000
+    },
+    "valencia": {
+      "name": "Comunitat Valenciana",
+      "avgMonthly": 2280,
+      "avgAnnual": 31920,
+      "rank": 13,
+      "vsNational": -4.4,
+      "population": 5100000
+    },
+    "extremadura": {
+      "name": "Extremadura",
+      "avgMonthly": 2127.20,
+      "avgAnnual": 29781,
+      "rank": 18,
+      "vsNational": -10.8,
+      "population": 1060000
+    },
+    "galicia": {
+      "name": "Galicia",
+      "avgMonthly": 2320,
+      "avgAnnual": 32480,
+      "rank": 11,
+      "vsNational": -2.8,
+      "population": 2700000
+    },
+    "madrid": {
+      "name": "Madrid",
+      "avgMonthly": 2761.70,
+      "avgAnnual": 38664,
+      "rank": 2,
+      "vsNational": 15.8,
+      "population": 6800000
+    },
+    "murcia": {
+      "name": "Región de Murcia",
+      "avgMonthly": 2120.90,
+      "avgAnnual": 29693,
+      "rank": 17,
+      "vsNational": -11.1,
+      "population": 1520000
+    },
+    "navarra": {
+      "name": "Navarra",
+      "avgMonthly": 2589.10,
+      "avgAnnual": 36247,
+      "rank": 3,
+      "vsNational": 8.5,
+      "population": 660000
+    },
+    "pais_vasco": {
+      "name": "País Vasco",
+      "avgMonthly": 2809.90,
+      "avgAnnual": 39339,
+      "rank": 1,
+      "vsNational": 17.8,
+      "population": 2200000
+    },
+    "rioja": {
+      "name": "La Rioja",
+      "avgMonthly": 2400,
+      "avgAnnual": 33600,
+      "rank": 8,
+      "vsNational": 0.6,
+      "population": 320000
+    },
+    "ceuta": {
+      "name": "Ceuta",
+      "avgMonthly": 2150,
+      "avgAnnual": 30100,
+      "rank": 15,
+      "vsNational": -9.9,
+      "population": 85000
+    },
+    "melilla": {
+      "name": "Melilla",
+      "avgMonthly": 2180,
+      "avgAnnual": 30520,
+      "rank": 15,
+      "vsNational": -8.6,
+      "population": 87000
+    }
+  },
+  "byProfession": {
+    "medico": {
+      "name": "Médico/a",
+      "avgMonthly": 4500,
+      "avgAnnual": 63000,
+      "minMonthly": 3500,
+      "maxMonthly": 6500,
+      "topCCAA": ["pais_vasco", "madrid", "cataluna", "navarra", "aragon"],
+      "demand": "high",
+      "growth": "medium"
+    },
+    "ingeniero": {
+      "name": "Ingeniero/a",
+      "avgMonthly": 3200,
+      "avgAnnual": 44800,
+      "minMonthly": 2400,
+      "maxMonthly": 5000,
+      "topCCAA": ["madrid", "pais-vasco", "cataluna", "navarra", "aragon"],
+      "demand": "high",
+      "growth": "high"
+    },
+    "profesor": {
+      "name": "Profesor/a",
+      "avgMonthly": 2400,
+      "avgAnnual": 33600,
+      "minMonthly": 2000,
+      "maxMonthly": 3200,
+      "topCCAA": ["pais-vasco", "madrid", "navarra", "cataluna", "cantabria"],
+      "demand": "medium",
+      "growth": "low"
+    },
+    "abogado": {
+      "name": "Abogado/a",
+      "avgMonthly": 3800,
+      "avgAnnual": 53200,
+      "minMonthly": 2200,
+      "maxMonthly": 7000,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "navarra", "valencia"],
+      "demand": "medium",
+      "growth": "medium"
+    },
+    "enfermera": {
+      "name": "Enfermero/a",
+      "avgMonthly": 2600,
+      "avgAnnual": 36400,
+      "minMonthly": 2200,
+      "maxMonthly": 3400,
+      "topCCAA": ["pais-vasco", "madrid", "navarra", "cataluna", "cantabria"],
+      "demand": "high",
+      "growth": "high"
+    },
+    "autonomo": {
+      "name": "Autónomo (media)",
+      "avgMonthly": 2100,
+      "avgAnnual": 29400,
+      "minMonthly": 1000,
+      "maxMonthly": 5000,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "valencia", "andalucia"],
+      "demand": "variable",
+      "growth": "medium",
+      "notes": "Ingresos muy variables según sector y experiencia"
+    },
+    "desarrollador": {
+      "name": "Desarrollador/a Software",
+      "avgMonthly": 3500,
+      "avgAnnual": 49000,
+      "minMonthly": 2500,
+      "maxMonthly": 6000,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "valencia", "andalucia"],
+      "demand": "very-high",
+      "growth": "very-high"
+    },
+    "comercial": {
+      "name": "Comercial",
+      "avgMonthly": 2400,
+      "avgAnnual": 33600,
+      "minMonthly": 1800,
+      "maxMonthly": 4000,
+      "topCCAA": ["madrid", "cataluna", "valencia", "pais-vasco", "andalucia"],
+      "demand": "high",
+      "growth": "medium",
+      "notes": "Salario base + comisiones variables"
+    },
+    "arquitecto": {
+      "name": "Arquitecto/a",
+      "avgMonthly": 3000,
+      "avgAnnual": 42000,
+      "minMonthly": 2000,
+      "maxMonthly": 5000,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "valencia", "baleares"],
+      "demand": "medium",
+      "growth": "low"
+    },
+    "farmaceutico": {
+      "name": "Farmacéutico/a",
+      "avgMonthly": 2800,
+      "avgAnnual": 39200,
+      "minMonthly": 2200,
+      "maxMonthly": 4000,
+      "topCCAA": ["pais-vasco", "madrid", "cataluna", "navarra", "valencia"],
+      "demand": "medium",
+      "growth": "low"
+    },
+    "psicologo": {
+      "name": "Psicólogo/a",
+      "avgMonthly": 2200,
+      "avgAnnual": 30800,
+      "minMonthly": 1600,
+      "maxMonthly": 3500,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "valencia", "andalucia"],
+      "demand": "medium",
+      "growth": "high"
+    },
+    "contador": {
+      "name": "Contable/Auditor",
+      "avgMonthly": 2600,
+      "avgAnnual": 36400,
+      "minMonthly": 2000,
+      "maxMonthly": 4000,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "navarra", "valencia"],
+      "demand": "medium",
+      "growth": "medium"
+    },
+    "marketero": {
+      "name": "Marketing Manager",
+      "avgMonthly": 3200,
+      "avgAnnual": 44800,
+      "minMonthly": 2400,
+      "maxMonthly": 5500,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "valencia", "andalucia"],
+      "demand": "high",
+      "growth": "high"
+    },
+    "disenador": {
+      "name": "Diseñador/a Gráfico",
+      "avgMonthly": 2000,
+      "avgAnnual": 28000,
+      "minMonthly": 1500,
+      "maxMonthly": 3200,
+      "topCCAA": ["madrid", "cataluna", "pais-vasco", "valencia", "baleares"],
+      "demand": "medium",
+      "growth": "medium"
+    },
+    "electricista": {
+      "name": "Electricista",
+      "avgMonthly": 2100,
+      "avgAnnual": 29400,
+      "minMonthly": 1800,
+      "maxMonthly": 2800,
+      "topCCAA": ["pais_vasco", "madrid", "cataluna", "navarra", "aragon"],
+      "demand": "high",
+      "growth": "medium"
+    }
+  },
+  "costOfLiving": {
+    "barcelona": {
+      "city": "Barcelona",
+      "ccaa": "cataluna",
+      "vsAverage": 38.1,
+      "rentMonthly1BR": 1200,
+      "notes": "Ciudad más cara de España"
+    },
+    "madrid": {
+      "city": "Madrid",
+      "ccaa": "madrid",
+      "vsAverage": 32.5,
+      "rentMonthly1BR": 1100,
+      "notes": "Segunda ciudad más cara"
+    },
+    "bilbao": {
+      "city": "Bilbao",
+      "ccaa": "pais_vasco",
+      "vsAverage": 18.0,
+      "rentMonthly1BR": 900,
+      "notes": "Coste de vida moderado-alto"
+    },
+    "valencia": {
+      "city": "Valencia",
+      "ccaa": "valencia",
+      "vsAverage": 8.5,
+      "rentMonthly1BR": 750,
+      "notes": "Coste de vida moderado"
+    },
+    "sevilla": {
+      "city": "Sevilla",
+      "ccaa": "andalucia",
+      "vsAverage": 5.2,
+      "rentMonthly1BR": 650,
+      "notes": "Coste de vida moderado"
+    },
+    "zaragoza": {
+      "city": "Zaragoza",
+      "ccaa": "aragon",
+      "vsAverage": 3.8,
+      "rentMonthly1BR": 600,
+      "notes": "Coste de vida bajo-moderado"
+    },
+    "malaga": {
+      "city": "Málaga",
+      "ccaa": "andalucia",
+      "vsAverage": 12.0,
+      "rentMonthly1BR": 850,
+      "notes": "Coste de vida creciente por turismo"
+    },
+    "lugo": {
+      "city": "Lugo",
+      "ccaa": "galicia",
+      "vsAverage": -14.1,
+      "rentMonthly1BR": 450,
+      "notes": "Ciudad más barata de España"
+    }
+  }
+}

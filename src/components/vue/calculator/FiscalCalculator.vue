@@ -278,10 +278,10 @@ const ivaDistribution: Array<{ key: IVAKey; label: string; color: string }> = [
         <!-- Header -->
         <div class="flex flex-col gap-2">
           <h1 class="font-display text-[32px] font-medium text-text-primary">
-            Calculadora Fiscal
+            ¿Cuánto te quita el Estado?
           </h1>
           <p class="text-[14px] text-text-secondary">
-            Descubre cuánto te quita realmente el Estado
+            Calculadora fiscal completa: IRPF, Seguridad Social e impuestos indirectos
           </p>
         </div>
 
