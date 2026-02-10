@@ -1,0 +1,320 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/astro/Footer.astro';
+import CookieBanner from '../../components/astro/CookieBanner.astro';
+import { ALL_COMMUNITIES, getCommunityById } from '@fiscal/constants';
+import comparisonsData from '../../data/comparisons.json';
+import salariesData from '../../data/salaries.json';
+
+interface Comparison {
+  slug: string;
+  ccaa1: string;
+  ccaa2: string;
+  priority: number;
+  searchVolume: string;
+  metaTitle: string;
+  metaDescription: string;
+  differences: {
+    salary25k: { irpfDiff: number; netDiff: number; winner: string };
+    salary35k: { irpfDiff: number; netDiff: number; winner: string };
+    salary50k: { irpfDiff: number; netDiff: number; winner: string };
+    salary75k: { irpfDiff: number; netDiff: number; winner: string };
+  };
+  highlights: string[];
+}
+
+export function getStaticPaths() {
+  return comparisonsData.comparisons.map((comparison: Comparison) => ({
+    params: { comparison: comparison.slug },
+    props: { comparison },
+  }));
+}
+
+const { comparison } = Astro.props as { comparison: Comparison };
+
+// Get community data
+const ccaa1Id = comparison.ccaa1.replace(/-/g, '_');
+const ccaa2Id = comparison.ccaa2.replace(/-/g, '_');
+const community1 = getCommunityById(comparison.ccaa1) || getCommunityById(ccaa1Id);
+const community2 = getCommunityById(comparison.ccaa2) || getCommunityById(ccaa2Id);
+
+const salary1 = salariesData.byCCAA[ccaa1Id as keyof typeof salariesData.byCCAA];
+const salary2 = salariesData.byCCAA[ccaa2Id as keyof typeof salariesData.byCCAA];
+
+const title = comparison.metaTitle;
+const description = comparison.metaDescription;
+
+// Schema.org
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": `${Astro.site}comparador/${comparison.slug}`,
+  "inLanguage": "es-ES",
+  "about": {
+    "@type": "ComparisonReport",
+    "name": `Comparativa fiscal ${community1?.name || comparison.ccaa1} vs ${community2?.name || comparison.ccaa2}`,
+    "datePublished": "2026-01-28"
+  }
+};
+
+const formatCurrency = (amount: number) => {
+  const absAmount = Math.abs(amount);
+  const sign = amount >= 0 ? '+' : '-';
+  return `${sign}€${absAmount.toLocaleString('es-ES')}`;
+};
+
+const formatCurrencySimple = (amount: number) => `€${amount.toLocaleString('es-ES')}`;
+
+const salaryLevels = [
+  { key: 'salary25k', label: '€25.000', annual: 25000 },
+  { key: 'salary35k', label: '€35.000', annual: 35000 },
+  { key: 'salary50k', label: '€50.000', annual: 50000 },
+  { key: 'salary75k', label: '€75.000', annual: 75000 },
+];
+
+const ccaa1Slug = comparison.ccaa1.replace(/_/g, '-');
+const ccaa2Slug = comparison.ccaa2.replace(/_/g, '-');
+---
+
+<BaseLayout {title} {description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+  <div class="flex flex-col min-h-screen">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-surface to-surface-secondary border-b border-border">
+      <div class="container mx-auto px-4 py-12 max-w-5xl">
+        <!-- Breadcrumbs -->
+        <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+          <ol class="flex items-center space-x-2 text-text-secondary">
+            <li><a href="/" class="hover:text-text-primary transition-colors">Inicio</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li><span>Comparador</span></li>
+            <li><span class="mx-2">/</span></li>
+            <li class="text-text-primary" aria-current="page">{community1?.name} vs {community2?.name}</li>
+          </ol>
+        </nav>
+
+        <!-- Main heading -->
+        <h1 class="font-display text-4xl md:text-5xl font-semibold text-text-primary mb-4">
+          {community1?.name} vs {community2?.name}
+        </h1>
+
+        <p class="text-lg text-text-secondary mb-8 max-w-3xl">
+          Compara los impuestos entre {community1?.name} y {community2?.name}. Descubre cuánto ahorras en IRPF según tu salario y qué comunidad te conviene más.
+        </p>
+
+        <!-- Quick comparison cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- CCAA 1 Card -->
+          <a href={`/${ccaa1Slug}`} class="block bg-surface border border-border rounded-xl p-6 hover:border-accent transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-display text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors">
+                {community1?.name}
+              </h2>
+              <svg class="w-5 h-5 text-text-tertiary group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            {salary1 && (
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-text-secondary">Salario medio:</span>
+                  <span class="font-semibold">{formatCurrencySimple(salary1.avgMonthly)}/mes</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-text-secondary">Ranking salarial:</span>
+                  <span class="font-semibold">#{salary1.rank} de 19</span>
+                </div>
+                {community1 && (
+                  <div class="flex justify-between">
+                    <span class="text-text-secondary">Tipo marginal máx.:</span>
+                    <span class="font-semibold">{(community1.brackets[community1.brackets.length - 1].rate * 100).toFixed(1)}%</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </a>
+
+          <!-- CCAA 2 Card -->
+          <a href={`/${ccaa2Slug}`} class="block bg-surface border border-border rounded-xl p-6 hover:border-accent transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-display text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors">
+                {community2?.name}
+              </h2>
+              <svg class="w-5 h-5 text-text-tertiary group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            {salary2 && (
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-text-secondary">Salario medio:</span>
+                  <span class="font-semibold">{formatCurrencySimple(salary2.avgMonthly)}/mes</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-text-secondary">Ranking salarial:</span>
+                  <span class="font-semibold">#{salary2.rank} de 19</span>
+                </div>
+                {community2 && (
+                  <div class="flex justify-between">
+                    <span class="text-text-secondary">Tipo marginal máx.:</span>
+                    <span class="font-semibold">{(community2.brackets[community2.brackets.length - 1].rate * 100).toFixed(1)}%</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Table Section -->
+    <section class="py-12 bg-surface-secondary">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="font-display text-2xl font-semibold text-text-primary mb-6">
+          Diferencia en IRPF según salario bruto anual
+        </h2>
+
+        <div class="bg-surface border border-border rounded-xl overflow-hidden">
+          <table class="w-full">
+            <thead class="bg-surface-secondary border-b border-border">
+              <tr>
+                <th class="px-6 py-4 text-left text-sm font-semibold text-text-primary">Salario Bruto</th>
+                <th class="px-6 py-4 text-center text-sm font-semibold text-text-primary">Diferencia Anual</th>
+                <th class="px-6 py-4 text-center text-sm font-semibold text-text-primary">Más Favorable</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              {salaryLevels.map((level) => {
+                const diff = comparison.differences[level.key as keyof typeof comparison.differences];
+                const winner = diff.winner === comparison.ccaa1 ? community1?.name : community2?.name;
+                const isPositive = diff.irpfDiff > 0;
+
+                return (
+                  <tr class="hover:bg-surface-secondary/50 transition-colors">
+                    <td class="px-6 py-4">
+                      <span class="font-semibold text-text-primary">{level.label}</span>
+                      <span class="text-text-secondary text-sm ml-2">brutos/año</span>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                      <span class={`font-mono font-semibold ${Math.abs(diff.irpfDiff) > 0 ? (isPositive ? 'text-red-600' : 'text-green-600') : 'text-text-secondary'}`}>
+                        {Math.abs(diff.irpfDiff) === 0 ? 'Similar' : formatCurrency(diff.irpfDiff)}
+                      </span>
+                      {Math.abs(diff.irpfDiff) > 0 && (
+                        <span class="text-text-tertiary text-sm ml-1">/año</span>
+                      )}
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                        {winner}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mt-4 text-sm text-text-tertiary">
+          * Las diferencias son estimaciones basadas en los tramos autonómicos de IRPF 2026. El cálculo real puede variar según deducciones aplicables.
+        </p>
+      </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="py-12 bg-surface border-t border-border">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="font-display text-2xl font-semibold text-text-primary mb-6">
+          Puntos clave de la comparación
+        </h2>
+
+        <div class="grid gap-4">
+          {comparison.highlights.map((highlight, index) => (
+            <div class="flex items-start gap-4 p-4 bg-surface-secondary rounded-lg">
+              <div class="flex-shrink-0 w-8 h-8 bg-accent/10 text-accent rounded-full flex items-center justify-center font-semibold">
+                {index + 1}
+              </div>
+              <p class="text-text-primary">{highlight}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-12 bg-gradient-to-b from-surface-secondary to-surface border-t border-border">
+      <div class="container mx-auto px-4 max-w-3xl text-center">
+        <h2 class="font-display text-2xl font-semibold text-text-primary mb-4">
+          Calcula tu caso particular
+        </h2>
+        <p class="text-text-secondary mb-8">
+          Estas son estimaciones generales. Usa nuestra calculadora para obtener el desglose exacto según tu salario y situación personal.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href={`/${ccaa1Slug}`}
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+          >
+            Calcular en {community1?.name}
+          </a>
+          <a
+            href={`/${ccaa2Slug}`}
+            class="inline-flex items-center justify-center px-6 py-3 bg-surface border border-border text-text-primary font-semibold rounded-lg hover:bg-surface-secondary transition-colors"
+          >
+            Calcular en {community2?.name}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Comparisons -->
+    <section class="py-12 bg-surface border-t border-border">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="font-display text-2xl font-semibold text-text-primary mb-6">
+          Otras comparaciones populares
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {comparisonsData.comparisons
+            .filter((c: Comparison) => c.slug !== comparison.slug)
+            .slice(0, 6)
+            .map((c: Comparison) => {
+              const c1 = getCommunityById(c.ccaa1) || getCommunityById(c.ccaa1.replace(/-/g, '_'));
+              const c2 = getCommunityById(c.ccaa2) || getCommunityById(c.ccaa2.replace(/-/g, '_'));
+
+              return (
+                <a
+                  href={`/comparador/${c.slug}`}
+                  class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors group"
+                >
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-text-primary group-hover:text-accent transition-colors">
+                      {c1?.name || c.ccaa1} vs {c2?.name || c.ccaa2}
+                    </span>
+                    <svg class="w-4 h-4 text-text-tertiary group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </a>
+              );
+            })}
+        </div>
+
+        <div class="mt-8 text-center">
+          <a href="/" class="text-accent hover:text-accent-dark font-medium inline-flex items-center gap-2">
+            Ver calculadora completa
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+    <CookieBanner />
+  </div>
+</BaseLayout>

@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "description": "Datos de profesiones para páginas SEO programáticas",
+    "sources": ["INE", "InfoJobs", "Glassdoor", "LinkedIn Salary"],
+    "lastUpdated": "2026-01",
+    "year": 2024
+  },
+  "professions": [
+    {
+      "slug": "medico",
+      "name": "Médico/a",
+      "description": "Profesional de la medicina que diagnostica y trata enfermedades",
+      "category": "sanidad",
+      "metaTitle": "Sueldo Médico España 2026: Salario Neto e Impuestos por CCAA",
+      "metaDescription": "¿Cuánto gana un médico en España? Salario medio de €4.500/mes. Calcula tu sueldo neto según CCAA y especialidad. IRPF y deducciones.",
+      "avgMonthly": 4500,
+      "avgAnnual": 63000,
+      "range": { "min": 3500, "max": 6500 },
+      "topCCAA": [
+        { "id": "pais_vasco", "salary": 5200, "notes": "Mejor pagado del país" },
+        { "id": "madrid", "salary": 4800, "notes": "Alta demanda en hospitales privados" },
+        { "id": "cataluna", "salary": 4600, "notes": "Muchas opciones públicas y privadas" },
+        { "id": "navarra", "salary": 4500, "notes": "Excelente ratio calidad/coste de vida" },
+        { "id": "aragon", "salary": 4200, "notes": "Buenas condiciones laborales" }
+      ],
+      "deductions": [
+        "Cuotas colegiales obligatorias",
+        "Formación continuada (MIR, másters)",
+        "Seguros de responsabilidad civil"
+      ],
+      "demand": "very-high",
+      "growth": "medium",
+      "relatedProfessions": ["enfermera", "farmaceutico"]
+    },
+    {
+      "slug": "ingeniero",
+      "name": "Ingeniero/a",
+      "description": "Profesional técnico que diseña, desarrolla y optimiza sistemas y procesos",
+      "category": "tecnologia",
+      "metaTitle": "Sueldo Ingeniero España 2026: Salario por Especialidad y CCAA",
+      "metaDescription": "Salario de ingeniero en España: media de €3.200/mes. Varía según especialidad (software, industrial, civil). Calcula tu neto por comunidad.",
+      "avgMonthly": 3200,
+      "avgAnnual": 44800,
+      "range": { "min": 2400, "max": 5000 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 3800, "notes": "Hub tecnológico principal" },
+        { "id": "pais_vasco", "salary": 3600, "notes": "Industria potente" },
+        { "id": "cataluna", "salary": 3500, "notes": "Startups y multinacionales" },
+        { "id": "navarra", "salary": 3300, "notes": "Sector energías renovables" },
+        { "id": "aragon", "salary": 3100, "notes": "Industria automoción" }
+      ],
+      "deductions": [
+        "Cuotas colegiales (obligatorias en algunas especialidades)",
+        "Formación y certificaciones técnicas"
+      ],
+      "demand": "high",
+      "growth": "high",
+      "relatedProfessions": ["desarrollador", "arquitecto"]
+    },
+    {
+      "slug": "profesor",
+      "name": "Profesor/a",
+      "description": "Docente en educación primaria, secundaria o universitaria",
+      "category": "educacion",
+      "metaTitle": "Sueldo Profesor España 2026: Salario Público y Privado por CCAA",
+      "metaDescription": "Salario de profesor en España: €2.400/mes de media. Diferencias entre público, privado y concertado. IRPF y retenciones por comunidad.",
+      "avgMonthly": 2400,
+      "avgAnnual": 33600,
+      "range": { "min": 2000, "max": 3200 },
+      "topCCAA": [
+        { "id": "pais_vasco", "salary": 2900, "notes": "Mejor pagados de España" },
+        { "id": "madrid", "salary": 2600, "notes": "Complementos variables" },
+        { "id": "navarra", "salary": 2550, "notes": "Buenos complementos" },
+        { "id": "cataluna", "salary": 2500, "notes": "Sistema propio" },
+        { "id": "cantabria", "salary": 2450, "notes": "Condiciones favorables" }
+      ],
+      "deductions": [
+        "Material didáctico (con límites)",
+        "Formación continua obligatoria"
+      ],
+      "demand": "medium",
+      "growth": "low",
+      "relatedProfessions": ["psicologo"]
+    },
+    {
+      "slug": "abogado",
+      "name": "Abogado/a",
+      "description": "Profesional del derecho que asesora y representa legalmente",
+      "category": "legal",
+      "metaTitle": "Sueldo Abogado España 2026: Salario por Especialidad y CCAA",
+      "metaDescription": "¿Cuánto gana un abogado? Desde €2.200 junior hasta €7.000+ senior. Calcula tu sueldo neto según especialidad y comunidad autónoma.",
+      "avgMonthly": 3800,
+      "avgAnnual": 53200,
+      "range": { "min": 2200, "max": 7000 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 4500, "notes": "Grandes despachos internacionales" },
+        { "id": "cataluna", "salary": 4000, "notes": "Sector empresarial potente" },
+        { "id": "pais_vasco", "salary": 3800, "notes": "Especialización en fiscal" },
+        { "id": "navarra", "salary": 3500, "notes": "Derecho foral" },
+        { "id": "valencia", "salary": 3300, "notes": "Crecimiento sector inmobiliario" }
+      ],
+      "deductions": [
+        "Cuotas colegiales obligatorias",
+        "Seguro de responsabilidad civil",
+        "Bases de datos jurídicas"
+      ],
+      "demand": "medium",
+      "growth": "medium",
+      "relatedProfessions": ["contador"]
+    },
+    {
+      "slug": "enfermera",
+      "name": "Enfermero/a",
+      "description": "Profesional sanitario que proporciona cuidados a pacientes",
+      "category": "sanidad",
+      "metaTitle": "Sueldo Enfermero/a España 2026: Salario Público y Privado",
+      "metaDescription": "Salario de enfermero/a en España: €2.600/mes de media. Diferencias entre público y privado, por CCAA. Calcula tu sueldo neto.",
+      "avgMonthly": 2600,
+      "avgAnnual": 36400,
+      "range": { "min": 2200, "max": 3400 },
+      "topCCAA": [
+        { "id": "pais_vasco", "salary": 3200, "notes": "Mejor remunerado" },
+        { "id": "madrid", "salary": 2900, "notes": "Alta demanda" },
+        { "id": "navarra", "salary": 2800, "notes": "Sistema público fuerte" },
+        { "id": "cataluna", "salary": 2700, "notes": "ICS bien valorado" },
+        { "id": "cantabria", "salary": 2650, "notes": "Buenas condiciones" }
+      ],
+      "deductions": [
+        "Cuotas colegiales obligatorias",
+        "Formación continuada",
+        "Uniformes y material (limitado)"
+      ],
+      "demand": "very-high",
+      "growth": "high",
+      "relatedProfessions": ["medico", "farmaceutico"]
+    },
+    {
+      "slug": "autonomo",
+      "name": "Autónomo/a",
+      "description": "Trabajador por cuenta propia en cualquier sector",
+      "category": "general",
+      "metaTitle": "Impuestos Autónomo España 2026: IRPF, Cuotas y Deducciones",
+      "metaDescription": "¿Cuánto paga un autónomo en España? Cuota media €300/mes, IRPF desde 15%. Todas las deducciones y gastos deducibles actualizados.",
+      "avgMonthly": 2100,
+      "avgAnnual": 29400,
+      "range": { "min": 1000, "max": 5000 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 2800, "notes": "Mayor facturación media" },
+        { "id": "cataluna", "salary": 2600, "notes": "Ecosistema emprendedor" },
+        { "id": "pais_vasco", "salary": 2500, "notes": "Ayudas autonómicas" },
+        { "id": "valencia", "salary": 2200, "notes": "Crecimiento sector servicios" },
+        { "id": "andalucia", "salary": 1900, "notes": "Menor coste operativo" }
+      ],
+      "deductions": [
+        "Cuota de autónomo (obligatoria)",
+        "Gastos de suministros (30% si trabajas desde casa)",
+        "Equipos informáticos y software",
+        "Teléfono móvil (50%)",
+        "Gastos de vehículo (50% si necesario para actividad)",
+        "Formación relacionada con la actividad",
+        "Seguros de responsabilidad civil",
+        "Gestoría y asesoría fiscal"
+      ],
+      "demand": "variable",
+      "growth": "medium",
+      "notes": "Régimen fiscal especial con estimación directa o módulos",
+      "relatedProfessions": ["desarrollador", "disenador", "comercial"]
+    },
+    {
+      "slug": "desarrollador",
+      "name": "Desarrollador/a Software",
+      "description": "Programador que crea aplicaciones, webs y sistemas informáticos",
+      "category": "tecnologia",
+      "metaTitle": "Sueldo Desarrollador España 2026: Frontend, Backend, Full Stack",
+      "metaDescription": "Salario de desarrollador en España: €3.500/mes de media. Diferencias por tecnología (React, Python, Java) y por CCAA. Calcula tu neto.",
+      "avgMonthly": 3500,
+      "avgAnnual": 49000,
+      "range": { "min": 2500, "max": 6000 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 4200, "notes": "Hub tech principal" },
+        { "id": "cataluna", "salary": 4000, "notes": "Startups y gaming" },
+        { "id": "pais_vasco", "salary": 3600, "notes": "Industria 4.0" },
+        { "id": "valencia", "salary": 3200, "notes": "Crecimiento tech" },
+        { "id": "andalucia", "salary": 3000, "notes": "Málaga Tech Hub" }
+      ],
+      "deductions": [
+        "Equipos informáticos",
+        "Software y licencias",
+        "Formación y certificaciones"
+      ],
+      "demand": "very-high",
+      "growth": "very-high",
+      "relatedProfessions": ["ingeniero", "disenador"]
+    },
+    {
+      "slug": "comercial",
+      "name": "Comercial / Ventas",
+      "description": "Profesional de ventas con salario base más comisiones",
+      "category": "ventas",
+      "metaTitle": "Sueldo Comercial España 2026: Fijo + Comisiones por Sector",
+      "metaDescription": "Salario de comercial: €2.400/mes fijo + comisiones variables. Cómo tributan las comisiones y bonus. Calcula tu neto real.",
+      "avgMonthly": 2400,
+      "avgAnnual": 33600,
+      "range": { "min": 1800, "max": 4000 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 3200, "notes": "Sede de grandes empresas" },
+        { "id": "cataluna", "salary": 2900, "notes": "Sector industrial" },
+        { "id": "valencia", "salary": 2500, "notes": "Export y comercio" },
+        { "id": "pais_vasco", "salary": 2700, "notes": "Industria B2B" },
+        { "id": "andalucia", "salary": 2200, "notes": "Turismo y retail" }
+      ],
+      "deductions": [
+        "Gastos de desplazamiento (kilometraje)",
+        "Dietas y manutención",
+        "Teléfono móvil (uso profesional)"
+      ],
+      "demand": "high",
+      "growth": "medium",
+      "notes": "Tributación especial de comisiones con retención irregular",
+      "relatedProfessions": ["marketero"]
+    },
+    {
+      "slug": "arquitecto",
+      "name": "Arquitecto/a",
+      "description": "Profesional que diseña edificios y espacios urbanos",
+      "category": "construccion",
+      "metaTitle": "Sueldo Arquitecto España 2026: Por Cuenta Ajena y Libre",
+      "metaDescription": "Salario de arquitecto en España: €3.000/mes de media. Diferencias entre estudio, funcionario y autónomo. Calcula tu sueldo neto.",
+      "avgMonthly": 3000,
+      "avgAnnual": 42000,
+      "range": { "min": 2000, "max": 5000 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 3800, "notes": "Grandes proyectos urbanos" },
+        { "id": "cataluna", "salary": 3500, "notes": "Rehabilitación y diseño" },
+        { "id": "pais_vasco", "salary": 3200, "notes": "Obra pública" },
+        { "id": "valencia", "salary": 2800, "notes": "Sector inmobiliario activo" },
+        { "id": "baleares", "salary": 3400, "notes": "Vivienda de lujo" }
+      ],
+      "deductions": [
+        "Cuotas colegiales obligatorias",
+        "Seguro de responsabilidad civil",
+        "Software CAD/BIM"
+      ],
+      "demand": "medium",
+      "growth": "low",
+      "relatedProfessions": ["ingeniero"]
+    },
+    {
+      "slug": "farmaceutico",
+      "name": "Farmacéutico/a",
+      "description": "Profesional sanitario experto en medicamentos",
+      "category": "sanidad",
+      "metaTitle": "Sueldo Farmacéutico España 2026: Oficina, Hospital e Industria",
+      "metaDescription": "Salario de farmacéutico: €2.800/mes de media. Diferencias entre farmacia comunitaria, hospital e industria. Calcula tu neto.",
+      "avgMonthly": 2800,
+      "avgAnnual": 39200,
+      "range": { "min": 2200, "max": 4000 },
+      "topCCAA": [
+        { "id": "pais_vasco", "salary": 3400, "notes": "Industria farmacéutica" },
+        { "id": "madrid", "salary": 3200, "notes": "Sede de laboratorios" },
+        { "id": "cataluna", "salary": 3100, "notes": "Cluster biotecnológico" },
+        { "id": "navarra", "salary": 2900, "notes": "Industria pharma" },
+        { "id": "valencia", "salary": 2700, "notes": "Oficinas de farmacia" }
+      ],
+      "deductions": [
+        "Cuotas colegiales obligatorias",
+        "Formación continuada"
+      ],
+      "demand": "medium",
+      "growth": "low",
+      "relatedProfessions": ["medico", "enfermera"]
+    },
+    {
+      "slug": "psicologo",
+      "name": "Psicólogo/a",
+      "description": "Profesional de la salud mental y el comportamiento",
+      "category": "sanidad",
+      "metaTitle": "Sueldo Psicólogo España 2026: Clínico, Educativo y Organizacional",
+      "metaDescription": "Salario de psicólogo en España: €2.200/mes de media. Diferencias entre público, privado y consulta propia. Calcula tu neto.",
+      "avgMonthly": 2200,
+      "avgAnnual": 30800,
+      "range": { "min": 1600, "max": 3500 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 2800, "notes": "Mayor demanda privada" },
+        { "id": "cataluna", "salary": 2600, "notes": "Sector consolidado" },
+        { "id": "pais_vasco", "salary": 2500, "notes": "Sistema público" },
+        { "id": "valencia", "salary": 2200, "notes": "Crecimiento sector" },
+        { "id": "andalucia", "salary": 2000, "notes": "Menor coste operativo" }
+      ],
+      "deductions": [
+        "Cuotas colegiales obligatorias",
+        "Supervisión clínica",
+        "Formación continuada",
+        "Tests y materiales psicológicos"
+      ],
+      "demand": "high",
+      "growth": "high",
+      "relatedProfessions": ["medico", "profesor"]
+    },
+    {
+      "slug": "contador",
+      "name": "Contable / Auditor",
+      "description": "Profesional de la contabilidad y auditoría financiera",
+      "category": "finanzas",
+      "metaTitle": "Sueldo Contable España 2026: Controller, Auditor y Financiero",
+      "metaDescription": "Salario de contable/auditor en España: €2.600/mes de media. Diferencias por especialidad y Big Four. Calcula tu sueldo neto.",
+      "avgMonthly": 2600,
+      "avgAnnual": 36400,
+      "range": { "min": 2000, "max": 4000 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 3200, "notes": "Big Four y multinacionales" },
+        { "id": "cataluna", "salary": 3000, "notes": "Sector empresarial" },
+        { "id": "pais_vasco", "salary": 2800, "notes": "Industria" },
+        { "id": "navarra", "salary": 2600, "notes": "Fiscalidad foral" },
+        { "id": "valencia", "salary": 2400, "notes": "PYMES" }
+      ],
+      "deductions": [
+        "Formación y certificaciones (ROAC, etc.)"
+      ],
+      "demand": "medium",
+      "growth": "medium",
+      "relatedProfessions": ["abogado"]
+    },
+    {
+      "slug": "marketero",
+      "name": "Marketing Manager",
+      "description": "Responsable de estrategia y ejecución de marketing",
+      "category": "marketing",
+      "metaTitle": "Sueldo Marketing Manager España 2026: Digital, Brand y Growth",
+      "metaDescription": "Salario de marketing manager: €3.200/mes de media. Diferencias entre digital, tradicional y growth. Calcula tu sueldo neto por CCAA.",
+      "avgMonthly": 3200,
+      "avgAnnual": 44800,
+      "range": { "min": 2400, "max": 5500 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 4000, "notes": "Sedes corporativas" },
+        { "id": "cataluna", "salary": 3700, "notes": "Agencias y startups" },
+        { "id": "pais_vasco", "salary": 3200, "notes": "Industria B2B" },
+        { "id": "valencia", "salary": 2900, "notes": "Sector turismo" },
+        { "id": "andalucia", "salary": 2600, "notes": "Agencias locales" }
+      ],
+      "deductions": [
+        "Formación en herramientas digitales",
+        "Conferencias y eventos del sector"
+      ],
+      "demand": "high",
+      "growth": "high",
+      "relatedProfessions": ["comercial", "disenador"]
+    },
+    {
+      "slug": "disenador",
+      "name": "Diseñador/a Gráfico/UX",
+      "description": "Profesional del diseño visual y experiencia de usuario",
+      "category": "creatividad",
+      "metaTitle": "Sueldo Diseñador España 2026: Gráfico, UX/UI y Product Design",
+      "metaDescription": "Salario de diseñador en España: €2.000-3.200/mes según especialidad. UX mejor pagado que gráfico. Calcula tu sueldo neto.",
+      "avgMonthly": 2000,
+      "avgAnnual": 28000,
+      "range": { "min": 1500, "max": 3200 },
+      "topCCAA": [
+        { "id": "madrid", "salary": 2800, "notes": "Agencias y tech" },
+        { "id": "cataluna", "salary": 2600, "notes": "Diseño y creatividad" },
+        { "id": "pais_vasco", "salary": 2300, "notes": "Industria" },
+        { "id": "valencia", "salary": 2100, "notes": "Agencias locales" },
+        { "id": "baleares", "salary": 2200, "notes": "Sector turismo" }
+      ],
+      "deductions": [
+        "Software y licencias (Adobe, Figma)",
+        "Equipos (tablet gráfica, monitor)",
+        "Formación y cursos"
+      ],
+      "demand": "medium",
+      "growth": "medium",
+      "relatedProfessions": ["desarrollador", "marketero"]
+    },
+    {
+      "slug": "electricista",
+      "name": "Electricista",
+      "description": "Profesional de instalaciones eléctricas",
+      "category": "oficios",
+      "metaTitle": "Sueldo Electricista España 2026: Instalador y Mantenimiento",
+      "metaDescription": "Salario de electricista en España: €2.100/mes de media. Por cuenta ajena o autónomo. Calcula tu sueldo neto por comunidad.",
+      "avgMonthly": 2100,
+      "avgAnnual": 29400,
+      "range": { "min": 1800, "max": 2800 },
+      "topCCAA": [
+        { "id": "pais_vasco", "salary": 2600, "notes": "Industria y renovables" },
+        { "id": "madrid", "salary": 2400, "notes": "Construcción y mantenimiento" },
+        { "id": "cataluna", "salary": 2300, "notes": "Sector construcción" },
+        { "id": "navarra", "salary": 2200, "notes": "Energías renovables" },
+        { "id": "aragon", "salary": 2100, "notes": "Industria" }
+      ],
+      "deductions": [
+        "Herramientas y equipos",
+        "Formación y certificaciones",
+        "Vehículo profesional"
+      ],
+      "demand": "high",
+      "growth": "medium",
+      "relatedProfessions": []
+    },
+    {
+      "slug": "funcionario",
+      "name": "Funcionario Público",
+      "description": "Empleado de la administración pública",
+      "category": "administracion",
+      "metaTitle": "Sueldo Funcionario España 2026: Grupos A, B y C por CCAA",
+      "metaDescription": "Salario de funcionario en España según grupo y CCAA. Desde €1.600 (C2) hasta €3.500 (A1). Calcula tu neto con trienios y complementos.",
+      "avgMonthly": 2300,
+      "avgAnnual": 32200,
+      "range": { "min": 1600, "max": 3500 },
+      "topCCAA": [
+        { "id": "pais_vasco", "salary": 2900, "notes": "Complementos más altos" },
+        { "id": "navarra", "salary": 2700, "notes": "Régimen foral favorable" },
+        { "id": "madrid", "salary": 2500, "notes": "Administración central" },
+        { "id": "cataluna", "salary": 2400, "notes": "Generalitat" },
+        { "id": "cantabria", "salary": 2350, "notes": "Buenos complementos" }
+      ],
+      "deductions": [
+        "Cuotas sindicales (si aplica)",
+        "Plan de pensiones (Muface, etc.)"
+      ],
+      "demand": "high",
+      "growth": "low",
+      "notes": "Salario fijo + trienios + complementos. Mutualismo (MUFACE/MUGEJU/ISFAS)",
+      "relatedProfessions": ["profesor"]
+    }
+  ]
+}

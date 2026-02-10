@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { ALL_COMMUNITIES } from '@fiscal/constants';
+import comparisonsData from '../data/comparisons.json';
+import professionsData from '../data/professions.json';
 
 /**
  * Genera el sitemap.xml dinámicamente.
@@ -7,10 +9,10 @@ import { ALL_COMMUNITIES } from '@fiscal/constants';
  * Incluye:
  * - Página principal
  * - Páginas de políticas
- * - Páginas dinámicas por CCAA (cuando se implementen)
- * - Páginas de comparadores (cuando se implementen)
- * - Páginas de profesiones (cuando se implementen)
- * - Blog posts (cuando se implementen)
+ * - Páginas dinámicas por CCAA
+ * - Páginas de comparadores
+ * - Páginas de profesiones
+ * - Blog posts
  */
 
 const SITE_URL = 'https://cuantomequitaelestado.com';
@@ -58,7 +60,7 @@ export const GET: APIRoute = () => {
 
   // Páginas por CCAA (alta prioridad para SEO)
   ALL_COMMUNITIES.forEach((community) => {
-    const slug = community.id.replace(/_/g, '-'); // Convert underscores to hyphens for URLs
+    const slug = community.id.replace(/_/g, '-');
     entries.push({
       url: `${SITE_URL}/${slug}`,
       lastmod: today,
@@ -67,27 +69,41 @@ export const GET: APIRoute = () => {
     });
   });
 
-  // Generar comparadores (pares más relevantes)
-  // TODO: Cuando se cree comparisons.json, leer desde ahí
-  const topComparisons = [
-    'madrid-vs-barcelona',
-    'madrid-vs-pais-vasco',
-    'madrid-vs-cataluna',
-    'barcelona-vs-valencia',
-    'andalucia-vs-madrid',
-  ];
-
-  topComparisons.forEach((comparison) => {
+  // Páginas de comparadores (desde JSON)
+  comparisonsData.comparisons.forEach((comparison: { slug: string }) => {
     entries.push({
-      url: `${SITE_URL}/comparador/${comparison}`,
+      url: `${SITE_URL}/comparador/${comparison.slug}`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.8,
     });
   });
 
-  // TODO: Añadir páginas de profesiones cuando se implementen
-  // TODO: Añadir blog posts cuando se implementen
+  // Páginas de profesiones (desde JSON)
+  professionsData.professions.forEach((profession: { slug: string }) => {
+    entries.push({
+      url: `${SITE_URL}/profesion/${profession.slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.8,
+    });
+  });
+
+  // Blog posts
+  const blogPosts = [
+    'guia-irpf-2026',
+    'que-es-tipo-marginal',
+    'ccaa-menos-impuestos',
+  ];
+
+  blogPosts.forEach((post) => {
+    entries.push({
+      url: `${SITE_URL}/blog/${post}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.7,
+    });
+  });
 
   // Generar XML
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

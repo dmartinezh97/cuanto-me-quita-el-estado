@@ -1,0 +1,350 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/astro/Footer.astro';
+import CookieBanner from '../../components/astro/CookieBanner.astro';
+import { ALL_COMMUNITIES } from '@fiscal/constants';
+
+const title = "Las 5 CCAA Donde Se Pagan Menos Impuestos en España (2026)";
+const description = "Ranking actualizado de comunidades autónomas con menor presión fiscal. Madrid lidera para rentas altas, pero la respuesta depende de tu salario. Análisis completo.";
+
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": "2026-01-28",
+  "dateModified": "2026-01-28",
+  "author": {
+    "@type": "Organization",
+    "name": "Cuánto Me Quita el Estado"
+  }
+};
+
+// Ranking data
+const rankingSalario30k = [
+  { ccaa: 'madrid', name: 'Madrid', irpf: 4850, diff: 0, slug: 'madrid' },
+  { ccaa: 'galicia', name: 'Galicia', irpf: 5035, diff: 185, slug: 'galicia' },
+  { ccaa: 'castilla_leon', name: 'Castilla y León', irpf: 5090, diff: 240, slug: 'castilla-leon' },
+  { ccaa: 'cantabria', name: 'Cantabria', irpf: 5120, diff: 270, slug: 'cantabria' },
+  { ccaa: 'andalucia', name: 'Andalucía', irpf: 5145, diff: 295, slug: 'andalucia' },
+];
+
+const rankingSalario50k = [
+  { ccaa: 'madrid', name: 'Madrid', irpf: 11200, diff: 0, slug: 'madrid' },
+  { ccaa: 'castilla_leon', name: 'Castilla y León', irpf: 11680, diff: 480, slug: 'castilla-leon' },
+  { ccaa: 'galicia', name: 'Galicia', irpf: 11750, diff: 550, slug: 'galicia' },
+  { ccaa: 'andalucia', name: 'Andalucía', irpf: 11880, diff: 680, slug: 'andalucia' },
+  { ccaa: 'extremadura', name: 'Extremadura', irpf: 11920, diff: 720, slug: 'extremadura' },
+];
+
+const formatCurrency = (amount: number) => `€${amount.toLocaleString('es-ES')}`;
+---
+
+<BaseLayout {title} {description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+  <div class="flex flex-col min-h-screen">
+    <!-- Hero -->
+    <section class="bg-gradient-to-b from-surface to-surface-secondary border-b border-border">
+      <div class="container mx-auto px-4 py-12 max-w-3xl">
+        <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+          <ol class="flex items-center space-x-2 text-text-secondary">
+            <li><a href="/" class="hover:text-text-primary transition-colors">Inicio</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li><span>Blog</span></li>
+            <li><span class="mx-2">/</span></li>
+            <li class="text-text-primary" aria-current="page">CCAA con menos impuestos</li>
+          </ol>
+        </nav>
+
+        <h1 class="font-display text-4xl md:text-5xl font-semibold text-text-primary mb-4">
+          ¿Dónde se pagan menos impuestos en España?
+        </h1>
+
+        <p class="text-lg text-text-secondary">
+          Ranking actualizado de comunidades autónomas por presión fiscal. Spoiler: la respuesta depende de cuánto ganas.
+        </p>
+
+        <div class="mt-6 flex items-center gap-4 text-sm text-text-tertiary">
+          <span>Actualizado: Enero 2026</span>
+          <span>•</span>
+          <span>Tiempo de lectura: 6 min</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <article class="py-12">
+      <div class="container mx-auto px-4 max-w-3xl">
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+
+          <!-- Intro -->
+          <p class="lead text-xl text-text-secondary">
+            "Madrid es donde menos impuestos se pagan" es una afirmación que escucharás a menudo. Y es <em>parcialmente</em> cierta. La realidad es más matizada: el ranking cambia según tu nivel de ingresos.
+          </p>
+
+          <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 my-6">
+            <p class="text-amber-800 dark:text-amber-200 m-0">
+              <strong>Importante:</strong> Este análisis se centra solo en IRPF. No incluye otros factores como impuesto de sucesiones, patrimonio, IBI o coste de vida, que también afectan a tu capacidad de ahorro real.
+            </p>
+          </div>
+
+          <!-- Section 1 -->
+          <h2 id="ranking-30k" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Top 5 CCAA con menos IRPF: Salario de €30.000
+          </h2>
+
+          <p>
+            Para un salario bruto anual de €30.000 (aproximadamente €2.500/mes), este es el ranking de comunidades donde menos IRPF pagas:
+          </p>
+
+          <div class="overflow-x-auto my-6">
+            <table class="w-full border border-border rounded-lg overflow-hidden">
+              <thead class="bg-surface-secondary">
+                <tr>
+                  <th class="px-4 py-3 text-center font-semibold w-12">#</th>
+                  <th class="px-4 py-3 text-left font-semibold">Comunidad Autónoma</th>
+                  <th class="px-4 py-3 text-center font-semibold">IRPF Anual</th>
+                  <th class="px-4 py-3 text-center font-semibold">vs. Madrid</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                {rankingSalario30k.map((row, index) => (
+                  <tr class={index === 0 ? 'bg-green-50 dark:bg-green-950/20' : ''}>
+                    <td class="px-4 py-3 text-center">
+                      {index === 0 ? (
+                        <span class="text-xl">🥇</span>
+                      ) : index === 1 ? (
+                        <span class="text-xl">🥈</span>
+                      ) : index === 2 ? (
+                        <span class="text-xl">🥉</span>
+                      ) : (
+                        <span class="text-text-tertiary">{index + 1}</span>
+                      )}
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={`/${row.slug}`} class="font-semibold text-text-primary hover:text-accent">
+                        {row.name}
+                      </a>
+                    </td>
+                    <td class="px-4 py-3 text-center font-mono">{formatCurrency(row.irpf)}</td>
+                    <td class="px-4 py-3 text-center">
+                      {row.diff === 0 ? (
+                        <span class="text-green-600 font-semibold">Referencia</span>
+                      ) : (
+                        <span class="text-red-600">+{formatCurrency(row.diff)}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Para salarios medios de €30.000, <strong>Madrid</strong> es claramente la más favorable, seguida de cerca por <strong>Galicia</strong> y <strong>Castilla y León</strong>. La diferencia con el "peor" del top 5 es de unos €300/año.
+          </p>
+
+          <!-- Section 2 -->
+          <h2 id="ranking-50k" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Top 5 CCAA con menos IRPF: Salario de €50.000
+          </h2>
+
+          <p>
+            Para un salario bruto anual de €50.000 (aproximadamente €4.166/mes), el ranking cambia ligeramente:
+          </p>
+
+          <div class="overflow-x-auto my-6">
+            <table class="w-full border border-border rounded-lg overflow-hidden">
+              <thead class="bg-surface-secondary">
+                <tr>
+                  <th class="px-4 py-3 text-center font-semibold w-12">#</th>
+                  <th class="px-4 py-3 text-left font-semibold">Comunidad Autónoma</th>
+                  <th class="px-4 py-3 text-center font-semibold">IRPF Anual</th>
+                  <th class="px-4 py-3 text-center font-semibold">vs. Madrid</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                {rankingSalario50k.map((row, index) => (
+                  <tr class={index === 0 ? 'bg-green-50 dark:bg-green-950/20' : ''}>
+                    <td class="px-4 py-3 text-center">
+                      {index === 0 ? (
+                        <span class="text-xl">🥇</span>
+                      ) : index === 1 ? (
+                        <span class="text-xl">🥈</span>
+                      ) : index === 2 ? (
+                        <span class="text-xl">🥉</span>
+                      ) : (
+                        <span class="text-text-tertiary">{index + 1}</span>
+                      )}
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={`/${row.slug}`} class="font-semibold text-text-primary hover:text-accent">
+                        {row.name}
+                      </a>
+                    </td>
+                    <td class="px-4 py-3 text-center font-mono">{formatCurrency(row.irpf)}</td>
+                    <td class="px-4 py-3 text-center">
+                      {row.diff === 0 ? (
+                        <span class="text-green-600 font-semibold">Referencia</span>
+                      ) : (
+                        <span class="text-red-600">+{formatCurrency(row.diff)}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Con €50.000 de salario, la ventaja de Madrid se amplía: puedes ahorrar entre €480 y €720 respecto a otras comunidades del top 5.
+          </p>
+
+          <!-- Section 3 -->
+          <h2 id="por-que-madrid" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            ¿Por qué Madrid tiene los impuestos más bajos?
+          </h2>
+
+          <p>
+            Madrid ha mantenido una política fiscal de tipos bajos durante años. Sus tramos autonómicos son:
+          </p>
+
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Hasta €13.362: <strong>8,5%</strong> (vs. 9,5% estándar)</li>
+            <li>€13.362 - €19.004: <strong>10,7%</strong> (vs. 12% estándar)</li>
+            <li>€19.004 - €35.425: <strong>12,8%</strong> (vs. 15% estándar)</li>
+            <li>€35.425 - €57.320: <strong>17,4%</strong> (vs. 18,5% estándar)</li>
+            <li>Más de €57.320: <strong>20,5%</strong> (vs. 22,5% estándar)</li>
+          </ul>
+
+          <p>
+            En todos los tramos, Madrid está por debajo de la media. Esto se traduce en ahorros acumulativos que crecen con el salario.
+          </p>
+
+          <!-- Section 4 -->
+          <h2 id="peores-ccaa" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            ¿Dónde se pagan más impuestos?
+          </h2>
+
+          <p>
+            Las comunidades con mayor presión fiscal en IRPF (régimen común) son:
+          </p>
+
+          <ol class="list-decimal list-inside space-y-2 my-4">
+            <li><strong>Cataluña</strong>: Tipo marginal máximo del 25,5% autonómico</li>
+            <li><strong>Valencia</strong>: Tramos intermedios más altos</li>
+            <li><strong>Asturias</strong>: Tipos elevados en todos los tramos</li>
+            <li><strong>Aragón</strong>: Muchos tramos con tipos altos</li>
+          </ol>
+
+          <div class="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 my-6">
+            <p class="text-blue-800 dark:text-blue-200 m-0">
+              <strong>Nota sobre territorios forales:</strong> País Vasco y Navarra tienen sistemas propios. Navarra tiene el tipo marginal más alto de España (52%), pero también ofrece deducciones generosas. País Vasco tiene tipos medios-altos pero excelentes servicios públicos.
+            </p>
+          </div>
+
+          <!-- Section 5 -->
+          <h2 id="mas-alla-irpf" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Más allá del IRPF: lo que debes considerar
+          </h2>
+
+          <p>
+            El IRPF no es todo. Antes de mudarte por motivos fiscales, considera:
+          </p>
+
+          <div class="grid gap-4 my-6">
+            <div class="p-4 bg-surface-secondary rounded-lg">
+              <h4 class="font-semibold text-text-primary mb-2">Coste de vida</h4>
+              <p class="text-text-secondary text-sm m-0">
+                Madrid y Barcelona tienen costes de vida un 30-40% superiores a ciudades como Sevilla, Valencia o Zaragoza. Puedes ahorrar €500/año en IRPF pero gastar €500/mes más en alquiler.
+              </p>
+            </div>
+
+            <div class="p-4 bg-surface-secondary rounded-lg">
+              <h4 class="font-semibold text-text-primary mb-2">Impuesto de Sucesiones</h4>
+              <p class="text-text-secondary text-sm m-0">
+                Madrid tiene bonificación del 99% para familiares directos. Cataluña, Valencia o Asturias pueden suponer decenas de miles de euros en herencias.
+              </p>
+            </div>
+
+            <div class="p-4 bg-surface-secondary rounded-lg">
+              <h4 class="font-semibold text-text-primary mb-2">Impuesto de Patrimonio</h4>
+              <p class="text-text-secondary text-sm m-0">
+                Madrid tiene una bonificación del 100% (no se paga). Cataluña o Valencia lo mantienen. Relevante si tienes patrimonio significativo.
+              </p>
+            </div>
+
+            <div class="p-4 bg-surface-secondary rounded-lg">
+              <h4 class="font-semibold text-text-primary mb-2">Servicios públicos</h4>
+              <p class="text-text-secondary text-sm m-0">
+                País Vasco y Navarra, pese a tipos altos, ofrecen servicios de primera calidad. Menos impuestos no siempre significa más ahorro real.
+              </p>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="bg-gradient-to-r from-accent/10 to-accent/5 border border-accent/20 rounded-xl p-6 my-12">
+            <h3 class="font-display text-xl font-semibold text-text-primary mb-3">
+              Calcula tu situación real
+            </h3>
+            <p class="text-text-secondary mb-4">
+              Estos rankings son orientativos. Calcula exactamente cuánto pagarías en cada comunidad con nuestra herramienta.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a
+                href="/"
+                class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+              >
+                Calculadora fiscal
+              </a>
+              <a
+                href="/comparador/madrid-vs-barcelona"
+                class="inline-flex items-center justify-center px-6 py-3 bg-surface border border-border text-text-primary font-semibold rounded-lg hover:bg-surface-secondary transition-colors"
+              >
+                Madrid vs Barcelona
+              </a>
+            </div>
+          </div>
+
+          <!-- Conclusion -->
+          <h2 id="conclusion" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Conclusión
+          </h2>
+
+          <p>
+            <strong>Madrid</strong> es objetivamente donde menos IRPF se paga en el régimen común, especialmente para salarios medios-altos. <strong>Galicia</strong> y <strong>Castilla y León</strong> son alternativas interesantes con menor coste de vida.
+          </p>
+
+          <p>
+            Pero recuerda: mudarse solo por impuestos rara vez compensa si no tienes otros motivos. La diferencia anual de €300-700 en IRPF puede desaparecer en un mes de alquiler más caro.
+          </p>
+
+          <!-- Related -->
+          <h2 id="relacionado" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Artículos relacionados
+          </h2>
+
+          <div class="grid gap-4 my-6">
+            <a href="/comparador/madrid-vs-barcelona" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">Madrid vs Barcelona: Comparativa completa</span>
+              <span class="block text-sm text-text-secondary">Diferencias fiscales detalladas entre las dos grandes</span>
+            </a>
+            <a href="/blog/guia-irpf-2026" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">Guía completa del IRPF 2026</span>
+              <span class="block text-sm text-text-secondary">Todo sobre tramos, deducciones y cálculo</span>
+            </a>
+            <a href="/blog/que-es-tipo-marginal" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">¿Qué es el tipo marginal?</span>
+              <span class="block text-sm text-text-secondary">Por qué no pagas el tipo máximo en todo tu sueldo</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+    <Footer />
+    <CookieBanner />
+  </div>
+</BaseLayout>

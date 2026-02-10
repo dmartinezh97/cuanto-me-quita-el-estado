@@ -21,10 +21,12 @@ import type { AppState, CategoryExpense, SSBreakdown, IVABreakdown } from '@/typ
 import {
   calculateIRPF,
   calculateIVABreakdown,
+  calculateSSContribution,
   SOCIAL_SECURITY_EMPLOYEE_RATE,
   SOCIAL_SECURITY_EMPLOYER_RATE,
   RATES_SS_EMPLOYEE,
   RATES_SS_EMPLOYER,
+  SS_BASE_MAX_ANNUAL,
 } from '@fiscal/calculations';
 
 export interface UseFiscalCalculationsParams {
@@ -126,30 +128,38 @@ export function useFiscalCalculations(
   const annualGross = computed(() => state.grossSalary);
 
   /**
-   * Employer's total cost = gross + employer SS contributions.
+   * Capped contribution base for Social Security.
+   * Salary above 58,914€/year doesn't generate additional SS contributions.
+   */
+  const cappedBase = computed(() =>
+    Math.min(annualGross.value, SS_BASE_MAX_ANNUAL)
+  );
+
+  /**
+   * Employer's total cost = gross + employer SS contributions (capped).
    * This is what the company actually pays.
    */
   const employerCostAnnual = computed(() =>
-    annualGross.value * (1 + SOCIAL_SECURITY_EMPLOYER_RATE)
+    annualGross.value + calculateSSContribution(annualGross.value, SOCIAL_SECURITY_EMPLOYER_RATE)
   );
 
   /**
-   * Total employer Social Security contributions.
+   * Total employer Social Security contributions (capped).
    */
   const employerSSAnnual = computed(() =>
-    annualGross.value * SOCIAL_SECURITY_EMPLOYER_RATE
+    calculateSSContribution(annualGross.value, SOCIAL_SECURITY_EMPLOYER_RATE)
   );
 
   /**
-   * Breakdown of employer SS contributions by component.
+   * Breakdown of employer SS contributions by component (capped).
    */
   const employerSSBreakdown = computed<SSBreakdown>(() => ({
-    contingenciasComunes: annualGross.value * RATES_SS_EMPLOYER.CONTINGENCIAS_COMUNES,
-    desempleo: annualGross.value * RATES_SS_EMPLOYER.DESEMPLEO,
-    formacion: annualGross.value * RATES_SS_EMPLOYER.FORMACION,
-    mei: annualGross.value * RATES_SS_EMPLOYER.MEI,
-    fogasa: annualGross.value * RATES_SS_EMPLOYER.FOGASA,
-    atEp: annualGross.value * RATES_SS_EMPLOYER.AT_EP,
+    contingenciasComunes: cappedBase.value * RATES_SS_EMPLOYER.CONTINGENCIAS_COMUNES,
+    desempleo: cappedBase.value * RATES_SS_EMPLOYER.DESEMPLEO,
+    formacion: cappedBase.value * RATES_SS_EMPLOYER.FORMACION,
+    mei: cappedBase.value * RATES_SS_EMPLOYER.MEI,
+    fogasa: cappedBase.value * RATES_SS_EMPLOYER.FOGASA,
+    atEp: cappedBase.value * RATES_SS_EMPLOYER.AT_EP,
   }));
 
   // ==========================================================================
@@ -171,20 +181,20 @@ export function useFiscalCalculations(
   const irpfAnnual = computed(() => annualGross.value * irpfRate.value);
 
   /**
-   * Total employee Social Security contributions.
+   * Total employee Social Security contributions (capped).
    */
   const employeeSSAnnual = computed(() =>
-    annualGross.value * SOCIAL_SECURITY_EMPLOYEE_RATE
+    calculateSSContribution(annualGross.value, SOCIAL_SECURITY_EMPLOYEE_RATE)
   );
 
   /**
-   * Breakdown of employee SS contributions by component.
+   * Breakdown of employee SS contributions by component (capped).
    */
   const employeeSSBreakdown = computed<SSBreakdown>(() => ({
-    contingenciasComunes: annualGross.value * RATES_SS_EMPLOYEE.CONTINGENCIAS_COMUNES,
-    desempleo: annualGross.value * RATES_SS_EMPLOYEE.DESEMPLEO,
-    formacion: annualGross.value * RATES_SS_EMPLOYEE.FORMACION,
-    mei: annualGross.value * RATES_SS_EMPLOYEE.MEI,
+    contingenciasComunes: cappedBase.value * RATES_SS_EMPLOYEE.CONTINGENCIAS_COMUNES,
+    desempleo: cappedBase.value * RATES_SS_EMPLOYEE.DESEMPLEO,
+    formacion: cappedBase.value * RATES_SS_EMPLOYEE.FORMACION,
+    mei: cappedBase.value * RATES_SS_EMPLOYEE.MEI,
   }));
 
   /**

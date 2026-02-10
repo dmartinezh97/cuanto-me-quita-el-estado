@@ -1,0 +1,287 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/astro/Footer.astro';
+import CookieBanner from '../../components/astro/CookieBanner.astro';
+import { STATE_IRPF_BRACKETS, ALL_COMMUNITIES } from '@fiscal/constants';
+
+const title = "Guía Completa del IRPF 2026: Tramos, Cálculo y Deducciones";
+const description = "Todo sobre el IRPF en España 2026. Tramos estatales y autonómicos, cómo se calcula paso a paso, deducciones disponibles y diferencias por comunidad autónoma.";
+
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": "2026-01-28",
+  "dateModified": "2026-01-28",
+  "author": {
+    "@type": "Organization",
+    "name": "Cuánto Me Quita el Estado"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cuánto Me Quita el Estado",
+    "url": Astro.site
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `${Astro.site}blog/guia-irpf-2026`
+  }
+};
+---
+
+<BaseLayout {title} {description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+  <div class="flex flex-col min-h-screen">
+    <!-- Hero -->
+    <section class="bg-gradient-to-b from-surface to-surface-secondary border-b border-border">
+      <div class="container mx-auto px-4 py-12 max-w-3xl">
+        <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+          <ol class="flex items-center space-x-2 text-text-secondary">
+            <li><a href="/" class="hover:text-text-primary transition-colors">Inicio</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li><span>Blog</span></li>
+            <li><span class="mx-2">/</span></li>
+            <li class="text-text-primary" aria-current="page">Guía IRPF 2026</li>
+          </ol>
+        </nav>
+
+        <h1 class="font-display text-4xl md:text-5xl font-semibold text-text-primary mb-4">
+          Guía Completa del IRPF 2026
+        </h1>
+
+        <p class="text-lg text-text-secondary">
+          Todo lo que necesitas saber sobre el Impuesto sobre la Renta de las Personas Físicas en España: tramos, cálculo, deducciones y diferencias por comunidad autónoma.
+        </p>
+
+        <div class="mt-6 flex items-center gap-4 text-sm text-text-tertiary">
+          <span>Actualizado: Enero 2026</span>
+          <span>•</span>
+          <span>Tiempo de lectura: 8 min</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <article class="py-12">
+      <div class="container mx-auto px-4 max-w-3xl">
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+
+          <!-- Intro -->
+          <p class="lead text-xl text-text-secondary">
+            El IRPF (Impuesto sobre la Renta de las Personas Físicas) es el principal impuesto directo en España. Grava la renta obtenida por las personas físicas residentes en territorio español. En esta guía te explicamos cómo funciona en 2026.
+          </p>
+
+          <!-- Section 1 -->
+          <h2 id="que-es-irpf" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            ¿Qué es el IRPF?
+          </h2>
+
+          <p>
+            El IRPF es un impuesto <strong>progresivo</strong>, lo que significa que cuanto más ganas, mayor porcentaje pagas. Se aplica sobre tu <em>base imponible</em> (ingresos menos deducciones) mediante tramos escalonados.
+          </p>
+
+          <div class="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 my-6">
+            <p class="text-blue-800 dark:text-blue-200 m-0">
+              <strong>Importante:</strong> El IRPF no se aplica igual en todas partes. En España está dividido aproximadamente al 50% entre el Estado y tu comunidad autónoma. Esto significa que donde vivas afecta a cuánto pagas.
+            </p>
+          </div>
+
+          <!-- Section 2 -->
+          <h2 id="tramos-estatales" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Tramos estatales del IRPF 2026
+          </h2>
+
+          <p>
+            La parte estatal del IRPF es igual para todos los residentes en comunidades de régimen común (todas excepto País Vasco y Navarra). Estos son los tramos para 2026:
+          </p>
+
+          <div class="overflow-x-auto my-6">
+            <table class="w-full border border-border rounded-lg overflow-hidden">
+              <thead class="bg-surface-secondary">
+                <tr>
+                  <th class="px-4 py-3 text-left font-semibold">Base imponible</th>
+                  <th class="px-4 py-3 text-center font-semibold">Tipo estatal</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr><td class="px-4 py-3">Hasta €12.450</td><td class="px-4 py-3 text-center font-mono">9,5%</td></tr>
+                <tr><td class="px-4 py-3">€12.450 - €20.200</td><td class="px-4 py-3 text-center font-mono">12%</td></tr>
+                <tr><td class="px-4 py-3">€20.200 - €35.200</td><td class="px-4 py-3 text-center font-mono">15%</td></tr>
+                <tr><td class="px-4 py-3">€35.200 - €60.000</td><td class="px-4 py-3 text-center font-mono">18,5%</td></tr>
+                <tr><td class="px-4 py-3">€60.000 - €300.000</td><td class="px-4 py-3 text-center font-mono">22,5%</td></tr>
+                <tr><td class="px-4 py-3">Más de €300.000</td><td class="px-4 py-3 text-center font-mono">24,5%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section 3 -->
+          <h2 id="tramos-autonomicos" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Tramos autonómicos: las diferencias
+          </h2>
+
+          <p>
+            Cada comunidad autónoma establece sus propios tramos que se suman a los estatales. Aquí es donde surgen las diferencias fiscales entre regiones.
+          </p>
+
+          <div class="bg-surface border border-border rounded-lg p-6 my-6">
+            <h3 class="font-semibold text-text-primary mb-4">Ejemplo: €35.000 brutos anuales</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <span class="text-text-secondary">En Madrid:</span>
+                <span class="block font-mono font-semibold text-green-600">~€5.850 de IRPF</span>
+              </div>
+              <div>
+                <span class="text-text-secondary">En Cataluña:</span>
+                <span class="block font-mono font-semibold text-red-600">~€6.170 de IRPF</span>
+              </div>
+            </div>
+            <p class="text-sm text-text-tertiary mt-4 mb-0">
+              Diferencia de aproximadamente €320/año para el mismo salario.
+            </p>
+          </div>
+
+          <p>
+            <strong>Madrid</strong> tiene los tipos autonómicos más bajos del régimen común, mientras que <strong>Cataluña, Valencia y Asturias</strong> tienen tipos más altos en los tramos superiores.
+          </p>
+
+          <!-- Section 4 -->
+          <h2 id="regimen-foral" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Régimen foral: País Vasco y Navarra
+          </h2>
+
+          <p>
+            El <strong>País Vasco</strong> y <strong>Navarra</strong> tienen sistemas fiscales completamente propios (régimen foral). Sus tramos no se dividen entre Estado y autonomía: aplican una escala única.
+          </p>
+
+          <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 my-6">
+            <p class="text-amber-800 dark:text-amber-200 m-0">
+              <strong>Dato:</strong> El tipo marginal máximo en Navarra (52%) es el más alto de España, mientras que en Madrid (45,5% combinado) es el más bajo del régimen común.
+            </p>
+          </div>
+
+          <!-- Section 5 -->
+          <h2 id="como-se-calcula" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            ¿Cómo se calcula el IRPF? Paso a paso
+          </h2>
+
+          <ol class="list-decimal list-inside space-y-4 my-6">
+            <li>
+              <strong>Calcular los ingresos brutos:</strong> Suma todos tus ingresos del año (nóminas, autónomo, alquileres, etc.)
+            </li>
+            <li>
+              <strong>Restar reducciones:</strong> Aportaciones a planes de pensiones, pensiones compensatorias, etc.
+            </li>
+            <li>
+              <strong>Obtener la base imponible:</strong> Ingresos brutos menos reducciones
+            </li>
+            <li>
+              <strong>Aplicar el mínimo personal:</strong> Los primeros €5.550 están exentos (más si tienes hijos o mayores a cargo)
+            </li>
+            <li>
+              <strong>Aplicar los tramos:</strong> Se aplican los tipos progresivos sobre la base liquidable
+            </li>
+            <li>
+              <strong>Restar deducciones:</strong> Vivienda habitual (si aplica), donativos, inversiones, etc.
+            </li>
+          </ol>
+
+          <!-- Section 6 -->
+          <h2 id="deducciones" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Principales deducciones del IRPF
+          </h2>
+
+          <h3 class="font-semibold text-text-primary mt-6 mb-3">Deducciones estatales</h3>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Aportaciones a planes de pensiones (hasta €1.500/año)</li>
+            <li>Donativos a ONGs y fundaciones</li>
+            <li>Inversión en empresas de nueva creación</li>
+            <li>Maternidad (€1.200/año por hijo menor de 3 años)</li>
+          </ul>
+
+          <h3 class="font-semibold text-text-primary mt-6 mb-3">Deducciones autonómicas (varían por CCAA)</h3>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Alquiler de vivienda habitual</li>
+            <li>Gastos educativos</li>
+            <li>Cuidado de mayores o dependientes</li>
+            <li>Obras de mejora energética</li>
+          </ul>
+
+          <!-- CTA -->
+          <div class="bg-gradient-to-r from-accent/10 to-accent/5 border border-accent/20 rounded-xl p-6 my-12">
+            <h3 class="font-display text-xl font-semibold text-text-primary mb-3">
+              Calcula tu IRPF exacto
+            </h3>
+            <p class="text-text-secondary mb-4">
+              Deja de hacer cálculos aproximados. Nuestra calculadora te muestra el desglose exacto según tu comunidad autónoma.
+            </p>
+            <a
+              href="/"
+              class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            >
+              Usar la calculadora fiscal
+            </a>
+          </div>
+
+          <!-- Section 7 -->
+          <h2 id="preguntas-frecuentes" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Preguntas frecuentes
+          </h2>
+
+          <details class="border border-border rounded-lg p-4 my-4">
+            <summary class="font-semibold cursor-pointer">¿Se paga IRPF por la pensión?</summary>
+            <p class="mt-3 text-text-secondary">
+              Sí, las pensiones de jubilación, viudedad y otras prestaciones de la Seguridad Social tributan como rendimientos del trabajo en el IRPF.
+            </p>
+          </details>
+
+          <details class="border border-border rounded-lg p-4 my-4">
+            <summary class="font-semibold cursor-pointer">¿Cuándo estoy obligado a declarar?</summary>
+            <p class="mt-3 text-text-secondary">
+              Con carácter general, si tus ingresos del trabajo superan €22.000/año de un solo pagador, o €15.000/año de varios pagadores. Hay excepciones y casos especiales.
+            </p>
+          </details>
+
+          <details class="border border-border rounded-lg p-4 my-4">
+            <summary class="font-semibold cursor-pointer">¿Qué es el tipo marginal?</summary>
+            <p class="mt-3 text-text-secondary">
+              Es el porcentaje que pagas por el último euro que ganas. Si estás en el tramo del 37%, eso no significa que pagues el 37% de todo tu sueldo, solo del tramo que supera el límite anterior.
+              <a href="/blog/que-es-tipo-marginal" class="text-accent hover:underline">Leer más sobre el tipo marginal</a>.
+            </p>
+          </details>
+
+          <!-- Related links -->
+          <h2 id="recursos" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Recursos relacionados
+          </h2>
+
+          <div class="grid gap-4 my-6">
+            <a href="/blog/que-es-tipo-marginal" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">¿Qué es el tipo marginal?</span>
+              <span class="block text-sm text-text-secondary">Entiende por qué no pagas el tipo máximo en todo tu sueldo</span>
+            </a>
+            <a href="/blog/ccaa-menos-impuestos" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">CCAA con menos impuestos</span>
+              <span class="block text-sm text-text-secondary">Ranking de comunidades por presión fiscal</span>
+            </a>
+            <a href="/comparador/madrid-vs-barcelona" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">Madrid vs Barcelona: Comparativa fiscal</span>
+              <span class="block text-sm text-text-secondary">Diferencias reales en impuestos entre las dos grandes ciudades</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+    <Footer />
+    <CookieBanner />
+  </div>
+</BaseLayout>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

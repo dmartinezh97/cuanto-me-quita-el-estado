@@ -1,0 +1,309 @@
+{
+  "meta": {
+    "description": "Comparaciones fiscales entre comunidades autónomas para SEO programático",
+    "lastUpdated": "2026-01",
+    "notes": "Diferencias calculadas para salarios de €25K, €35K, €50K y €75K brutos anuales"
+  },
+  "comparisons": [
+    {
+      "slug": "madrid-vs-barcelona",
+      "ccaa1": "madrid",
+      "ccaa2": "cataluna",
+      "priority": 1,
+      "searchVolume": "high",
+      "metaTitle": "Madrid vs Barcelona: Comparativa Fiscal 2026 | Dónde Pagas Menos",
+      "metaDescription": "Compara los impuestos entre Madrid y Barcelona. Diferencia de hasta €680/año en IRPF para salarios de €50K. Calculadora y análisis detallado.",
+      "differences": {
+        "salary25k": { "irpfDiff": 125, "netDiff": 125, "winner": "madrid" },
+        "salary35k": { "irpfDiff": 321, "netDiff": 321, "winner": "madrid" },
+        "salary50k": { "irpfDiff": 680, "netDiff": 680, "winner": "madrid" },
+        "salary75k": { "irpfDiff": 1250, "netDiff": 1250, "winner": "madrid" }
+      },
+      "highlights": [
+        "Madrid tiene el tipo marginal autonómico más bajo de España (20.5% máximo)",
+        "Cataluña aplica un 25.5% marginal máximo en la parte autonómica",
+        "La diferencia aumenta significativamente en salarios altos"
+      ]
+    },
+    {
+      "slug": "madrid-vs-pais-vasco",
+      "ccaa1": "madrid",
+      "ccaa2": "pais_vasco",
+      "priority": 2,
+      "searchVolume": "medium",
+      "metaTitle": "Madrid vs País Vasco: Comparativa Fiscal 2026 | Régimen Foral",
+      "metaDescription": "¿Dónde se pagan menos impuestos, Madrid o País Vasco? Análisis del régimen foral vs común. Diferencias reales en IRPF y salario neto.",
+      "differences": {
+        "salary25k": { "irpfDiff": -180, "netDiff": -180, "winner": "madrid" },
+        "salary35k": { "irpfDiff": -420, "netDiff": -420, "winner": "madrid" },
+        "salary50k": { "irpfDiff": -890, "netDiff": -890, "winner": "madrid" },
+        "salary75k": { "irpfDiff": -1680, "netDiff": -1680, "winner": "madrid" }
+      },
+      "highlights": [
+        "País Vasco tiene régimen foral con escala propia (no suma parte estatal)",
+        "Para salarios medios-altos, Madrid resulta más favorable",
+        "País Vasco compensa con servicios públicos de alta calidad"
+      ]
+    },
+    {
+      "slug": "madrid-vs-cataluna",
+      "ccaa1": "madrid",
+      "ccaa2": "cataluna",
+      "priority": 3,
+      "searchVolume": "high",
+      "metaTitle": "Madrid vs Cataluña: ¿Dónde Pago Menos IRPF? Comparativa 2026",
+      "metaDescription": "Comparativa fiscal Madrid vs Cataluña. Hasta €680 de diferencia anual en IRPF para €50K de salario. Tramos, tipos y calculadora.",
+      "differences": {
+        "salary25k": { "irpfDiff": 125, "netDiff": 125, "winner": "madrid" },
+        "salary35k": { "irpfDiff": 321, "netDiff": 321, "winner": "madrid" },
+        "salary50k": { "irpfDiff": 680, "netDiff": 680, "winner": "madrid" },
+        "salary75k": { "irpfDiff": 1250, "netDiff": 1250, "winner": "madrid" }
+      },
+      "highlights": [
+        "Madrid ofrece los tipos autonómicos más bajos del régimen común",
+        "La diferencia es más notable a partir de €35.000 anuales",
+        "El coste de vida en Barcelona es un 5-8% superior a Madrid"
+      ]
+    },
+    {
+      "slug": "barcelona-vs-valencia",
+      "ccaa1": "cataluna",
+      "ccaa2": "valencia",
+      "priority": 4,
+      "searchVolume": "medium",
+      "metaTitle": "Barcelona vs Valencia: Comparativa Fiscal 2026 | Impuestos y Coste de Vida",
+      "metaDescription": "¿Barcelona o Valencia? Compara impuestos, salario neto y coste de vida. Valencia ofrece ventajas fiscales y menor coste de vida.",
+      "differences": {
+        "salary25k": { "irpfDiff": 85, "netDiff": 85, "winner": "valencia" },
+        "salary35k": { "irpfDiff": 195, "netDiff": 195, "winner": "valencia" },
+        "salary50k": { "irpfDiff": 380, "netDiff": 380, "winner": "valencia" },
+        "salary75k": { "irpfDiff": 720, "netDiff": 720, "winner": "valencia" }
+      },
+      "highlights": [
+        "Valencia tiene tipos autonómicos ligeramente más bajos",
+        "El coste de vida en Valencia es un 30% menor que Barcelona",
+        "Mayor capacidad de ahorro real en Valencia"
+      ]
+    },
+    {
+      "slug": "andalucia-vs-madrid",
+      "ccaa1": "andalucia",
+      "ccaa2": "madrid",
+      "priority": 5,
+      "searchVolume": "medium",
+      "metaTitle": "Andalucía vs Madrid: Comparativa Fiscal 2026 | Diferencias IRPF",
+      "metaDescription": "Andalucía vs Madrid en impuestos. Madrid tiene tipos más bajos pero Andalucía menor coste de vida. Análisis completo con calculadora.",
+      "differences": {
+        "salary25k": { "irpfDiff": 95, "netDiff": 95, "winner": "madrid" },
+        "salary35k": { "irpfDiff": 245, "netDiff": 245, "winner": "madrid" },
+        "salary50k": { "irpfDiff": 520, "netDiff": 520, "winner": "madrid" },
+        "salary75k": { "irpfDiff": 980, "netDiff": 980, "winner": "madrid" }
+      },
+      "highlights": [
+        "Madrid ofrece menores tipos impositivos",
+        "Andalucía tiene un coste de vida significativamente menor",
+        "Para salarios medios, la diferencia real es menor de lo esperado"
+      ]
+    },
+    {
+      "slug": "madrid-vs-navarra",
+      "ccaa1": "madrid",
+      "ccaa2": "navarra",
+      "priority": 6,
+      "searchVolume": "medium",
+      "metaTitle": "Madrid vs Navarra: Régimen Común vs Foral 2026",
+      "metaDescription": "Compara el IRPF de Madrid (régimen común) con Navarra (régimen foral). Análisis de diferencias fiscales y salario neto real.",
+      "differences": {
+        "salary25k": { "irpfDiff": -250, "netDiff": -250, "winner": "madrid" },
+        "salary35k": { "irpfDiff": -580, "netDiff": -580, "winner": "madrid" },
+        "salary50k": { "irpfDiff": -1200, "netDiff": -1200, "winner": "madrid" },
+        "salary75k": { "irpfDiff": -2100, "netDiff": -2100, "winner": "madrid" }
+      },
+      "highlights": [
+        "Navarra tiene régimen foral con tipos más altos que la media",
+        "El tipo marginal máximo en Navarra alcanza el 52%",
+        "Navarra ofrece servicios públicos de alta calidad como compensación"
+      ]
+    },
+    {
+      "slug": "galicia-vs-madrid",
+      "ccaa1": "galicia",
+      "ccaa2": "madrid",
+      "priority": 7,
+      "searchVolume": "low",
+      "metaTitle": "Galicia vs Madrid: Comparativa Fiscal 2026 | Impuestos IRPF",
+      "metaDescription": "¿Galicia o Madrid? Comparativa de impuestos, salario medio y coste de vida. Madrid gana en IRPF, Galicia en coste de vida.",
+      "differences": {
+        "salary25k": { "irpfDiff": 75, "netDiff": 75, "winner": "madrid" },
+        "salary35k": { "irpfDiff": 185, "netDiff": 185, "winner": "madrid" },
+        "salary50k": { "irpfDiff": 410, "netDiff": 410, "winner": "madrid" },
+        "salary75k": { "irpfDiff": 780, "netDiff": 780, "winner": "madrid" }
+      },
+      "highlights": [
+        "Galicia tiene tipos autonómicos competitivos",
+        "El coste de vida en Galicia es hasta un 20% menor",
+        "Diferencia fiscal moderada entre ambas comunidades"
+      ]
+    },
+    {
+      "slug": "valencia-vs-madrid",
+      "ccaa1": "valencia",
+      "ccaa2": "madrid",
+      "priority": 8,
+      "searchVolume": "medium",
+      "metaTitle": "Valencia vs Madrid: Comparativa Fiscal 2026 | IRPF y Salario Neto",
+      "metaDescription": "Valencia vs Madrid en impuestos. Diferencias en IRPF, salario neto y poder adquisitivo real considerando coste de vida.",
+      "differences": {
+        "salary25k": { "irpfDiff": 110, "netDiff": 110, "winner": "madrid" },
+        "salary35k": { "irpfDiff": 275, "netDiff": 275, "winner": "madrid" },
+        "salary50k": { "irpfDiff": 580, "netDiff": 580, "winner": "madrid" },
+        "salary75k": { "irpfDiff": 1050, "netDiff": 1050, "winner": "madrid" }
+      },
+      "highlights": [
+        "Madrid tiene ventaja fiscal clara",
+        "Valencia compensa con coste de vida un 25% menor",
+        "Para muchos perfiles, el poder adquisitivo real es similar"
+      ]
+    },
+    {
+      "slug": "cataluna-vs-andalucia",
+      "ccaa1": "cataluna",
+      "ccaa2": "andalucia",
+      "priority": 9,
+      "searchVolume": "low",
+      "metaTitle": "Cataluña vs Andalucía: Comparativa Fiscal 2026",
+      "metaDescription": "Compara impuestos entre Cataluña y Andalucía. Diferencias en IRPF, salarios medios y coste de vida entre ambas comunidades.",
+      "differences": {
+        "salary25k": { "irpfDiff": 30, "netDiff": 30, "winner": "andalucia" },
+        "salary35k": { "irpfDiff": 76, "netDiff": 76, "winner": "andalucia" },
+        "salary50k": { "irpfDiff": 160, "netDiff": 160, "winner": "andalucia" },
+        "salary75k": { "irpfDiff": 270, "netDiff": 270, "winner": "andalucia" }
+      },
+      "highlights": [
+        "Diferencias fiscales pequeñas entre ambas comunidades",
+        "Andalucía tiene tipos ligeramente más bajos",
+        "Cataluña tiene salarios medios un 11% superiores"
+      ]
+    },
+    {
+      "slug": "aragon-vs-cataluna",
+      "ccaa1": "aragon",
+      "ccaa2": "cataluna",
+      "priority": 10,
+      "searchVolume": "low",
+      "metaTitle": "Aragón vs Cataluña: Comparativa Fiscal 2026 | Zaragoza vs Barcelona",
+      "metaDescription": "¿Aragón o Cataluña? Compara impuestos entre Zaragoza y Barcelona. Aragón ofrece menor presión fiscal y coste de vida.",
+      "differences": {
+        "salary25k": { "irpfDiff": 45, "netDiff": 45, "winner": "aragon" },
+        "salary35k": { "irpfDiff": 120, "netDiff": 120, "winner": "aragon" },
+        "salary50k": { "irpfDiff": 290, "netDiff": 290, "winner": "aragon" },
+        "salary75k": { "irpfDiff": 520, "netDiff": 520, "winner": "aragon" }
+      },
+      "highlights": [
+        "Aragón tiene tipos autonómicos más favorables",
+        "Zaragoza ofrece excelente calidad de vida con menor coste",
+        "Diferencia notable en tramos medios-altos"
+      ]
+    },
+    {
+      "slug": "castilla-leon-vs-madrid",
+      "ccaa1": "castilla_leon",
+      "ccaa2": "madrid",
+      "priority": 11,
+      "searchVolume": "low",
+      "metaTitle": "Castilla y León vs Madrid: Comparativa Fiscal 2026",
+      "metaDescription": "Castilla y León vs Madrid en impuestos. Análisis de diferencias IRPF, salario medio y coste de vida entre ambas comunidades.",
+      "differences": {
+        "salary25k": { "irpfDiff": 55, "netDiff": 55, "winner": "madrid" },
+        "salary35k": { "irpfDiff": 140, "netDiff": 140, "winner": "madrid" },
+        "salary50k": { "irpfDiff": 320, "netDiff": 320, "winner": "madrid" },
+        "salary75k": { "irpfDiff": 590, "netDiff": 590, "winner": "madrid" }
+      },
+      "highlights": [
+        "Castilla y León tiene tipos competitivos",
+        "Madrid sigue siendo más favorable fiscalmente",
+        "CyL ofrece excelente calidad de vida con menor coste"
+      ]
+    },
+    {
+      "slug": "baleares-vs-cataluna",
+      "ccaa1": "baleares",
+      "ccaa2": "cataluna",
+      "priority": 12,
+      "searchVolume": "low",
+      "metaTitle": "Baleares vs Cataluña: Comparativa Fiscal 2026 | Palma vs Barcelona",
+      "metaDescription": "Baleares vs Cataluña: impuestos, salarios y coste de vida. Compara Palma de Mallorca con Barcelona en términos fiscales.",
+      "differences": {
+        "salary25k": { "irpfDiff": 35, "netDiff": 35, "winner": "baleares" },
+        "salary35k": { "irpfDiff": 95, "netDiff": 95, "winner": "baleares" },
+        "salary50k": { "irpfDiff": 220, "netDiff": 220, "winner": "baleares" },
+        "salary75k": { "irpfDiff": 410, "netDiff": 410, "winner": "baleares" }
+      },
+      "highlights": [
+        "Baleares tiene tipos ligeramente más bajos que Cataluña",
+        "Ambas tienen coste de vida elevado",
+        "Diferencias moderadas en todos los tramos"
+      ]
+    },
+    {
+      "slug": "canarias-vs-madrid",
+      "ccaa1": "canarias",
+      "ccaa2": "madrid",
+      "priority": 13,
+      "searchVolume": "low",
+      "metaTitle": "Canarias vs Madrid: Comparativa Fiscal 2026 | IGIC vs IVA",
+      "metaDescription": "Canarias vs Madrid: además del IRPF, Canarias tiene IGIC (7%) en lugar de IVA (21%). Análisis fiscal completo.",
+      "differences": {
+        "salary25k": { "irpfDiff": 65, "netDiff": 65, "winner": "canarias" },
+        "salary35k": { "irpfDiff": 45, "netDiff": 45, "winner": "canarias" },
+        "salary50k": { "irpfDiff": -120, "netDiff": -120, "winner": "madrid" },
+        "salary75k": { "irpfDiff": -380, "netDiff": -380, "winner": "madrid" }
+      },
+      "highlights": [
+        "Canarias tiene IGIC (7%) en lugar de IVA (21%)",
+        "Para salarios bajos-medios, Canarias es más favorable",
+        "Para salarios altos, Madrid gana en IRPF"
+      ]
+    },
+    {
+      "slug": "asturias-vs-galicia",
+      "ccaa1": "asturias",
+      "ccaa2": "galicia",
+      "priority": 14,
+      "searchVolume": "low",
+      "metaTitle": "Asturias vs Galicia: Comparativa Fiscal 2026 | Norte de España",
+      "metaDescription": "Comparativa fiscal entre Asturias y Galicia. Análisis de IRPF, salarios y coste de vida en el norte de España.",
+      "differences": {
+        "salary25k": { "irpfDiff": 40, "netDiff": 40, "winner": "galicia" },
+        "salary35k": { "irpfDiff": 95, "netDiff": 95, "winner": "galicia" },
+        "salary50k": { "irpfDiff": 180, "netDiff": 180, "winner": "galicia" },
+        "salary75k": { "irpfDiff": 320, "netDiff": 320, "winner": "galicia" }
+      },
+      "highlights": [
+        "Galicia tiene tipos ligeramente más bajos",
+        "Ambas tienen coste de vida similar y bajo",
+        "Diferencias fiscales pequeñas"
+      ]
+    },
+    {
+      "slug": "murcia-vs-valencia",
+      "ccaa1": "murcia",
+      "ccaa2": "valencia",
+      "priority": 15,
+      "searchVolume": "low",
+      "metaTitle": "Murcia vs Valencia: Comparativa Fiscal 2026 | Levante",
+      "metaDescription": "Murcia vs Valencia: compara impuestos y coste de vida en el Levante español. Análisis detallado con calculadora.",
+      "differences": {
+        "salary25k": { "irpfDiff": 25, "netDiff": 25, "winner": "valencia" },
+        "salary35k": { "irpfDiff": 60, "netDiff": 60, "winner": "valencia" },
+        "salary50k": { "irpfDiff": 140, "netDiff": 140, "winner": "valencia" },
+        "salary75k": { "irpfDiff": 250, "netDiff": 250, "winner": "valencia" }
+      },
+      "highlights": [
+        "Diferencias fiscales pequeñas entre ambas",
+        "Valencia ligeramente más favorable",
+        "Murcia tiene menor coste de vida"
+      ]
+    }
+  ]
+}

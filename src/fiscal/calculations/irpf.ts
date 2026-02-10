@@ -17,7 +17,7 @@ import {
   isForalCommunity,
   calculateProgressiveTax,
 } from '@fiscal/constants';
-import { SOCIAL_SECURITY_EMPLOYEE_RATE } from './social-security';
+import { SOCIAL_SECURITY_EMPLOYEE_RATE, calculateSSContribution } from './social-security';
 
 // =============================================================================
 // Work Income Reduction
@@ -96,8 +96,8 @@ export function calculateIRPF(
   if (gross <= 0) return 0;
 
   // Step 1: Calculate net work income (rendimiento neto del trabajo)
-  // Deductible expenses: SS employee contributions + €2,000 general expense (art. 19.2.f LIRPF)
-  const ssContributions = gross * SOCIAL_SECURITY_EMPLOYEE_RATE;
+  // Deductible expenses: SS employee contributions (capped) + €2,000 general expense (art. 19.2.f LIRPF)
+  const ssContributions = calculateSSContribution(gross, SOCIAL_SECURITY_EMPLOYEE_RATE);
   const deductibleExpenses = ssContributions + WORK_INCOME_GENERAL_EXPENSE;
   const netWorkIncome = Math.max(0, gross - deductibleExpenses);
 

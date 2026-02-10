@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/astro/Footer.astro';
+import CookieBanner from '../../components/astro/CookieBanner.astro';
+
+const title = "¿Qué es el Tipo Marginal del IRPF? Explicación Clara con Ejemplos";
+const description = "Entiende qué es el tipo marginal y por qué NO pagas ese porcentaje en todo tu sueldo. Diferencia entre tipo marginal y tipo efectivo con ejemplos prácticos.";
+
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": "2026-01-28",
+  "dateModified": "2026-01-28",
+  "author": {
+    "@type": "Organization",
+    "name": "Cuánto Me Quita el Estado"
+  }
+};
+---
+
+<BaseLayout {title} {description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+  <div class="flex flex-col min-h-screen">
+    <!-- Hero -->
+    <section class="bg-gradient-to-b from-surface to-surface-secondary border-b border-border">
+      <div class="container mx-auto px-4 py-12 max-w-3xl">
+        <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+          <ol class="flex items-center space-x-2 text-text-secondary">
+            <li><a href="/" class="hover:text-text-primary transition-colors">Inicio</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li><span>Blog</span></li>
+            <li><span class="mx-2">/</span></li>
+            <li class="text-text-primary" aria-current="page">Tipo Marginal</li>
+          </ol>
+        </nav>
+
+        <h1 class="font-display text-4xl md:text-5xl font-semibold text-text-primary mb-4">
+          ¿Qué es el Tipo Marginal del IRPF?
+        </h1>
+
+        <p class="text-lg text-text-secondary">
+          La confusión más común sobre impuestos: muchos creen que si están en el "tramo del 37%", pagan el 37% de todo su sueldo. <strong>Esto es falso.</strong> Te explicamos cómo funciona realmente.
+        </p>
+
+        <div class="mt-6 flex items-center gap-4 text-sm text-text-tertiary">
+          <span>Actualizado: Enero 2026</span>
+          <span>•</span>
+          <span>Tiempo de lectura: 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <article class="py-12">
+      <div class="container mx-auto px-4 max-w-3xl">
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+
+          <!-- Key takeaway -->
+          <div class="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-xl p-6 my-8">
+            <h2 class="text-green-800 dark:text-green-200 mt-0 mb-3 text-xl">Lo más importante</h2>
+            <p class="text-green-800 dark:text-green-200 text-lg mb-0">
+              El <strong>tipo marginal</strong> es el porcentaje que pagas <em>solo por el último euro</em> que ganas. El <strong>tipo efectivo</strong> es el porcentaje real que pagas sobre todo tu sueldo. Son muy diferentes.
+            </p>
+          </div>
+
+          <!-- Section 1 -->
+          <h2 id="el-error-comun" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            El error que comete casi todo el mundo
+          </h2>
+
+          <p>
+            Imagina que tu jefe te ofrece un aumento que te pondría en un "tramo superior" del IRPF. Mucha gente rechazaría el aumento pensando: "Si paso al tramo del 37%, acabaré cobrando menos".
+          </p>
+
+          <p>
+            <strong>Esto nunca pasa.</strong> Ganar más siempre significa cobrar más neto. Vamos a ver por qué.
+          </p>
+
+          <!-- Section 2 -->
+          <h2 id="como-funciona" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Cómo funcionan realmente los tramos
+          </h2>
+
+          <p>
+            El IRPF es <strong>progresivo por tramos</strong>. Esto significa que cada tramo solo se aplica a la parte de tu sueldo que cae dentro de ese tramo.
+          </p>
+
+          <div class="bg-surface border border-border rounded-xl p-6 my-8">
+            <h3 class="font-semibold text-text-primary mb-4">Ejemplo práctico: Salario de €40.000 brutos (Madrid)</h3>
+
+            <p class="mb-4 text-text-secondary">Así se calcula tu IRPF, tramo a tramo:</p>
+
+            <div class="space-y-3">
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span>Primeros €12.450 → 19%</span>
+                <span class="font-mono font-semibold">€2.365</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span>De €12.450 a €20.200 → 24%</span>
+                <span class="font-mono font-semibold">€1.860</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span>De €20.200 a €35.200 → 30%</span>
+                <span class="font-mono font-semibold">€4.500</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span>De €35.200 a €40.000 → 37%</span>
+                <span class="font-mono font-semibold">€1.776</span>
+              </div>
+              <div class="flex justify-between items-center py-3 bg-accent/10 rounded-lg px-3 mt-4">
+                <span class="font-semibold">IRPF Total</span>
+                <span class="font-mono font-bold text-lg">€10.501</span>
+              </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-4">
+              <div class="text-center p-4 bg-surface-secondary rounded-lg">
+                <div class="text-sm text-text-secondary">Tipo marginal</div>
+                <div class="text-2xl font-bold text-red-600">37%</div>
+              </div>
+              <div class="text-center p-4 bg-surface-secondary rounded-lg">
+                <div class="text-sm text-text-secondary">Tipo efectivo real</div>
+                <div class="text-2xl font-bold text-green-600">26,25%</div>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            ¿Ves la diferencia? Aunque tu tipo marginal es del 37%, solo pagas realmente el 26,25% de tu sueldo en IRPF. El 37% solo se aplica a los €4.800 que superan €35.200.
+          </p>
+
+          <!-- Section 3 -->
+          <h2 id="tipo-efectivo" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Tipo marginal vs Tipo efectivo
+          </h2>
+
+          <div class="overflow-x-auto my-6">
+            <table class="w-full border border-border rounded-lg overflow-hidden">
+              <thead class="bg-surface-secondary">
+                <tr>
+                  <th class="px-4 py-3 text-left font-semibold">Concepto</th>
+                  <th class="px-4 py-3 text-left font-semibold">Definición</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr>
+                  <td class="px-4 py-3 font-semibold">Tipo marginal</td>
+                  <td class="px-4 py-3">El % que pagas por cada euro adicional que ganas. Es el tipo del tramo más alto al que llegas.</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold">Tipo efectivo</td>
+                  <td class="px-4 py-3">El % real que pagas sobre tu sueldo total. Se calcula: (IRPF total / Salario bruto) × 100</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section 4 -->
+          <h2 id="nunca-pierdes" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Por qué NUNCA pierdes dinero por subir de tramo
+          </h2>
+
+          <p>
+            Vamos a demostrarlo con un ejemplo extremo:
+          </p>
+
+          <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl p-6 my-8">
+            <h3 class="text-amber-800 dark:text-amber-200 mt-0 mb-3">Escenario: Te ofrecen un aumento de €35.200 a €35.201</h3>
+
+            <p class="text-amber-800 dark:text-amber-200">
+              Ese euro extra te "sube de tramo" del 30% al 37%. ¿Cuánto más IRPF pagas?
+            </p>
+
+            <p class="text-amber-800 dark:text-amber-200 font-mono text-lg my-4">
+              €1 × 37% = <strong>€0,37</strong>
+            </p>
+
+            <p class="text-amber-800 dark:text-amber-200 mb-0">
+              Tu neto aumenta en €0,63. <strong>Siempre ganas algo.</strong> Nunca pierdes por subir de tramo.
+            </p>
+          </div>
+
+          <!-- Section 5 -->
+          <h2 id="tabla-tipos" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Tipos efectivos reales según salario (Madrid 2026)
+          </h2>
+
+          <div class="overflow-x-auto my-6">
+            <table class="w-full border border-border rounded-lg overflow-hidden">
+              <thead class="bg-surface-secondary">
+                <tr>
+                  <th class="px-4 py-3 text-left font-semibold">Salario bruto</th>
+                  <th class="px-4 py-3 text-center font-semibold">Tipo marginal</th>
+                  <th class="px-4 py-3 text-center font-semibold">Tipo efectivo</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr><td class="px-4 py-3">€20.000</td><td class="px-4 py-3 text-center text-red-600">24%</td><td class="px-4 py-3 text-center text-green-600 font-semibold">~14%</td></tr>
+                <tr><td class="px-4 py-3">€30.000</td><td class="px-4 py-3 text-center text-red-600">30%</td><td class="px-4 py-3 text-center text-green-600 font-semibold">~19%</td></tr>
+                <tr><td class="px-4 py-3">€40.000</td><td class="px-4 py-3 text-center text-red-600">37%</td><td class="px-4 py-3 text-center text-green-600 font-semibold">~23%</td></tr>
+                <tr><td class="px-4 py-3">€50.000</td><td class="px-4 py-3 text-center text-red-600">37%</td><td class="px-4 py-3 text-center text-green-600 font-semibold">~26%</td></tr>
+                <tr><td class="px-4 py-3">€70.000</td><td class="px-4 py-3 text-center text-red-600">45%</td><td class="px-4 py-3 text-center text-green-600 font-semibold">~30%</td></tr>
+                <tr><td class="px-4 py-3">€100.000</td><td class="px-4 py-3 text-center text-red-600">45%</td><td class="px-4 py-3 text-center text-green-600 font-semibold">~33%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Como ves, incluso con un salario de €100.000 y un tipo marginal del 45%, el tipo efectivo real es del ~33%. La diferencia es enorme.
+          </p>
+
+          <!-- CTA -->
+          <div class="bg-gradient-to-r from-accent/10 to-accent/5 border border-accent/20 rounded-xl p-6 my-12">
+            <h3 class="font-display text-xl font-semibold text-text-primary mb-3">
+              Calcula tu tipo efectivo real
+            </h3>
+            <p class="text-text-secondary mb-4">
+              Nuestra calculadora te muestra exactamente cuánto pagas en IRPF, tu tipo marginal y tu tipo efectivo según tu comunidad autónoma.
+            </p>
+            <a
+              href="/"
+              class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            >
+              Calcular mi tipo efectivo
+            </a>
+          </div>
+
+          <!-- Section 6 -->
+          <h2 id="resumen" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Resumen: Lo que debes recordar
+          </h2>
+
+          <ul class="list-disc list-inside space-y-2">
+            <li>El <strong>tipo marginal</strong> solo se aplica al último tramo de tu sueldo</li>
+            <li>El <strong>tipo efectivo</strong> (lo que pagas realmente) siempre es menor</li>
+            <li><strong>Nunca</strong> pierdes dinero por subir de tramo</li>
+            <li>Ganar más <strong>siempre</strong> significa cobrar más neto</li>
+            <li>No rechaces aumentos por miedo a los impuestos</li>
+          </ul>
+
+          <!-- Related -->
+          <h2 id="relacionado" class="font-display text-2xl font-semibold text-text-primary mt-12 mb-4">
+            Artículos relacionados
+          </h2>
+
+          <div class="grid gap-4 my-6">
+            <a href="/blog/guia-irpf-2026" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">Guía completa del IRPF 2026</span>
+              <span class="block text-sm text-text-secondary">Todo sobre tramos, deducciones y cálculo</span>
+            </a>
+            <a href="/blog/ccaa-menos-impuestos" class="block p-4 bg-surface-secondary rounded-lg hover:bg-surface-secondary/80 transition-colors">
+              <span class="font-semibold text-text-primary">CCAA con menos impuestos</span>
+              <span class="block text-sm text-text-secondary">Dónde se paga menos IRPF en España</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+    <Footer />
+    <CookieBanner />
+  </div>
+</BaseLayout>
