@@ -39,19 +39,19 @@ export const GET: APIRoute = () => {
   // Páginas de políticas
   entries.push(
     {
-      url: `${SITE_URL}/politica-cookies`,
+      url: `${SITE_URL}/politica-cookies/`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.3,
     },
     {
-      url: `${SITE_URL}/politica-privacidad`,
+      url: `${SITE_URL}/politica-privacidad/`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.3,
     },
     {
-      url: `${SITE_URL}/terminos-condiciones`,
+      url: `${SITE_URL}/terminos-condiciones/`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.3,
@@ -62,7 +62,7 @@ export const GET: APIRoute = () => {
   ALL_COMMUNITIES.forEach((community) => {
     const slug = community.id.replace(/_/g, '-');
     entries.push({
-      url: `${SITE_URL}/${slug}`,
+      url: `${SITE_URL}/${slug}/`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.9,
@@ -72,7 +72,7 @@ export const GET: APIRoute = () => {
   // Páginas de comparadores (desde JSON)
   comparisonsData.comparisons.forEach((comparison: { slug: string }) => {
     entries.push({
-      url: `${SITE_URL}/comparador/${comparison.slug}`,
+      url: `${SITE_URL}/comparador/${comparison.slug}/`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.8,
@@ -82,7 +82,7 @@ export const GET: APIRoute = () => {
   // Páginas de profesiones (desde JSON)
   professionsData.professions.forEach((profession: { slug: string }) => {
     entries.push({
-      url: `${SITE_URL}/profesion/${profession.slug}`,
+      url: `${SITE_URL}/profesion/${profession.slug}/`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.8,
@@ -98,7 +98,7 @@ export const GET: APIRoute = () => {
 
   blogPosts.forEach((post) => {
     entries.push({
-      url: `${SITE_URL}/blog/${post}`,
+      url: `${SITE_URL}/blog/${post}/`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.7,
