@@ -18,30 +18,32 @@ export const LEARN_CONTENT = {
       'Es un impuesto directo sobre tu renta',
       'Se divide 50% Estado / 50% Comunidad Autónoma (excepto regímenes forales)',
       'Tu tipo efectivo siempre será menor que tu tipo marginal máximo',
+      'Salarios bajos (hasta ~19.747 €) tienen una reducción que puede dejarlos casi exentos',
     ],
   },
 
   ssEmpresa: {
     title: 'Cotización de la Empresa',
-    content: 'Tu empresa paga aproximadamente un 32% adicional sobre tu salario bruto a la Seguridad Social. Este dinero financia pensiones, desempleo y prestaciones sanitarias. Es un coste "invisible" que no aparece en tu nómina pero forma parte de lo que cuestas.',
+    content: 'Tu empresa paga aproximadamente un 32% adicional sobre tu salario bruto a la Seguridad Social. España usa un sistema de reparto: lo que se cotiza hoy paga las pensiones de los jubilados de hoy, no se ahorra para las tuyas. Es un coste "invisible" que no aparece en tu nómina pero forma parte de lo que cuestas.',
     details: [
-      'Contingencias Comunes (23,60%): Pensiones y sanidad',
+      'Contingencias Comunes (23,60%): Paga las pensiones y sanidad actuales',
       'Desempleo (5,50%): Prestaciones por desempleo',
       'FOGASA (0,20%): Garantía salarial si la empresa quiebra',
       'Formación Profesional (0,60%): Formación de trabajadores',
       'AT/EP (~1,50%): Accidentes de trabajo',
-      'MEI (0,58%): Mecanismo de Equidad Intergeneracional',
+      'MEI (0,67%): Mecanismo de Equidad Intergeneracional',
+      'Tope: solo se cotiza hasta una base máxima de 4.909,50 €/mes (58.914 €/año)',
     ],
   },
 
   ssEmpleado: {
     title: 'Tu Cotización como Trabajador',
-    content: 'Como empleado, cotizas un 6,47% de tu salario bruto a la Seguridad Social. Esta cantidad se descuenta directamente de tu nómina. A cambio, generas derechos a pensión, desempleo y otras prestaciones.',
+    content: 'Como empleado, cotizas un 6,48% de tu salario bruto a la Seguridad Social. Esta cantidad se descuenta directamente de tu nómina y paga las prestaciones de hoy: cuando te jubiles, serán los trabajadores de ese momento quienes financien tu pensión. Si ganas más de 58.914 €/año, la cotización se topa en esa cantidad.',
     details: [
-      'Contingencias Comunes (4,70%): Tu aportación a pensiones y sanidad',
+      'Contingencias Comunes (4,70%): Financia las pensiones y sanidad actuales',
       'Desempleo (1,55%): Tu parte del seguro de desempleo',
       'Formación Profesional (0,10%): Derecho a formación bonificada',
-      'MEI (0,12%): Para sostener el sistema de pensiones futuro',
+      'MEI (0,13%): Recargo extra para cubrir el déficit futuro de pensiones',
     ],
   },
 
