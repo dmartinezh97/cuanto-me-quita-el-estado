@@ -38,22 +38,27 @@ const categoryIcons: Record<string, string> = {
   leisure: 'utensils',
   shopping: 'shirt',
   health: 'heart-pulse',
+  services: 'more-horizontal',
 };
 
-// Calculate IVA per category
+// Calculate taxes per category (IVA + special + direct)
 const categoryIVA = computed(() => {
   return props.expenses.map(cat => {
-    // Calculate total IVA for this category
-    let totalIVA = 0;
+    let totalTax = 0;
     let dominantRate = 21;
 
     if (cat.subItems && cat.subItems.length > 0) {
-      // Sum IVA from all sub-items
+      // Sum all taxes (IVA + special + direct) from sub-items
       for (const sub of cat.subItems) {
-        if (sub.amount > 0 && sub.ivaRate > 0) {
-          // IVA = amount - (amount / (1 + rate))
+        if (sub.amount <= 0) continue;
+
+        // Find matching detailed item for full tax data
+        const detailed = props.ivaBreakdown.detailedItems.find(d => d.name === sub.name);
+        if (detailed) {
+          totalTax += detailed.iva + detailed.special;
+        } else if (sub.ivaRate > 0) {
           const baseAmount = sub.amount / (1 + sub.ivaRate / 100);
-          totalIVA += sub.amount - baseAmount;
+          totalTax += sub.amount - baseAmount;
         }
       }
       // Find dominant rate (most common among sub-items with amounts)
@@ -69,7 +74,7 @@ const categoryIVA = computed(() => {
       const base10 = (cat.total * (cat.iva10 / 100)) / 1.10;
       const base21 = (cat.total * (cat.iva21 / 100)) / 1.21;
 
-      totalIVA = (cat.total * cat.iva4 / 100 - base4) +
+      totalTax = (cat.total * cat.iva4 / 100 - base4) +
                  (cat.total * cat.iva10 / 100 - base10) +
                  (cat.total * cat.iva21 / 100 - base21);
 
@@ -82,7 +87,7 @@ const categoryIVA = computed(() => {
       id: cat.id,
       name: cat.name,
       icon: categoryIcons[cat.id] || 'shopping-cart',
-      ivaAmount: totalIVA,
+      ivaAmount: totalTax,
       dominantRate,
     };
   }).filter(c => c.ivaAmount > 0);
@@ -98,7 +103,7 @@ const categoryIVA = computed(() => {
           <ShoppingBag class="w-5 h-5 text-warning" />
         </div>
         <div class="flex flex-col">
-          <span class="text-base font-semibold text-text-primary">IVA en tu consumo mensual</span>
+          <span class="text-base font-semibold text-text-primary">Impuestos en tu consumo mensual</span>
           <span class="text-xs text-text-muted">Desglose por categoría de gasto</span>
         </div>
       </div>

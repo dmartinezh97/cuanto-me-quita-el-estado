@@ -31,6 +31,7 @@ export function calculateIVABreakdown(state: AppState): IVABreakdown {
   let totalIPS = 0; // Insurance tax
   let totalIEE = 0; // Electricity tax
   let totalSpecialOthers = 0; // Alcohol and Tobacco specific taxes
+  let totalDirectTaxes = 0; // Municipal direct taxes (IBI, IVTM, basuras)
 
   const detailedItems: IVADetailedItem[] = [];
 
@@ -112,6 +113,15 @@ export function calculateIVABreakdown(state: AppState): IVABreakdown {
             break;
           }
 
+          case 'direct-tax': {
+            // Municipal direct taxes: 100% of amount is tax
+            special = totalPVP;
+            iva = 0;
+            totalDirectTaxes += special;
+            specialType = 'Imp. Directo';
+            break;
+          }
+
           case 'exempt': {
             // Exempt from all taxes
             iva = 0;
@@ -162,7 +172,8 @@ export function calculateIVABreakdown(state: AppState): IVABreakdown {
     ips: totalIPS,
     iee: totalIEE,
     specialOthers: totalSpecialOthers,
-    totalIndirect: totalIVA4 + totalIVA10 + totalIVA21 + totalIEH + totalIPS + totalIEE + totalSpecialOthers,
+    directTaxes: totalDirectTaxes,
+    totalIndirect: totalIVA4 + totalIVA10 + totalIVA21 + totalIEH + totalIPS + totalIEE + totalSpecialOthers + totalDirectTaxes,
     detailedItems,
   };
 }

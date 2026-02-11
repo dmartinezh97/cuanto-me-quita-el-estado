@@ -279,7 +279,7 @@ const handleInfoClick = (section: InfoSection, event: MouseEvent) => {
             </div>
 
             <!-- Special Taxes Breakdown (if relevant values) -->
-            <div v-if="indirectTaxes.ieh > 0 || indirectTaxes.iee > 0 || indirectTaxes.ips > 0" class="pl-3 space-y-0.5 text-[10px] text-stone-400">
+            <div v-if="indirectTaxes.ieh > 0 || indirectTaxes.iee > 0 || indirectTaxes.ips > 0 || indirectTaxes.directTaxes > 0" class="pl-3 space-y-0.5 text-[10px] text-stone-400">
               <div v-if="indirectTaxes.ieh * displayFactorExpenses > 0" class="flex justify-between">
                 <span>Hidrocarburos</span>
                 <span>{{ formatCurrency(indirectTaxes.ieh * displayFactorExpenses) }}</span>
@@ -295,6 +295,10 @@ const handleInfoClick = (section: InfoSection, event: MouseEvent) => {
               <div v-if="indirectTaxes.specialOthers * displayFactorExpenses > 0" class="flex justify-between">
                 <span>Otros Especiales</span>
                 <span>{{ formatCurrency(indirectTaxes.specialOthers * displayFactorExpenses) }}</span>
+              </div>
+              <div v-if="indirectTaxes.directTaxes * displayFactorExpenses > 0" class="flex justify-between">
+                <span>Tasas e Imp. Directos</span>
+                <span>{{ formatCurrency(indirectTaxes.directTaxes * displayFactorExpenses) }}</span>
               </div>
             </div>
           </div>

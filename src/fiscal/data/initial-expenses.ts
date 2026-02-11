@@ -53,6 +53,16 @@ const exemptDisplay = (note?: string): SubItem['display'] => ({
 });
 
 /**
+ * Helper to create a direct tax display config (100% is tax).
+ */
+const directTaxDisplay = (taxName: string): SubItem['display'] => ({
+  taxDisplayType: 'direct-tax',
+  taxLabel: `${taxName} (100% impuesto)`,
+  labelColor: 'red',
+  inputType: 'currency',
+});
+
+/**
  * Helper to create an insurance (IPS) display config.
  */
 const insuranceDisplay = (rate: number): SubItem['display'] => ({
@@ -145,6 +155,34 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
           labelColor: 'red',
           inputType: 'currency',
         },
+      },
+      {
+        id: 'ivtm',
+        name: 'IVTM (impuesto de circulación)',
+        amount: 0,
+        ivaRate: 0,
+        display: directTaxDisplay('IVTM'),
+      },
+      {
+        id: 'ev_charge',
+        name: 'Carga vehículo eléctrico',
+        amount: 0,
+        ivaRate: 21,
+        isElectricityTax: true,
+        specialTaxRate: ELECTRICITY_TAX_RATE,
+        display: {
+          taxDisplayType: 'electricity',
+          taxLabel: `IEE (${(ELECTRICITY_TAX_RATE * 100).toFixed(2)}%) + IVA 21%`,
+          labelColor: 'red',
+          inputType: 'currency',
+        },
+      },
+      {
+        id: 'carsharing',
+        name: 'Carsharing / alquiler vehículos',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
       },
     ],
   },
@@ -245,6 +283,34 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         ivaRate: 21,
         display: standardDisplay(21),
       },
+      {
+        id: 'ibi',
+        name: 'IBI (Imp. Bienes Inmuebles)',
+        amount: 0,
+        ivaRate: 0,
+        display: directTaxDisplay('IBI'),
+      },
+      {
+        id: 'garbage_tax',
+        name: 'Tasa de basuras',
+        amount: 0,
+        ivaRate: 0,
+        display: directTaxDisplay('Tasa basuras'),
+      },
+      {
+        id: 'renovation',
+        name: 'Reformas vivienda habitual',
+        amount: 0,
+        ivaRate: 10,
+        display: standardDisplay(10),
+      },
+      {
+        id: 'alarm',
+        name: 'Alarma y seguridad',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
     ],
   },
 
@@ -291,8 +357,15 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         },
       },
       {
-        id: 'food_21',
-        name: 'Refrescos y Alcohol',
+        id: 'soft_drinks',
+        name: 'Refrescos y bebidas no alcohólicas',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'alcohol',
+        name: 'Bebidas alcohólicas',
         amount: 0,
         ivaRate: 21,
         isExciseDuty: true,
@@ -303,6 +376,20 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
           labelColor: 'red',
           inputType: 'currency',
         },
+      },
+      {
+        id: 'baby_food',
+        name: 'Comida infantil/bebé',
+        amount: 0,
+        ivaRate: 4,
+        display: standardDisplay(4),
+      },
+      {
+        id: 'prepared_food',
+        name: 'Comida preparada (precocinados)',
+        amount: 0,
+        ivaRate: 10,
+        display: standardDisplay(10),
       },
       {
         id: 'tobacco',
@@ -429,6 +516,27 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         note: 'Exento (Imp. especial premios)',
         display: exemptDisplay('Exento (Imp. especial premios)'),
       },
+      {
+        id: 'theme_parks',
+        name: 'Parques temáticos y atracciones',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'museums',
+        name: 'Museos y exposiciones',
+        amount: 0,
+        ivaRate: 10,
+        display: standardDisplay(10),
+      },
+      {
+        id: 'spa',
+        name: 'Spa y balnearios',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
     ],
   },
 
@@ -551,6 +659,27 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
           inputType: 'currency',
         },
       },
+      {
+        id: 'toys',
+        name: 'Juguetes',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'office_supplies',
+        name: 'Material oficina / papelería',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'menstrual',
+        name: 'Productos menstruales',
+        amount: 0,
+        ivaRate: 10,
+        display: standardDisplay(10),
+      },
     ],
   },
 
@@ -623,6 +752,34 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
         note: 'Exento de IVA',
         display: exemptDisplay('Exento de IVA'),
       },
+      {
+        id: 'physiotherapy',
+        name: 'Fisioterapia',
+        amount: 0,
+        ivaRate: 0,
+        display: exemptDisplay('Exento de IVA'),
+      },
+      {
+        id: 'psychologist',
+        name: 'Psicólogo',
+        amount: 0,
+        ivaRate: 0,
+        display: exemptDisplay('Exento de IVA'),
+      },
+      {
+        id: 'veterinary',
+        name: 'Veterinario',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'extracurricular',
+        name: 'Extraescolares y campamentos',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
     ],
   },
 
@@ -690,6 +847,34 @@ export const INITIAL_EXPENSES: CategoryExpense[] = [
           labelColor: 'green',
           inputType: 'currency',
         },
+      },
+      {
+        id: 'tax_advisor',
+        name: 'Asesoría fiscal / gestoría',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'repair',
+        name: 'Reparación electrónica',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'laundry',
+        name: 'Tintorería / lavandería',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
+      },
+      {
+        id: 'moving',
+        name: 'Mudanzas',
+        amount: 0,
+        ivaRate: 21,
+        display: standardDisplay(21),
       },
     ],
   },

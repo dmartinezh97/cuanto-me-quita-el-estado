@@ -43,6 +43,7 @@ export interface IVABreakdown {
   ips: number;
   iee: number;
   specialOthers: number;
+  directTaxes: number;
   totalIndirect: number;
   detailedItems: IVADetailedItem[];
 }

@@ -221,6 +221,62 @@ describe('calculateIVABreakdown', () => {
   });
 
   // =========================================================================
+  // Direct Tax (municipal taxes)
+  // =========================================================================
+
+  describe('direct-tax (municipal taxes)', () => {
+    it('treats 100% of amount as tax', () => {
+      const directTaxItem = makeSubItem({
+        amount: 50,
+        ivaRate: 0,
+        display: { taxDisplayType: 'direct-tax', taxLabel: 'IBI', labelColor: 'red', inputType: 'currency' },
+      });
+      const expenses = [makeCategory({ subItems: [directTaxItem] })];
+      const result = calculateIVABreakdown(makeState(expenses));
+
+      expect(result.directTaxes).toBeCloseTo(50, 1);
+      expect(result.iva21).toBe(0);
+      expect(result.iva10).toBe(0);
+      expect(result.iva4).toBe(0);
+    });
+
+    it('includes direct taxes in totalIndirect', () => {
+      const directTaxItem = makeSubItem({
+        amount: 30,
+        ivaRate: 0,
+        display: { taxDisplayType: 'direct-tax', taxLabel: 'Tasa basuras', labelColor: 'red', inputType: 'currency' },
+      });
+      const expenses = [makeCategory({ subItems: [directTaxItem] })];
+      const result = calculateIVABreakdown(makeState(expenses));
+
+      expect(result.totalIndirect).toBeCloseTo(30, 1);
+    });
+
+    it('aggregates multiple direct taxes', () => {
+      const expenses = [makeCategory({
+        subItems: [
+          makeSubItem({
+            id: 'ibi',
+            amount: 60,
+            ivaRate: 0,
+            display: { taxDisplayType: 'direct-tax', taxLabel: 'IBI', labelColor: 'red', inputType: 'currency' },
+          }),
+          makeSubItem({
+            id: 'ivtm',
+            amount: 15,
+            ivaRate: 0,
+            display: { taxDisplayType: 'direct-tax', taxLabel: 'IVTM', labelColor: 'red', inputType: 'currency' },
+          }),
+        ],
+      })];
+      const result = calculateIVABreakdown(makeState(expenses));
+
+      expect(result.directTaxes).toBeCloseTo(75, 1);
+      expect(result.totalIndirect).toBeCloseTo(75, 1);
+    });
+  });
+
+  // =========================================================================
   // Simple mode (no subItems)
   // =========================================================================
 
@@ -281,7 +337,7 @@ describe('calculateIVABreakdown', () => {
 
       const expectedTotal =
         result.iva4 + result.iva10 + result.iva21 +
-        result.ieh + result.ips + result.iee + result.specialOthers;
+        result.ieh + result.ips + result.iee + result.specialOthers + result.directTaxes;
       expect(result.totalIndirect).toBeCloseTo(expectedTotal, 2);
     });
   });

@@ -48,12 +48,13 @@ export const LEARN_CONTENT = {
   },
 
   iva: {
-    title: 'IVA en tu Consumo',
-    content: 'El IVA grava el consumo con tres tipos (4%, 10%, 21%). Pero algunos productos sufren doble imposición: pagan un impuesto especial Y además IVA sobre el precio que ya incluye ese impuesto.',
+    title: 'Impuestos en tu Consumo',
+    content: 'El IVA grava el consumo con tres tipos (4%, 10%, 21%). Además, existen tasas e impuestos municipales directos (IBI, IVTM, basuras) donde el 100% de lo que pagas es impuesto.',
     details: [
       'IVA 4%: Alimentos básicos, libros, medicamentos',
       'IVA 10%: Alimentos, transporte, hostelería',
       'IVA 21%: Ropa, electrónica, servicios generales',
+      'Tasas municipales: IBI, IVTM, basuras (100% impuesto)',
     ],
   },
 

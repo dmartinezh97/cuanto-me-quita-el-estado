@@ -18,6 +18,7 @@
  * - 'insurance': IPS (no IVA)
  * - 'alcohol': Alcohol excise + IVA
  * - 'tobacco': Tobacco tax + IVA
+ * - 'direct-tax': Municipal taxes where 100% of amount is tax (IBI, IVTM, etc.)
  */
 export type TaxDisplayType =
   | 'standard'
@@ -27,7 +28,8 @@ export type TaxDisplayType =
   | 'gas'
   | 'insurance'
   | 'alcohol'
-  | 'tobacco';
+  | 'tobacco'
+  | 'direct-tax';
 
 /**
  * Input type for expense sub-items.
